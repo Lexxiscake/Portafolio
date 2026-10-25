@@ -4,7 +4,8 @@ Multi-page portfolio focused on backend development, databases, Linux hardening,
 
 ## Stack
 
-- **Next.js 14** (App Router, React Server Components where possible)
+- **Next.js 16** (App Router, React Server Components where possible)
+- **React 19**
 - **TypeScript**
 - **Tailwind CSS** with a custom design system built on CSS variables
 - **Route Handlers** for health checks and contact validation
@@ -33,7 +34,7 @@ Open `http://localhost:3000`.
 ```bash
 npm run build
 npm run start
-npm run lint
+npm run typecheck
 ```
 
 ## Environment
@@ -58,7 +59,7 @@ The endpoint is limited to 5 requests per 10 minutes per client IP and returns `
 - **Rate limiting**: `src/lib/rate-limit.ts` applies an in-memory fixed window per client IP. Replace the store with Redis for multi-instance or serverless deployments.
 - **Images**: originals live in `assets/images`; only optimized derivatives are shipped from `public`.
 - **Metadata**: canonical URLs, Open Graph, and Twitter cards are generated from `src/lib/site.ts`.
-- **404 metadata**: Next.js 14 ignores metadata exported from `not-found.tsx`; `NotFoundMeta` sets the title and `noindex, nofollow` on the client while the route still responds with HTTP `404`.
+- **404 metadata**: Next.js can ignore metadata exported from `not-found.tsx` for unmatched routes; `NotFoundMeta` sets the title and `noindex, nofollow` on the client while the route still responds with HTTP `404`.
 
 ## Quality checklist
 
