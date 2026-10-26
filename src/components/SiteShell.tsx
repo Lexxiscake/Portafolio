@@ -4,13 +4,17 @@ import React, { useMemo } from 'react';
 import { SiteContext, SiteContextValue } from '@/context/site-context';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTheme } from '@/hooks/useTheme';
+import { useSkin } from '@/hooks/useSkin';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { EasterEggs } from '@/components/EasterEggs';
+import { SkinEffects } from '@/components/SkinEffects';
+import { SkinEggs } from '@/components/SkinEggs';
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const { lang, setLanguage, t } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
+  const { skin, setSkin, availableSkins, unlockSecret } = useSkin();
 
   const value = useMemo<SiteContextValue>(
     () => ({
@@ -19,8 +23,12 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       t,
       isDark,
       toggleTheme,
+      skin,
+      setSkin,
+      availableSkins,
+      unlockSecret,
     }),
-    [isDark, lang, setLanguage, t, toggleTheme]
+    [availableSkins, isDark, lang, setLanguage, setSkin, skin, t, toggleTheme, unlockSecret]
   );
 
   return (
@@ -33,6 +41,8 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           Saltar al contenido / Skip to content
         </a>
         <EasterEggs />
+        <SkinEffects />
+        <SkinEggs />
         <Navbar />
         <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
           {children}

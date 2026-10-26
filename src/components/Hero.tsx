@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { HERO_IMAGE } from '@/lib/constants';
 import { useSite } from '@/context/site-context';
+import { SKINS } from '@/lib/skins';
 
 const HERO_LINKS = [
   { href: '/proyectos', key: 'np' as const, index: '01', jp: '作品' },
@@ -12,7 +13,8 @@ const HERO_LINKS = [
 ];
 
 export const Hero: React.FC = () => {
-  const { t, lang } = useSite();
+  const { t, lang, skin } = useSite();
+  const activeSkin = SKINS[skin];
   const [bubbleText, setBubbleText] = useState('');
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export const Hero: React.FC = () => {
         className="pointer-events-none absolute right-2 top-16 hidden select-none font-kanji text-[150px] leading-none text-black/15 md:block"
         aria-hidden="true"
       >
-        技術者
+        {activeSkin.kanji}
       </div>
 
       <div className="relative mx-auto grid max-w-[1120px] grid-cols-1 items-center gap-10 px-6 pb-20 pt-11 sm:px-8 md:grid-cols-[1.2fr_1fr]">
@@ -104,10 +106,13 @@ export const Hero: React.FC = () => {
 
         <div className="relative">
           <div className="sfx absolute -right-1.5 -top-8 z-10 select-none text-[58px]" aria-hidden="true">
-            ドン!
+            {activeSkin.sfx[0]}
           </div>
 
-          <div className="filter drop-shadow-[10px_10px_0_#fff] drop-shadow-[18px_18px_0_#000]">
+          <div
+            data-hero-photo
+            className="select-none filter drop-shadow-[10px_10px_0_#fff] drop-shadow-[18px_18px_0_#000]"
+          >
             <div className="hero-photo-clip">
               <img
                 src={HERO_IMAGE}

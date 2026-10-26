@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.css';
 import { SiteShell } from '@/components/SiteShell';
 import { SITE_URL } from '@/lib/site';
+import { DEFAULT_SKIN, HIDDEN_SKIN_IDS, SKIN_IDS } from '@/lib/skins';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -54,6 +55,12 @@ const themeScript = `
     var stored = localStorage.getItem('theme');
     var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.dataset.theme = stored || (prefersDark ? 'dark' : 'light');
+    var skinIds = ${JSON.stringify(SKIN_IDS)};
+    var hiddenSkinIds = ${JSON.stringify(HIDDEN_SKIN_IDS)};
+    var skin = localStorage.getItem('skin');
+    var unlocked = localStorage.getItem('skin-secret') === '1';
+    var allowed = skinIds.indexOf(skin) > -1 && (unlocked || hiddenSkinIds.indexOf(skin) === -1);
+    document.documentElement.dataset.skin = allowed ? skin : ${JSON.stringify(DEFAULT_SKIN)};
     var lang = localStorage.getItem('lang');
     if (lang === 'es' || lang === 'en') document.documentElement.lang = lang;
   } catch (error) {}

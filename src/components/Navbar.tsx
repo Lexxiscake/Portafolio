@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AVATAR_IMAGE } from '@/lib/constants';
 import { useSite } from '@/context/site-context';
+import { SkinPicker, SkinPickerInline } from '@/components/SkinPicker';
+import { NavDrips } from '@/components/SkinEffects';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
@@ -30,6 +32,7 @@ export const Navbar: React.FC = () => {
     { href: '/', label: lang === 'es' ? 'Inicio' : 'Home' },
     { href: '/proyectos', label: t.np },
     { href: '/sobre-mi', label: t.na },
+    { href: '/otaku', label: 'Otaku' },
     { href: '/contacto', label: t.nc },
   ];
 
@@ -38,6 +41,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav className="sticky top-0 z-40 border-b-4 border-[var(--acc)] bg-[#0a0a0a] text-white">
+      <NavDrips />
       <div className="mx-auto flex max-w-[1280px] items-center gap-2 px-4 py-2 sm:gap-4 sm:px-7">
         <Link href="/" className="group flex shrink-0 items-center gap-2">
           <img
@@ -114,6 +118,8 @@ export const Navbar: React.FC = () => {
           )}
         </button>
 
+        <SkinPicker />
+
         <a
           href="https://github.com/Lexxiscake"
           target="_blank"
@@ -161,6 +167,7 @@ export const Navbar: React.FC = () => {
                 {link.label}
               </Link>
             ))}
+            <SkinPickerInline />
             <a
               href="https://github.com/Lexxiscake"
               target="_blank"

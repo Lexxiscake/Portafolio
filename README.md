@@ -19,6 +19,7 @@ Multi-page portfolio focused on backend development, databases, Linux hardening,
 | `/proyectos` | Searchable and filterable project index |
 | `/proyectos/[id]` | Project detail: problem, architecture, decisions, results, and code |
 | `/sobre-mi` | Profile, background, tools, and recent work |
+| `/otaku` | Anime and game inspirations, one site skin per entry |
 | `/contacto` | Validated contact form with a mailto fallback |
 
 ## Local development
@@ -36,6 +37,10 @@ npm run build
 npm run start
 npm run typecheck
 ```
+
+## Skins
+
+`data-skin` on `<html>` switches palette and effects independently of the light/dark `data-theme`. Skins live in `src/lib/skins.ts` and their CSS variables in `src/styles/globals.css`. The picker is available in the navbar and mobile menu. The Konami code unlocks a hidden skin, and `/otaku` documents the inspiration behind each one.
 
 ## Environment
 

@@ -2,6 +2,7 @@
 
 import { createContext, useContext } from 'react';
 import { Language, TranslationData } from '@/lib/constants';
+import type { SkinId } from '@/lib/skins';
 
 export interface SiteContextValue {
   lang: Language;
@@ -9,6 +10,10 @@ export interface SiteContextValue {
   t: TranslationData;
   isDark: boolean;
   toggleTheme: () => void;
+  skin: SkinId;
+  setSkin: (skin: SkinId) => void;
+  availableSkins: SkinId[];
+  unlockSecret: () => void;
 }
 
 export const SiteContext = createContext<SiteContextValue | null>(null);

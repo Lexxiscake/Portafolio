@@ -6,6 +6,7 @@ import { Hero } from '@/components/Hero';
 import { ProjectCard } from '@/components/ProjectCard';
 import { useSite } from '@/context/site-context';
 import { PROJECTS_DATA } from '@/lib/constants';
+import { SKINS } from '@/lib/skins';
 
 const METRICS = [
   {
@@ -78,12 +79,9 @@ const PRINCIPLES = {
 };
 
 export default function HomePage() {
-  const { t, lang } = useSite();
+  const { t, lang, skin } = useSite();
   const principles = PRINCIPLES[lang];
-  const tickerText =
-    lang === 'es'
-      ? 'BACKEND ✦ SQL ✦ LINUX ✦ AUTOMATIZACIÓN ✦ HERRAMIENTAS LOCALES ✦ '
-      : 'BACKEND ✦ SQL ✦ LINUX ✦ AUTOMATION ✦ LOCAL TOOLS ✦ ';
+  const tickerText = SKINS[skin].ticker[lang];
 
   return (
     <main>

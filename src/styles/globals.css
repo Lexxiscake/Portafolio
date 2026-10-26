@@ -14,6 +14,8 @@
   --ink-rgb: 10 10 10;
   --mut-rgb: 58 58 58;
   --acc-rgb: 230 0 18;
+  --acc2: #ffffff;
+  --moon: #fff3b0;
   color-scheme: light;
 }
 
@@ -203,6 +205,406 @@ h3 {
 }
 
 /* ------------------------------------------------------------------ */
+/* Skins                                                               */
+/* Each skin only redefines variables. `persona` is the default.        */
+/* ------------------------------------------------------------------ */
+
+/* Toga: crimson pink + yellow */
+:root[data-skin="toga"] {
+  --acc: #e0145a;
+  --acc-rgb: 224 20 90;
+  --acc2: #ffd400;
+  --bg: #f7efea;
+  --bg-rgb: 247 239 234;
+}
+
+:root[data-skin="toga"][data-theme="dark"] {
+  --acc: #ff4d86;
+  --acc-rgb: 255 77 134;
+  --bg: #14060b;
+  --pn: #1f0b12;
+  --bg-rgb: 20 6 11;
+  --pn-rgb: 31 11 18;
+}
+
+/* Yofukashi no Uta: dawn lavender by day, deep night by dark */
+:root[data-skin="yofukashi"] {
+  --acc: #7550ee;
+  --acc-rgb: 117 80 238;
+  --acc2: #f2a65a;
+  --bg: #ebe8fb;
+  --bg-rgb: 235 232 251;
+  --moon: #fff3b0;
+}
+
+:root[data-skin="yofukashi"][data-theme="dark"] {
+  --acc: #a690ff;
+  --acc-rgb: 166 144 255;
+  --bg: #0a0f26;
+  --pn: #121a3d;
+  --bg-rgb: 10 15 38;
+  --pn-rgb: 18 26 61;
+}
+
+/* Nichijou: warm pastel */
+:root[data-skin="nichijou"] {
+  --acc: #d03c68;
+  --acc-rgb: 208 60 104;
+  --acc2: #ffcf5c;
+  --bg: #fff6df;
+  --bg-rgb: 255 246 223;
+}
+
+:root[data-skin="nichijou"][data-theme="dark"] {
+  --acc: #ff8fb0;
+  --acc-rgb: 255 143 176;
+  --bg: #1c1932;
+  --pn: #27223f;
+  --bg-rgb: 28 25 50;
+  --pn-rgb: 39 34 63;
+}
+
+/* Kill la Kill: high contrast red/black/white */
+:root[data-skin="killlakill"] {
+  --acc: #e0270f;
+  --acc-rgb: 224 39 15;
+  --acc2: #ffe500;
+  --bg: #fafafa;
+  --bg-rgb: 250 250 250;
+}
+
+:root[data-skin="killlakill"][data-theme="dark"] {
+  --acc: #ff3b24;
+  --acc-rgb: 255 59 36;
+  --bg: #060606;
+  --pn: #121212;
+  --bg-rgb: 6 6 6;
+  --pn-rgb: 18 18 18;
+}
+
+/* Dregxmoon (secret): cyan terminal moon */
+:root[data-skin="dregxmoon"] {
+  --acc: #00829a;
+  --acc-rgb: 0 130 154;
+  --acc2: #1be6ff;
+  --bg: #e8f7fa;
+  --bg-rgb: 232 247 250;
+}
+
+:root[data-skin="dregxmoon"][data-theme="dark"] {
+  --acc: #1be6ff;
+  --acc-rgb: 27 230 255;
+  --bg: #05090d;
+  --pn: #0b1219;
+  --bg-rgb: 5 9 13;
+  --pn-rgb: 11 18 25;
+}
+
+/* --- Toga: drop cursor, drips, glitch on card titles --- */
+:root[data-skin="toga"] body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 2C14 2 5 12 5 18a9 9 0 0018 0c0-6-9-16-9-16z' fill='%23e0145a' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") 14 4, auto;
+}
+
+.nav-drip {
+  position: absolute;
+  top: 0;
+  width: 7px;
+  background: var(--acc);
+  border-radius: 0 0 7px 7px;
+  transform-origin: top;
+  animation: drip 0.9s cubic-bezier(0.3, 0.9, 0.4, 1) backwards;
+}
+
+.nav-drip::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  bottom: -5px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--acc);
+}
+
+:root[data-skin="toga"] h3:hover {
+  animation: glitch 0.3s steps(2) 1;
+}
+
+/* --- Yofukashi + Dregxmoon: stars and moon --- */
+.sky-stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 28% 62%, #fff, transparent),
+    radial-gradient(1.6px 1.6px at 44% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 61% 78%, #fff, transparent),
+    radial-gradient(1.4px 1.4px at 77% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 89% 55%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 36% 90%, #fff, transparent),
+    radial-gradient(1px 1px at 8% 80%, #fff, transparent);
+  background-size: 420px 420px;
+  animation: twinkle 7s ease-in-out infinite alternate;
+}
+
+:root[data-theme="dark"] .sky-stars {
+  opacity: 0.85;
+}
+
+.sky-moon {
+  position: fixed;
+  top: 96px;
+  right: 24px;
+  z-index: -1;
+  width: clamp(72px, 12vw, 132px);
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 0 18px rgb(var(--acc-rgb) / 0.45));
+}
+
+.sky-moon-dim {
+  fill: var(--moon);
+  fill-opacity: 0.1;
+  stroke: var(--acc);
+  stroke-opacity: 0.35;
+  stroke-width: 1;
+}
+
+.sky-moon-lit {
+  fill: var(--moon);
+}
+
+:root[data-skin="dregxmoon"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.12) 0,
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+:root[data-skin="dregxmoon"] h1,
+:root[data-skin="dregxmoon"] h2,
+:root[data-skin="dregxmoon"] .dsp {
+  text-shadow: 2px 0 rgba(255, 0, 90, 0.45), -2px 0 rgba(0, 229, 255, 0.45);
+}
+
+/* --- Kill la Kill: stronger halftone, thread-like scroll bar, diagonal cut --- */
+:root[data-skin="killlakill"] .hero-manga::before {
+  background: radial-gradient(rgba(0, 0, 0, 0.4) 2px, transparent 2.3px) 0 0 / 11px 11px, var(--acc);
+}
+
+:root[data-skin="killlakill"] #bar {
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--acc) 0,
+    var(--acc) 10px,
+    var(--acc2) 10px,
+    var(--acc2) 14px
+  );
+}
+
+.klk-cut {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.klk-cut-a,
+.klk-cut-b {
+  position: absolute;
+  inset: 0;
+}
+
+.klk-cut-a {
+  background: var(--acc);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  animation: klk-a 0.6s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+
+.klk-cut-b {
+  background: #0a0a0a;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  animation: klk-b 0.6s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+
+/* --- Nichijou: absurd toast --- */
+.absurd-toast {
+  animation: toast-in 0.35s ease-out backwards;
+}
+
+/* ------------------------------------------------------------------ */
+/* Skin easter eggs and scenes                                         */
+/* ------------------------------------------------------------------ */
+
+/* Yofukashi: dusk illustration as SVG background */
+.yofukashi-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.yofukashi-float-a,
+.yofukashi-float-b,
+.yofukashi-clouds-drift {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.yofukashi-float-a {
+  animation: float-a 7s ease-in-out infinite alternate;
+}
+
+.yofukashi-float-b {
+  animation: float-b 8.5s ease-in-out infinite alternate;
+}
+
+.yofukashi-clouds-drift {
+  animation: clouds-drift 90s ease-in-out infinite alternate;
+}
+
+.yofukashi-scrim {
+  fill: var(--bg);
+  opacity: 0.66;
+}
+
+:root[data-theme="light"] .yofukashi-scrim {
+  opacity: 0.82;
+}
+
+.yofukashi-window {
+  opacity: 0.85;
+  animation: window-flicker ease-in-out infinite;
+}
+
+.shooting-star {
+  position: fixed;
+  top: 14%;
+  right: -4%;
+  z-index: -1;
+  width: 160px;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, #fff);
+  box-shadow: 0 0 10px 2px rgb(255 255 255 / 0.5);
+  transform: rotate(-30deg);
+  animation: shoot 1.3s ease-out forwards;
+}
+
+/* Persona: five clicks on the portrait */
+.allout {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  overflow: hidden;
+  pointer-events: none;
+  animation: allout-life 1.9s forwards;
+}
+
+.allout::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: repeating-linear-gradient(115deg, #0a0a0a 0 46px, var(--acc) 46px 92px);
+  transform: translateX(-120%);
+  animation: allout-slide 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.allout-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  white-space: nowrap;
+  font-family: 'Anton', 'Dela Gothic One', sans-serif;
+  font-size: clamp(44px, 12vw, 150px);
+  font-style: italic;
+  color: #fff;
+  -webkit-text-stroke: 3px #000;
+  text-shadow: 8px 8px 0 #000;
+  transform: translate(-50%, -50%) rotate(-6deg) skewX(-10deg);
+  animation: allout-pop 0.4s 0.15s backwards;
+}
+
+/* Nichijou: squash and stretch, plus the deer */
+.nichijou-boing {
+  animation: boing 0.6s;
+}
+
+.deer-walk {
+  position: fixed;
+  bottom: 2vh;
+  left: 0;
+  z-index: 70;
+  pointer-events: none;
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: clamp(96px, 18vw, 220px);
+  line-height: 1;
+  color: var(--acc);
+  -webkit-text-stroke: 2px #000;
+  animation: deer-walk 7s linear forwards;
+}
+
+.deer-bob {
+  display: inline-block;
+  animation: deer-bob 0.5s ease-in-out infinite alternate;
+}
+
+/* Toga: splats and heart rain */
+.toga-splat {
+  position: fixed;
+  z-index: 65;
+  width: 96px;
+  height: 96px;
+  overflow: visible;
+  pointer-events: none;
+  animation: toga-splat 3.6s forwards;
+}
+
+.toga-rain {
+  position: fixed;
+  top: -12vh;
+  z-index: 66;
+  pointer-events: none;
+  font-family: 'Dela Gothic One', sans-serif;
+  color: var(--acc);
+  animation: toga-fall linear forwards;
+}
+
+/* Kill la Kill: double click slash */
+.klk-slash {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.klk-slash line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: klk-slash-draw 0.16s ease-out forwards, klk-slash-fade 0.5s 0.3s forwards;
+}
+
+.klk-shake {
+  animation: klk-shake 0.26s;
+}
+
+/* ------------------------------------------------------------------ */
 /* Editorial helpers                                                   */
 /* ------------------------------------------------------------------ */
 
@@ -233,6 +635,28 @@ h3 {
 @keyframes slide { from { opacity: 0; transform: translateX(-48px) skewX(-8deg); } }
 @keyframes slam { from { opacity: 0; transform: rotate(-9deg) scale(2.2); } 60% { opacity: 1; transform: rotate(-9deg) scale(0.92); } }
 @keyframes shake { 0%, 100% { transform: rotate(-9deg); } 25% { transform: rotate(-12deg) scale(1.06); } 75% { transform: rotate(-6deg) scale(1.06); } }
+@keyframes drip { from { transform: scaleY(0); } }
+@keyframes glitch { 0% { text-shadow: 3px 0 var(--acc), -3px 0 var(--acc2); } 50% { text-shadow: -3px 0 var(--acc), 3px 0 var(--acc2); } 100% { text-shadow: none; } }
+@keyframes twinkle { from { opacity: 0.45; } to { opacity: 0.9; } }
+@keyframes klk-a { 0%, 15% { transform: none; } 100% { transform: translate(-105%, -105%); } }
+@keyframes klk-b { 0%, 15% { transform: none; } 100% { transform: translate(105%, 105%); } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(16px); } }
+@keyframes float-a { from { transform: translateY(0) rotate(-0.6deg); } to { transform: translateY(-14px) rotate(0.8deg); } }
+@keyframes float-b { from { transform: translateY(-8px) rotate(0.7deg); } to { transform: translateY(8px) rotate(-0.8deg); } }
+@keyframes clouds-drift { from { transform: translateX(-40px); } to { transform: translateX(60px); } }
+@keyframes window-flicker { 0%, 42%, 100% { opacity: 0.85; } 46% { opacity: 0.2; } 50% { opacity: 0.8; } 80% { opacity: 0.6; } }
+@keyframes shoot { from { opacity: 1; transform: translate(0, 0) rotate(-30deg); } to { opacity: 0; transform: translate(-90vw, 52vh) rotate(-30deg); } }
+@keyframes allout-life { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes allout-slide { to { transform: none; } }
+@keyframes allout-pop { from { opacity: 0; transform: translate(-50%, -50%) rotate(-6deg) skewX(-10deg) scale(2.5); } }
+@keyframes boing { 0% { transform: scale(1); } 25% { transform: scale(1.15, 0.8); } 50% { transform: scale(0.88, 1.18); } 75% { transform: scale(1.05, 0.96); } 100% { transform: scale(1); } }
+@keyframes deer-walk { from { transform: translateX(-30vw); } to { transform: translateX(110vw); } }
+@keyframes deer-bob { from { transform: translateY(0); } to { transform: translateY(-14px); } }
+@keyframes toga-splat { 0% { transform: scale(0.2); opacity: 0; } 8% { transform: scale(1.15); opacity: 0.95; } 16% { transform: scale(1); } 70% { opacity: 0.85; } 100% { opacity: 0; } }
+@keyframes toga-fall { to { transform: translateY(125vh) rotate(25deg); } }
+@keyframes klk-slash-draw { to { stroke-dashoffset: 0; } }
+@keyframes klk-slash-fade { to { opacity: 0; } }
+@keyframes klk-shake { 0%, 100% { transform: none; } 20% { transform: translate(-5px, 3px); } 40% { transform: translate(4px, -3px); } 60% { transform: translate(-3px, -2px); } 80% { transform: translate(3px, 2px); } }
 @keyframes burst { from { opacity: 1; transform: translate(-50%, -50%) rotate(-9deg) scale(0.6); } to { opacity: 0; transform: translate(-50%, -110px) rotate(-9deg) scale(1.3); } }
 
 @media (prefers-reduced-motion: reduce) {

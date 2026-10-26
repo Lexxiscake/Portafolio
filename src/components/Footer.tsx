@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSite } from '@/context/site-context';
 
 export const Footer: React.FC = () => {
-  const { t, lang } = useSite();
+  const { t, lang, skin } = useSite();
 
   return (
     <footer className="border-t border-black/15 px-4 pb-9 pt-8 text-sm text-[var(--mut)] dark:border-white/10">
@@ -30,6 +30,9 @@ export const Footer: React.FC = () => {
             <Link href="/sobre-mi" className="hover:text-[var(--acc)]">
               {t.na}
             </Link>
+            <Link href="/otaku" className="hover:text-[var(--acc)]">
+              Otaku
+            </Link>
             <Link href="/contacto" className="hover:text-[var(--acc)]">
               {t.nc}
             </Link>
@@ -46,6 +49,13 @@ export const Footer: React.FC = () => {
             </a>
           </nav>
           <p className="m-0 font-mono text-[10px]">© 2026 Luka Torres · ルカ</p>
+          {skin === 'yofukashi' ? (
+            <p className="m-0 max-w-xs font-mono text-[10px] sm:text-right">
+              {lang === 'es'
+                ? 'Fondo: ilustración de よふかしのうた. © Kotoyama / Shogakukan / Yofukashi no Uta Production Committee. Uso de fan, sin fines de lucro.'
+                : 'Background: よふかしのうた illustration. © Kotoyama / Shogakukan / Yofukashi no Uta Production Committee. Fan use, non-commercial.'}
+            </p>
+          ) : null}
         </div>
       </div>
     </footer>
