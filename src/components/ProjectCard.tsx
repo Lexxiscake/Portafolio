@@ -94,7 +94,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           </h3>
           <p className="text-sm leading-relaxed text-[var(--mut)]">{project.summary}</p>
 
-          <div className="border-l-2 border-[var(--acc)] bg-black/[0.035] px-3 py-2 dark:bg-white/[0.045]">
+          <div className="border-l-2 border-[var(--acc)] bg-[var(--wash)] px-3 py-2">
             <span className="block font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
               {lang === 'es' ? 'resultado' : 'result'}
             </span>

@@ -105,7 +105,7 @@ export default function ProjectsPage() {
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[250px_1fr]">
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <div className="border-2 border-black bg-[var(--pn)] p-4 shadow-[5px_5px_0_var(--acc)] dark:border-white/20">
+          <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-4 shadow-[5px_5px_0_var(--acc)]">
             <label className="mb-1.5 block font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--mut)]">
               {lang === 'es' ? 'buscar' : 'search'}
             </label>

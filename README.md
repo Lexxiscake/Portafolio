@@ -40,7 +40,7 @@ npm run typecheck
 
 ## Skins
 
-`data-skin` on `<html>` switches palette and effects independently of the light/dark `data-theme`. Skins live in `src/lib/skins.ts` and their CSS variables in `src/styles/globals.css`. The picker is available in the navbar and mobile menu. The Konami code unlocks a hidden skin, and `/otaku` documents the inspiration behind each one.
+`data-skin` on `<html>` switches palette and effects. Each skin has a fixed palette (Persona, Toga, Nichijou, and Kill la Kill are light; Yofukashi no Uta and Dregxmoon are dark), so there is no separate light/dark toggle. Skins live in `src/lib/skins.ts` and their CSS variables in `src/styles/globals.css`. The picker is available in the navbar and mobile menu. The Konami code unlocks a hidden skin, and `/otaku` documents the inspiration behind each one.
 
 ## Environment
 
@@ -58,8 +58,8 @@ The endpoint is limited to 5 requests per 10 minutes per client IP and returns `
 
 ## Architecture notes
 
-- **Shared shell**: `src/components/SiteShell.tsx` owns theme, language, and shared navigation state so pages keep the selected preferences.
-- **Design tokens**: RGB channel variables (`--ink-rgb`, `--acc-rgb`, …) allow Tailwind opacity modifiers such as `border-ink/20` while preserving light and dark themes.
+- **Shared shell**: `src/components/SiteShell.tsx` owns language, skin, and shared navigation state so pages keep the selected preferences.
+- **Design tokens**: RGB channel variables (`--ink-rgb`, `--acc-rgb`, …) allow Tailwind opacity modifiers such as `border-ink/20`, while each skin sets a fixed palette and border/shadow tokens (`--line`, `--wash`).
 - **Security headers**: CSP, HSTS, nosniff, frame denial, referrer policy, and Permissions Policy are configured in `next.config.js`.
 - **Rate limiting**: `src/lib/rate-limit.ts` applies an in-memory fixed window per client IP. Replace the store with Redis for multi-instance or serverless deployments.
 - **Images**: originals live in `assets/images`; only optimized derivatives are shipped from `public`.

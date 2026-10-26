@@ -41,7 +41,7 @@ export const Hero: React.FC = () => {
       <div className="relative mx-auto grid max-w-[1120px] grid-cols-1 items-center gap-10 px-6 pb-20 pt-11 sm:px-8 md:grid-cols-[1.2fr_1fr]">
         <div>
           <p className="mb-3.5 inline-block -skew-x-[10deg] bg-black px-3.5 py-1 font-mono text-[11px] font-semibold tracking-wide text-white">
-            {t.st}
+            {lang === 'es' ? 'Backend · datos · Linux' : 'Backend · data · Linux'}
           </p>
 
           <h1 className="font-display text-[clamp(64px,12vw,128px)] italic uppercase leading-[0.95] text-white [text-shadow:6px_6px_0_#000]">
@@ -51,11 +51,8 @@ export const Hero: React.FC = () => {
             </span>
           </h1>
 
-          <h2 className="rl mt-5 inline-block -skew-x-[10deg] bg-black px-5 py-1 text-2xl leading-[1.9] text-white">
-            <ruby>
-              {t.role}
-              <rt className="font-sans text-[10px] tracking-wider">システム工学</rt>
-            </ruby>
+          <h2 className="rl mt-5 inline-block -skew-x-[10deg] bg-black px-5 py-1.5 text-2xl leading-none text-white">
+            {t.role}
           </h2>
 
           <p className="mt-5 max-w-[560px] border-l-[6px] border-white bg-black p-4 text-sm text-white md:text-base">
@@ -107,8 +104,10 @@ export const Hero: React.FC = () => {
           </div>
 
           <div className="absolute -left-3 top-4 hidden -rotate-2 border border-black bg-[#f7f4ed] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-black shadow-[4px_4px_0_#000] sm:block">
-            {lang === 'es' ? 'ing. en sistemas' : 'systems eng.'}
-            <span className="mt-0.5 block text-[8px] text-black/55">Tijuana, MX</span>
+            Lexxiscake
+            <span className="mt-0.5 block text-[8px] text-black/55">
+              {lang === 'es' ? 'ITT · 7.º semestre' : 'ITT · 7th semester'}
+            </span>
           </div>
 
           <div className="relative mt-11 min-h-[8.5em] -rotate-[1.5deg] border-[3px] border-white bg-black px-4 py-4 font-semibold text-white sm:min-h-[7em]">

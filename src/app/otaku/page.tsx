@@ -33,13 +33,13 @@ export default function OtakuPage() {
           return (
             <article
               key={entry.id}
-              className="flex flex-col border-2 border-black bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)] dark:border-white/20"
+              className="otaku-card flex flex-col border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)]"
             >
               <div className="flex items-start justify-between gap-4">
                 <h2 className="font-display text-3xl italic uppercase leading-none">
                   {entry.title}
                 </h2>
-                <span className="font-kanji text-xl leading-none text-[var(--acc)]" lang="ja">
+                <span className="otaku-kanji font-kanji text-xl leading-none text-[var(--acc)]" lang="ja">
                   {entry.jp}
                 </span>
               </div>
@@ -47,7 +47,7 @@ export default function OtakuPage() {
               <p className="mt-2 font-mono text-[11px] text-[var(--mut)]">{entry.kind[lang]}</p>
               <p className="mt-3 text-sm leading-relaxed">{entry.about[lang]}</p>
 
-              <div className="mt-3 border-l-2 border-[var(--acc)] bg-black/[0.035] px-3 py-2 dark:bg-white/[0.045]">
+              <div className="mt-3 border-l-2 border-[var(--acc)] bg-[var(--wash)] px-3 py-2">
                 <span className="block font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
                   {es ? 'lo que tomé para el sitio' : 'what I took for the site'}
                 </span>
@@ -79,7 +79,7 @@ export default function OtakuPage() {
         })}
 
         {secretUnlocked ? (
-          <article className="flex flex-col border-2 border-dashed border-black bg-[var(--pn)] p-5 dark:border-white/30">
+          <article className="otaku-card flex flex-col border-2 border-dashed border-[color:var(--line)] bg-[var(--pn)] p-5">
             <h2 className="font-display text-3xl italic uppercase leading-none">Dregxmoon</h2>
             <p className="mt-3 text-sm leading-relaxed">
               {es

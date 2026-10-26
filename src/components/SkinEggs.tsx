@@ -139,7 +139,7 @@ function HeroPokes() {
       {toast ? (
         <div
           role="status"
-          className="fixed bottom-4 left-1/2 z-[70] w-[min(92vw,360px)] -translate-x-1/2 border-2 border-black bg-[var(--pn)] p-3 text-center text-sm text-[var(--ink)] shadow-[5px_5px_0_var(--acc)] dark:border-white/30"
+          className="fixed bottom-4 left-1/2 z-[70] w-[min(92vw,360px)] -translate-x-1/2 border-2 border-[color:var(--line)] bg-[var(--pn)] p-3 text-center text-sm text-[var(--ink)] shadow-[5px_5px_0_var(--acc)]"
         >
           {toast}
         </div>
@@ -345,7 +345,7 @@ function SlashEgg() {
 /* ------------------------------------------------------------------ */
 
 function DregTerminal() {
-  const { lang, setSkin, availableSkins, toggleTheme } = useSite();
+  const { lang, setSkin, availableSkins } = useSite();
   const es = lang === 'es';
   const [open, setOpen] = useState(false);
   const [lines, setLines] = useState<string[]>([]);
@@ -391,7 +391,7 @@ function DregTerminal() {
 
     switch (command.toLowerCase()) {
       case 'help':
-        out.push('help  whoami  projects  skins  skin <id>  theme  konami  clear  exit');
+        out.push('help  whoami  projects  skins  skin <id>  konami  clear  exit');
         break;
       case 'whoami':
         out.push(
@@ -420,10 +420,6 @@ function DregTerminal() {
         }
         break;
       }
-      case 'theme':
-        toggleTheme();
-        out.push(es ? 'tema alternado' : 'theme toggled');
-        break;
       case 'konami':
         out.push('up up down down left right left right b a');
         break;

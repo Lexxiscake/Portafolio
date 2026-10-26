@@ -9,7 +9,7 @@ function Swatch({ id }: { id: SkinId }) {
   return (
     <span
       aria-hidden="true"
-      className="inline-block h-4 w-4 shrink-0 rounded-full border border-white"
+      className="skin-swatch inline-block h-4 w-4 shrink-0 rounded-full border border-white"
       style={{ background: `linear-gradient(135deg, ${a} 50%, ${b} 50%)` }}
     />
   );
@@ -29,13 +29,17 @@ function SkinList({ onPick }: { onPick?: () => void }) {
               setSkin(id);
               onPick?.();
             }}
-            className={`flex min-h-[44px] w-full items-center gap-3 border-b border-white/10 px-3 py-2 text-left font-display text-base italic uppercase transition-colors hover:bg-[var(--acc)] hover:text-black ${
+            className={`skin-option flex min-h-[44px] w-full items-center gap-3 border-b border-white/10 px-3 py-2 text-left font-display text-base italic uppercase hover:bg-[var(--acc)] hover:text-black ${
               skin === id ? 'text-[var(--acc)]' : 'text-white'
             }`}
           >
             <Swatch id={id} />
             <span className="flex-1">{SKINS[id].label}</span>
-            {skin === id ? <span aria-hidden="true">●</span> : null}
+            {skin === id ? (
+              <span className="skin-dot" aria-hidden="true">
+                ●
+              </span>
+            ) : null}
           </button>
         </li>
       ))}
@@ -97,7 +101,7 @@ export function SkinPicker() {
         aria-label={
           (lang === 'es' ? 'Cambiar skin. Actual: ' : 'Change skin. Current: ') + SKINS[skin].label
         }
-        className="flex min-h-[36px] min-w-[36px] items-center justify-center border-2 border-white bg-[#0a0a0a] transition-colors hover:border-[var(--acc)] sm:min-h-[40px] sm:min-w-[42px]"
+        className="skin-trigger flex min-h-[36px] min-w-[36px] items-center justify-center border-2 border-white bg-[#0a0a0a] transition-colors hover:border-[var(--acc)] sm:min-h-[40px] sm:min-w-[42px]"
       >
         <Swatch id={skin} />
       </button>
@@ -105,7 +109,7 @@ export function SkinPicker() {
       {open ? (
         <div
           id={panelId}
-          className="absolute right-0 top-full z-50 mt-2 w-64 border-2 border-white bg-[#0a0a0a] shadow-[5px_5px_0_var(--acc)]"
+          className="skin-panel absolute right-0 top-full z-50 mt-2 w-64 border-2 border-white bg-[#0a0a0a] shadow-[5px_5px_0_var(--acc)]"
         >
           <SkinList onPick={() => setOpen(false)} />
         </div>

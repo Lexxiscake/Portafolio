@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
   const { t, lang, skin } = useSite();
 
   return (
-    <footer className="border-t border-black/15 px-4 pb-9 pt-8 text-sm text-[var(--mut)] dark:border-white/10">
+    <footer className="border-t border-[color:var(--line-soft)] px-4 pb-9 pt-8 text-sm text-[var(--mut)]">
       <div className="mx-auto flex max-w-[1120px] flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="mb-1 font-display text-lg italic uppercase text-[var(--ink)]">
@@ -17,34 +17,37 @@ export const Footer: React.FC = () => {
           <p className="m-0 font-mono text-[11px]">{t.st}</p>
           <p className="mt-2 max-w-md text-sm">
             {lang === 'es'
-              ? 'Estudiante de Ingeniería en Sistemas. Este sitio reúne los proyectos que he construido y lo que aprendí en cada uno.'
-              : 'Systems Engineering student. This site collects the projects I have built and what I learned from each one.'}
+              ? 'Backend, datos y Linux. Me gusta entender qué hay detrás de cada sistema y construir herramientas que duren.'
+              : 'Backend, data, and Linux. I like to understand what is behind each system and build tools that last.'}
           </p>
         </div>
 
         <div className="flex flex-col gap-2 sm:items-end">
           <nav className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-semibold" aria-label="Footer">
-            <Link href="/proyectos" className="hover:text-[var(--acc)]">
+            <Link href="/proyectos" className="footer-link hover:text-[var(--acc)]">
               {t.np}
             </Link>
-            <Link href="/sobre-mi" className="hover:text-[var(--acc)]">
+            <Link href="/sobre-mi" className="footer-link hover:text-[var(--acc)]">
               {t.na}
             </Link>
-            <Link href="/otaku" className="hover:text-[var(--acc)]">
+            <Link href="/otaku" className="footer-link hover:text-[var(--acc)]">
               Otaku
             </Link>
-            <Link href="/contacto" className="hover:text-[var(--acc)]">
+            <Link href="/contacto" className="footer-link hover:text-[var(--acc)]">
               {t.nc}
             </Link>
             <a
               href="https://github.com/Lexxiscake"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--acc)]"
+              className="footer-link hover:text-[var(--acc)]"
             >
-              GitHub ↗
+              GitHub
+              <span className="footer-arrow" aria-hidden="true">
+                ↗
+              </span>
             </a>
-            <a href="mailto:lukaleonardojesus@gmail.com" className="hover:text-[var(--acc)]">
+            <a href="mailto:lukaleonardojesus@gmail.com" className="footer-link hover:text-[var(--acc)]">
               {lang === 'es' ? 'Correo' : 'Email'}
             </a>
           </nav>

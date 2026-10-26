@@ -27,7 +27,7 @@ export default function NotFound() {
           : 'The link may be misspelled or the page may have moved. Check the address or go back home.'}
       </p>
 
-      <div className="mt-8 flex max-w-xl items-center gap-5 border-2 border-black bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)] dark:border-white/20">
+      <div className="mt-8 flex max-w-xl items-center gap-5 border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)]">
         <span className="font-display text-5xl italic leading-none text-[var(--acc)]">404</span>
         <p className="m-0 font-mono text-[11px] leading-relaxed text-[var(--mut)]">
           {SKINS[skin].notFound[lang]}

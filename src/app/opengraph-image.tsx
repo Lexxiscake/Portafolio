@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Luka Torres — Ingeniería en Sistemas';
+export const alt = 'Luka Torres — Backend y sistemas';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -95,7 +95,7 @@ export default function OpenGraphImage() {
                 marginBottom: '14px',
               }}
             >
-              TIJUANA · MÉXICO
+              BACKEND · DATOS · LINUX
             </div>
             <div
               style={{
@@ -114,13 +114,24 @@ export default function OpenGraphImage() {
                   display: 'flex',
                   background: '#e60012',
                   color: '#0a0a0a',
-                  fontSize: '38px',
+                  fontSize: '48px',
                   fontWeight: 900,
                   letterSpacing: '-0.03em',
                   padding: '0 14px',
                 }}
               >
-                INGENIERÍA EN SISTEMAS
+                INGENIERÍA
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  marginLeft: '18px',
+                  fontSize: '30px',
+                  letterSpacing: '0.04em',
+                  color: '#f2f0eb',
+                }}
+              >
+                ルカ
               </div>
             </div>
           </div>
@@ -139,7 +150,7 @@ export default function OpenGraphImage() {
             }}
           >
             <div style={{ display: 'flex' }}>
-              TIJUANA, MX · 2026
+              TIJUANA, B.C. · 2026
             </div>
             <div style={{ display: 'flex', color: '#7CFFB2' }}>
               github.com/Lexxiscake

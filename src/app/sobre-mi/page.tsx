@@ -215,7 +215,7 @@ export default function AboutPage() {
               <img src={HERO_IMAGE} alt="Luka Torres" className="h-full w-full object-cover" />
             </div>
           </div>
-          <div className="mt-5 border-2 border-black bg-[var(--pn)] p-4 font-mono text-[10px] dark:border-white/20">
+          <div className="mt-5 border-2 border-[color:var(--line)] bg-[var(--pn)] p-4 font-mono text-[10px]">
             <p className="mb-2 border-b border-ink/15 pb-2 font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
               {lang === 'es' ? 'ahora' : 'now'}
             </p>
@@ -247,7 +247,7 @@ export default function AboutPage() {
           {principles.map((principle, index) => (
             <article
               key={principle.title}
-              className="relative border-2 border-black bg-[var(--pn)] p-5 pl-20 dark:border-white/20"
+              className="relative border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 pl-20"
             >
               <span className="absolute left-4 top-4 font-display text-5xl italic leading-none text-[var(--acc)]">
                 {String(index + 1).padStart(2, '0')}
@@ -277,7 +277,7 @@ export default function AboutPage() {
           </span>
         </div>
 
-        <div className="overflow-hidden border-2 border-black dark:border-white/20">
+        <div className="overflow-hidden border-2 border-[color:var(--line)]">
           {stack.map((group, index) => (
             <div
               key={group.layer}
@@ -339,7 +339,7 @@ export default function AboutPage() {
         </div>
 
         <aside className="space-y-4">
-          <div className="border-2 border-black bg-[var(--pn)] p-5 dark:border-white/20">
+          <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5">
             <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--acc)]">
               {lang === 'es' ? 'idiomas' : 'languages'}
             </p>
@@ -359,7 +359,7 @@ export default function AboutPage() {
             </dl>
           </div>
 
-          <div className="border-2 border-black bg-[var(--pn)] p-5 dark:border-white/20">
+          <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5">
             <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--acc)]">
               {lang === 'es' ? 'formación' : 'education'}
             </p>

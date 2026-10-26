@@ -64,7 +64,7 @@ export const Contact: React.FC = () => {
 
       <div className="mt-9 grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <section>
-          <div className="border-2 border-black bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)] dark:border-white/20">
+          <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)]">
             <p className="mb-3 border-b border-ink/15 pb-2 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--acc)]">
               {lang === 'es' ? 'contacto directo' : 'direct contact'}
             </p>
@@ -99,7 +99,7 @@ export const Contact: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 border-2 border-black bg-[var(--pn)] p-5 dark:border-white/20">
+          <div className="mt-6 border-2 border-[color:var(--line)] bg-[var(--pn)] p-5">
             <p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--acc)]">
               {lang === 'es' ? 'para que pueda responder bien' : 'so I can answer well'}
             </p>
@@ -141,7 +141,7 @@ export const Contact: React.FC = () => {
           </div>
         </section>
 
-        <section className="border-4 border-black bg-[var(--pn)] p-5 shadow-[10px_10px_0_var(--acc)] dark:border-white/20 sm:p-7">
+        <section className="border-4 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[10px_10px_0_var(--acc)] sm:p-7">
           <div className="mb-5 flex items-center justify-between gap-3 border-b-2 border-ink/15 pb-3">
             <h2 className="font-display text-2xl italic uppercase leading-none">
               {lang === 'es' ? 'Enviar mensaje' : 'Send a message'}
@@ -163,7 +163,7 @@ export const Contact: React.FC = () => {
                   maxLength={80}
                   value={form.name}
                   onChange={(event) => update('name', event.target.value)}
-                  className="min-h-[42px] w-full border-2 border-black bg-[var(--bg)] px-3 text-sm text-[var(--ink)] outline-none transition-colors focus:border-[var(--acc)] dark:border-white/25"
+                  className="min-h-[42px] w-full border-2 border-[color:var(--line)] bg-[var(--bg)] px-3 text-sm text-[var(--ink)] outline-none transition-colors focus:border-[var(--acc)]"
                   placeholder={lang === 'es' ? 'Tu nombre' : 'Your name'}
                 />
               </label>
@@ -178,7 +178,7 @@ export const Contact: React.FC = () => {
                   maxLength={160}
                   value={form.email}
                   onChange={(event) => update('email', event.target.value)}
-                  className="min-h-[42px] w-full border-2 border-black bg-[var(--bg)] px-3 text-sm text-[var(--ink)] outline-none transition-colors focus:border-[var(--acc)] dark:border-white/25"
+                  className="min-h-[42px] w-full border-2 border-[color:var(--line)] bg-[var(--bg)] px-3 text-sm text-[var(--ink)] outline-none transition-colors focus:border-[var(--acc)]"
                   placeholder={lang === 'es' ? 'tu@correo.com' : 'you@email.com'}
                 />
               </label>
@@ -195,7 +195,7 @@ export const Contact: React.FC = () => {
                 maxLength={3000}
                 value={form.message}
                 onChange={(event) => update('message', event.target.value)}
-                className="w-full resize-y border-2 border-black bg-[var(--bg)] p-3 text-sm leading-relaxed text-[var(--ink)] outline-none transition-colors focus:border-[var(--acc)] dark:border-white/25"
+                className="w-full resize-y border-2 border-[color:var(--line)] bg-[var(--bg)] p-3 text-sm leading-relaxed text-[var(--ink)] outline-none transition-colors focus:border-[var(--acc)]"
                 placeholder={
                   lang === 'es'
                     ? 'Qué quieres hacer, qué has probado y qué restricciones tienes…'
@@ -231,7 +231,7 @@ export const Contact: React.FC = () => {
                   className={`border-l-4 p-3 font-mono text-[10px] leading-relaxed ${
                     status.error
                       ? 'border-red-500 bg-red-500/10 text-red-500'
-                      : 'border-emerald-500 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                      : 'border-emerald-500 bg-emerald-500/10 text-[var(--ok)]'
                   }`}
                 >
                   <p className="m-0">{status.message}</p>

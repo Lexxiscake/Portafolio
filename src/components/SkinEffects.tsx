@@ -399,7 +399,7 @@ function AbsurdEvent() {
   return (
     <div
       role="status"
-      className="absurd-toast fixed bottom-4 left-4 z-[70] flex max-w-[320px] items-start gap-3 border-2 border-black bg-[var(--pn)] p-3 pr-2 text-sm text-[var(--ink)] shadow-[5px_5px_0_var(--acc)] dark:border-white/30"
+      className="absurd-toast fixed bottom-4 left-4 z-[70] flex max-w-[320px] items-start gap-3 border-2 border-[color:var(--line)] bg-[var(--pn)] p-3 pr-2 text-sm text-[var(--ink)] shadow-[5px_5px_0_var(--acc)]"
     >
       <span className="font-kanji text-3xl leading-none text-[var(--acc)]" aria-hidden="true">
         鹿

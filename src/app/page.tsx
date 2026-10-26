@@ -187,7 +187,7 @@ export default function HomePage() {
           {principles.map((principle, index) => (
             <article
               key={principle.title}
-              className="group border-2 border-black bg-[var(--pn)] p-5 transition-transform hover:-translate-y-1 dark:border-white/20"
+              className="group border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 transition-transform hover:-translate-y-1"
             >
               <div className="flex items-start justify-between gap-4">
                 <span className="font-display text-4xl italic leading-none text-[var(--acc)]">

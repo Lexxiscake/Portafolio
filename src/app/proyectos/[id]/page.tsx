@@ -93,7 +93,7 @@ export default function ProjectDetailPage() {
           </div>
         </div>
 
-        <aside className="border-2 border-black bg-[var(--pn)] p-4 shadow-[5px_5px_0_var(--acc)] dark:border-white/20">
+        <aside className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-4 shadow-[5px_5px_0_var(--acc)]">
           <p className="mb-3 border-b border-ink/15 pb-2 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--acc)]">
             {lang === 'es' ? 'ficha' : 'overview'}
           </p>
@@ -158,13 +158,13 @@ export default function ProjectDetailPage() {
       </section>
 
       <section className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <div className="border-2 border-black bg-[var(--pn)] p-5 shadow-[6px_6px_0_#111] dark:border-white/20 dark:shadow-[6px_6px_0_var(--acc)]">
+        <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--line)]">
           <h2 className="font-display text-xl italic uppercase text-[var(--acc)]">
             {lang === 'es' ? 'El problema' : 'The problem'}
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{project.problem}</p>
         </div>
-        <div className="border-2 border-black bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)] dark:border-white/20">
+        <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)]">
           <h2 className="font-display text-xl italic uppercase text-emerald-500">
             {lang === 'es' ? 'Lo que hice' : 'What I did'}
           </h2>
@@ -195,7 +195,7 @@ export default function ProjectDetailPage() {
           {project.pipeline.map((stage, index) => (
             <div
               key={stage.label}
-              className="relative border-2 border-black bg-[var(--pn)] p-4 dark:border-white/20"
+              className="relative border-2 border-[color:var(--line)] bg-[var(--pn)] p-4"
             >
               <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
                 {lang === 'es' ? 'etapa' : 'stage'} {String(index + 1).padStart(2, '0')}
@@ -234,7 +234,7 @@ export default function ProjectDetailPage() {
           </span>
         </div>
 
-        <div className="overflow-hidden border-2 border-black dark:border-white/20">
+        <div className="overflow-hidden border-2 border-[color:var(--line)]">
           <div className="hidden grid-cols-[1fr_1fr_1.2fr] bg-black px-4 py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-white md:grid">
             <span>{lang === 'es' ? 'decisión' : 'decision'}</span>
             <span>{lang === 'es' ? 'coste' : 'cost'}</span>
@@ -321,7 +321,7 @@ export default function ProjectDetailPage() {
       <nav className="mt-12 grid grid-cols-1 gap-3 border-t-2 border-ink/20 pt-6 sm:grid-cols-2">
         <Link
           href={`/proyectos/${previousProject.id}`}
-          className="group border-2 border-black bg-[var(--pn)] p-4 transition-colors hover:border-[var(--acc)] dark:border-white/20"
+          className="group border-2 border-[color:var(--line)] bg-[var(--pn)] p-4 transition-colors hover:border-[var(--acc)]"
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--mut)]">
             ← {lang === 'es' ? 'proyecto anterior' : 'previous project'}
@@ -332,7 +332,7 @@ export default function ProjectDetailPage() {
         </Link>
         <Link
           href={`/proyectos/${nextProject.id}`}
-          className="group border-2 border-black bg-[var(--pn)] p-4 text-right transition-colors hover:border-[var(--acc)] dark:border-white/20"
+          className="group border-2 border-[color:var(--line)] bg-[var(--pn)] p-4 text-right transition-colors hover:border-[var(--acc)]"
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--mut)]">
             {lang === 'es' ? 'siguiente proyecto' : 'next project'} →

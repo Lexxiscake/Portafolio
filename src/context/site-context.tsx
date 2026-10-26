@@ -8,8 +8,6 @@ export interface SiteContextValue {
   lang: Language;
   setLanguage: (lang: Language) => void;
   t: TranslationData;
-  isDark: boolean;
-  toggleTheme: () => void;
   skin: SkinId;
   setSkin: (skin: SkinId) => void;
   availableSkins: SkinId[];
