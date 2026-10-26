@@ -44,7 +44,7 @@ export const SKINS: Record<SkinId, Skin> = {
   toga: {
     id: 'toga',
     label: 'Toga',
-    swatch: ['#e0145a', '#ffd400'],
+    swatch: ['#ff4d86', '#ffd400'],
     kanji: '恋',
     sfx: ['ふふっ', 'きゃは!', 'ドクン', 'ぞくっ', 'ニヤッ'],
     ticker: {
@@ -59,7 +59,7 @@ export const SKINS: Record<SkinId, Skin> = {
   yofukashi: {
     id: 'yofukashi',
     label: 'Yofukashi no Uta',
-    swatch: ['#7550ee', '#f2a65a'],
+    swatch: ['#a690ff', '#f2a65a'],
     kanji: '夜',
     sfx: ['しん…', 'ふわっ', 'きらり', 'すぅ…', 'ぽつり'],
     ticker: {
@@ -74,7 +74,7 @@ export const SKINS: Record<SkinId, Skin> = {
   nichijou: {
     id: 'nichijou',
     label: 'Nichijou',
-    swatch: ['#d03c68', '#ffcf5c'],
+    swatch: ['#ff8fb0', '#ffcf5c'],
     kanji: '日常',
     sfx: ['ぽよーん', 'ガーン!', 'えっ?', 'ぷっ', 'ドーン!'],
     ticker: {
@@ -89,7 +89,7 @@ export const SKINS: Record<SkinId, Skin> = {
   killlakill: {
     id: 'killlakill',
     label: 'Kill la Kill',
-    swatch: ['#e0270f', '#ffe500'],
+    swatch: ['#ff3b24', '#ffe500'],
     kanji: '戦',
     sfx: ['ザンッ!', 'バッ!', 'ドォン!', 'ゴゴゴ', 'キッ!'],
     ticker: {

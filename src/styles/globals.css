@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f2f0eb;
-  --pn: #ffffff;
-  --ink: #0a0a0a;
-  --mut: #3a3a3a;
+  --bg: #0a0a0a;
+  --pn: #151515;
+  --ink: #ffffff;
+  --mut: #cfcfcf;
   --acc: #e60012;
-  --dotc: #0a0a0a;
-  --line: #0a0a0a;
-  --line-soft: rgba(10, 10, 10, 0.16);
-  --wash: rgba(10, 10, 10, 0.035);
-  --ok: #047857;
-  --bg-rgb: 242 240 235;
-  --pn-rgb: 255 255 255;
-  --ink-rgb: 10 10 10;
-  --mut-rgb: 58 58 58;
+  --dotc: #ffffff;
+  --line: rgba(255, 255, 255, 0.55);
+  --line-soft: rgba(255, 255, 255, 0.14);
+  --wash: rgba(255, 255, 255, 0.05);
+  --ok: #34d399;
+  --bg-rgb: 10 10 10;
+  --pn-rgb: 21 21 21;
+  --ink-rgb: 255 255 255;
+  --mut-rgb: 207 207 207;
   --acc-rgb: 230 0 18;
   --acc2: #ffffff;
   --moon: #fff3b0;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html {
@@ -395,16 +395,18 @@ h3 {
 
 /* ------------------------------------------------------------------ */
 /* Skins                                                               */
-/* Each skin only redefines variables. `persona` is the default.        */
+/* Every skin uses a dark palette. `persona` is the default.           */
 /* ------------------------------------------------------------------ */
 
-/* Toga: crimson pink + yellow (fixed light palette) */
+/* Toga: crimson pink + yellow (dark palette) */
 :root[data-skin="toga"] {
-  --acc: #e0145a;
-  --acc-rgb: 224 20 90;
+  --acc: #ff4d86;
+  --acc-rgb: 255 77 134;
   --acc2: #ffd400;
-  --bg: #f7efea;
-  --bg-rgb: 247 239 234;
+  --bg: #14060b;
+  --bg-rgb: 20 6 11;
+  --pn: #1f0b12;
+  --pn-rgb: 31 11 18;
 }
 
 /* Yofukashi no Uta: deep night palette */
@@ -429,22 +431,26 @@ h3 {
   color-scheme: dark;
 }
 
-/* Nichijou: warm pastel (fixed light palette) */
+/* Nichijou: warm pastel night */
 :root[data-skin="nichijou"] {
-  --acc: #d03c68;
-  --acc-rgb: 208 60 104;
+  --acc: #ff8fb0;
+  --acc-rgb: 255 143 176;
   --acc2: #ffcf5c;
-  --bg: #fff6df;
-  --bg-rgb: 255 246 223;
+  --bg: #1c1932;
+  --bg-rgb: 28 25 50;
+  --pn: #27223f;
+  --pn-rgb: 39 34 63;
 }
 
-/* Kill la Kill: high contrast red/black/white (fixed light palette) */
+/* Kill la Kill: high contrast red/black/white */
 :root[data-skin="killlakill"] {
-  --acc: #e0270f;
-  --acc-rgb: 224 39 15;
+  --acc: #ff3b24;
+  --acc-rgb: 255 59 36;
   --acc2: #ffe500;
-  --bg: #fafafa;
-  --bg-rgb: 250 250 250;
+  --bg: #060606;
+  --bg-rgb: 6 6 6;
+  --pn: #121212;
+  --pn-rgb: 18 18 18;
 }
 
 /* Dregxmoon (secret): cyan terminal on black */
@@ -470,7 +476,7 @@ h3 {
 
 /* --- Toga: drop cursor, drips, glitch on card titles --- */
 :root[data-skin="toga"] body {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 2C14 2 5 12 5 18a9 9 0 0018 0c0-6-9-16-9-16z' fill='%23e0145a' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") 14 4, auto;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 2C14 2 5 12 5 18a9 9 0 0018 0c0-6-9-16-9-16z' fill='%23ff4d86' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") 14 4, auto;
 }
 
 .nav-drip {

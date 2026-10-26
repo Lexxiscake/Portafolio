@@ -81,7 +81,7 @@ export const EasterEggs: React.FC = () => {
 
     // 4. Developer console note
     console.log(
-      '%cLuka Torres %c— backend, datos y Linux\n%chttps://github.com/Lexxiscake',
+      '%cLuka Torres %c— software, datos y Linux\n%chttps://github.com/Lexxiscake',
       'color:#FF2E63;font:600 14px sans-serif;',
       'color:#8d897f;font:12px sans-serif;',
       'color:#00E5FF;font:11px monospace;'

@@ -17,8 +17,8 @@ export const Footer: React.FC = () => {
           <p className="m-0 font-mono text-[11px]">{t.st}</p>
           <p className="mt-2 max-w-md text-sm">
             {lang === 'es'
-              ? 'Backend, datos y Linux. Me gusta entender qué hay detrás de cada sistema y construir herramientas que duren.'
-              : 'Backend, data, and Linux. I like to understand what is behind each system and build tools that last.'}
+              ? 'Desarrollo de software, datos y Linux. Me gusta entender qué hay detrás de cada sistema y construir herramientas que duren.'
+              : 'Software development, data, and Linux. I like to understand what is behind each system and build tools that last.'}
           </p>
         </div>
 

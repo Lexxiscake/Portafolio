@@ -41,7 +41,7 @@ export const Hero: React.FC = () => {
       <div className="relative mx-auto grid max-w-[1120px] grid-cols-1 items-center gap-10 px-6 pb-20 pt-11 sm:px-8 md:grid-cols-[1.2fr_1fr]">
         <div>
           <p className="mb-3.5 inline-block -skew-x-[10deg] bg-black px-3.5 py-1 font-mono text-[11px] font-semibold tracking-wide text-white">
-            {lang === 'es' ? 'Backend · datos · Linux' : 'Backend · data · Linux'}
+            {lang === 'es' ? 'Software · datos · Linux' : 'Software · data · Linux'}
           </p>
 
           <h1 className="font-display text-[clamp(64px,12vw,128px)] italic uppercase leading-[0.95] text-white [text-shadow:6px_6px_0_#000]">

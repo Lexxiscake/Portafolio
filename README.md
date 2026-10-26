@@ -1,6 +1,6 @@
 # Luka Torres — Portfolio
 
-Multi-page portfolio focused on backend development, databases, Linux hardening, and local tools. Each project is documented from the problem through the decisions, code, and results.
+Multi-page portfolio focused on software development, databases, Linux hardening, and local tools. Each project is documented from the problem through the decisions, code, and results.
 
 ## Stack
 
@@ -40,7 +40,7 @@ npm run typecheck
 
 ## Skins
 
-`data-skin` on `<html>` switches palette and effects. Each skin has a fixed palette (Persona, Toga, Nichijou, and Kill la Kill are light; Yofukashi no Uta and Dregxmoon are dark), so there is no separate light/dark toggle. Skins live in `src/lib/skins.ts` and their CSS variables in `src/styles/globals.css`. The picker is available in the navbar and mobile menu. The Konami code unlocks a hidden skin, and `/otaku` documents the inspiration behind each one.
+`data-skin` on `<html>` switches palette and effects. Every skin uses a dark palette; the accent and atmosphere change with each one (Persona, Toga, Yofukashi no Uta, Nichijou, Kill la Kill, and the secret Dregxmoon). Skins live in `src/lib/skins.ts` and their CSS variables in `src/styles/globals.css`. The picker is available in the navbar and mobile menu. The Konami code unlocks the hidden skin, and `/otaku` documents the inspiration behind each one.
 
 ## Environment
 
