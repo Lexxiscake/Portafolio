@@ -106,11 +106,6 @@ export default function HomePage() {
               {lang === 'es' ? 'Resultados' : 'Results'}
             </h2>
           </div>
-          <p className="max-w-md text-sm text-[var(--mut)]">
-            {lang === 'es'
-              ? 'Cada cifra sale de un proyecto que puedo enseñar. El código y las pruebas están en cada caso.'
-              : 'Every number comes from a project I can show. The code and tests live in each case study.'}
-          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

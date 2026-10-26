@@ -44,10 +44,6 @@ export const Hero: React.FC = () => {
             {t.st}
           </p>
 
-          <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-black/65">
-            {lang === 'es' ? 'Backend · Datos · Linux' : 'Backend · Data · Linux'}
-          </p>
-
           <h1 className="font-display text-[clamp(64px,12vw,128px)] italic uppercase leading-[0.95] text-white [text-shadow:6px_6px_0_#000]">
             <span className="block">Luka</span>
             <span className="mt-1.5 inline-block -rotate-2 -skew-x-[8deg] bg-white px-[0.18em] text-black shadow-[8px_8px_0_#000] [text-shadow:none]">
@@ -56,27 +52,15 @@ export const Hero: React.FC = () => {
           </h1>
 
           <h2 className="rl mt-5 inline-block -skew-x-[10deg] bg-black px-5 py-1 text-2xl leading-[1.9] text-white">
-            Backend{' '}
             <ruby>
-              開発者
-              <rt className="font-sans text-[10px] tracking-wider">{t.role}</rt>
+              {t.role}
+              <rt className="font-sans text-[10px] tracking-wider">システム工学</rt>
             </ruby>
           </h2>
 
           <p className="mt-5 max-w-[560px] border-l-[6px] border-white bg-black p-4 text-sm text-white md:text-base">
             {t.hp}
           </p>
-
-          <div className="mt-4 flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-[0.1em]">
-            {(lang === 'es'
-              ? ['Linux', 'SQL / datos', 'Herramientas locales']
-              : ['Linux', 'SQL / data', 'Local tools']
-            ).map((item) => (
-              <span key={item} className="border border-black/30 bg-black/10 px-2 py-1 text-black">
-                {item}
-              </span>
-            ))}
-          </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link href="/proyectos" className="btn-manga hot font-display text-base">
@@ -123,14 +107,11 @@ export const Hero: React.FC = () => {
           </div>
 
           <div className="absolute -left-3 top-4 hidden -rotate-2 border border-black bg-[#f7f4ed] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-black shadow-[4px_4px_0_#000] sm:block">
-            {lang === 'es' ? 'backend / datos' : 'backend / data'}
+            {lang === 'es' ? 'ing. en sistemas' : 'systems eng.'}
             <span className="mt-0.5 block text-[8px] text-black/55">Tijuana, MX</span>
           </div>
 
-          <div className="relative mt-11 min-h-[4.8em] -rotate-[1.5deg] border-[3px] border-white bg-black px-4 pb-3.5 pt-6 font-semibold text-white">
-            <span className="tag absolute -top-4 left-3.5 -skew-x-[12deg] bg-[var(--acc)] px-4 text-xl leading-tight text-black">
-              Luka
-            </span>
+          <div className="relative mt-11 min-h-[8.5em] -rotate-[1.5deg] border-[3px] border-white bg-black px-4 py-4 font-semibold text-white sm:min-h-[7em]">
             <span>{bubbleText}</span>
           </div>
         </div>

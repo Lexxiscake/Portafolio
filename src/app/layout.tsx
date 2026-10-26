@@ -7,13 +7,13 @@ import { DEFAULT_SKIN, HIDDEN_SKIN_IDS, SKIN_IDS } from '@/lib/skins';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Luka Torres — Backend y sistemas',
+    default: 'Luka Torres — Ingeniería en Sistemas',
     template: '%s · Luka Torres',
   },
   description:
-    'Portafolio de Luka Torres. Backend, bases de datos y Linux, con tres proyectos explicados desde el problema hasta el código.',
+    'Portafolio de Luka Torres, estudiante de Ingeniería en Sistemas Computacionales. Tres proyectos de datos, Linux y herramientas locales, explicados desde el problema hasta el código.',
   keywords: [
-    'backend',
+    'ingeniería en sistemas',
     'bases de datos',
     'SQL Server',
     'Linux',
@@ -26,16 +26,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'es_MX',
-    title: 'Luka Torres — Backend y sistemas',
+    title: 'Luka Torres — Ingeniería en Sistemas',
     description:
-      'Proyectos de backend, datos y Linux, con las decisiones y el código de cada caso.',
+      'Proyectos de sistemas, datos y Linux, con las decisiones y el código de cada caso.',
     siteName: 'Luka Torres',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Luka Torres — Backend y sistemas',
+    title: 'Luka Torres — Ingeniería en Sistemas',
     description:
-      'Proyectos de backend, datos y Linux, con las decisiones y el código de cada caso.',
+      'Proyectos de sistemas, datos y Linux, con las decisiones y el código de cada caso.',
   },
   robots: {
     index: true,
