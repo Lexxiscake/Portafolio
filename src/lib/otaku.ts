@@ -45,8 +45,8 @@ export const OTAKU_ENTRIES: OtakuEntry[] = [
       en: 'Character from My Hero Academia, the work of Kohei Horikoshi.',
     },
     borrowed: {
-      es: 'Rosa carmesí con acento amarillo, goteo bajo la barra de navegación, cursor en forma de gota y manchas al hacer clic.',
-      en: 'Crimson pink with a yellow accent, drips under the navigation bar, a drop-shaped cursor, and splats when you click.',
+      es: 'Dorado de ojos y cabello, negro azulado del uniforme, beige del cardigan y rojo sangre de la bufanda; goteo bajo la barra de navegación, cursor en forma de gota y manchas al hacer clic.',
+      en: 'Gold from her eyes and hair, navy from her uniform, beige from her cardigan, and blood red from her scarf; drips under the navigation bar, a drop-shaped cursor, and splats when you click.',
     },
   },
   {
@@ -60,8 +60,8 @@ export const OTAKU_ENTRIES: OtakuEntry[] = [
       en: 'A student with insomnia goes for night walks and meets a vampire.',
     },
     borrowed: {
-      es: 'Un atardecer por capas (cielo, nubes, colinas, ciudad y los dos personajes) con parallax de profundidad con el mouse y el scroll.',
-      en: 'A layered dusk scene (sky, clouds, hills, city, and both characters) with depth parallax on mouse and scroll.',
+      es: 'Un atardecer con degradado de cielo y los dos personajes, con parallax de profundidad con el mouse y el scroll.',
+      en: 'A dusk sky gradient with both characters, with depth parallax on mouse and scroll.',
     },
   },
   {

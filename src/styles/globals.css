@@ -398,37 +398,87 @@ h3 {
 /* Every skin uses a dark palette. `persona` is the default.           */
 /* ------------------------------------------------------------------ */
 
-/* Toga: crimson pink + yellow (dark palette) */
+/* Toga: golden eyes + navy uniform + blood red */
 :root[data-skin="toga"] {
-  --acc: #ff4d86;
-  --acc-rgb: 255 77 134;
-  --acc2: #ffd400;
-  --bg: #14060b;
-  --bg-rgb: 20 6 11;
-  --pn: #1f0b12;
-  --pn-rgb: 31 11 18;
+  --acc: #f2c230;
+  --acc-rgb: 242 194 48;
+  --acc2: #d21f3c;
+  --blood: var(--acc2);
+  --blood-dark: #6f061a;
+  --bg: #0a0a0f;
+  --bg-rgb: 10 10 15;
+  --pn: #14141f;
+  --pn-rgb: 20 20 31;
+  --ink: #fff7e6;
+  --ink-rgb: 255 247 230;
+  --mut: #d8cdb8;
+  --mut-rgb: 216 205 184;
+  --line: rgba(232, 213, 176, 0.55);
+  --line-soft: rgba(232, 213, 176, 0.16);
+  --wash: rgba(242, 194, 48, 0.06);
+  --ok: #7ee2a8;
+  color-scheme: dark;
 }
 
 /* Yofukashi no Uta: deep night palette */
 :root[data-skin="yofukashi"] {
-  --acc: #a690ff;
-  --acc-rgb: 166 144 255;
-  --acc2: #f2a65a;
-  --bg: #0a0f26;
-  --bg-rgb: 10 15 38;
-  --pn: #121a3d;
-  --pn-rgb: 18 26 61;
-  --ink: #ffffff;
-  --ink-rgb: 255 255 255;
+  --acc: #a78bfa;
+  --acc-rgb: 167 139 250;
+  --acc2: #f472b6;
+  --bg: #0b0a1f;
+  --bg-rgb: 11 10 31;
+  --pn: #1a1747;
+  --pn-rgb: 26 23 71;
+  --ink: #ecebff;
+  --ink-rgb: 236 235 255;
   --mut: #c9c4e8;
   --mut-rgb: 201 196 232;
-  --dotc: #ffffff;
-  --line: rgba(255, 255, 255, 0.55);
-  --line-soft: rgba(255, 255, 255, 0.16);
-  --wash: rgba(255, 255, 255, 0.05);
+  --dotc: #ecebff;
+  --line: rgba(236, 235, 255, 0.55);
+  --line-soft: rgba(236, 235, 255, 0.16);
+  --wash: rgba(236, 235, 255, 0.05);
   --ok: #6ee7b7;
-  --moon: #fff3b0;
+  --moon: #fde68a;
+  --magenta: #f472b6;
+  --dawn: #c98b9b;
+  --scene-veil: rgba(11, 10, 31, 0.52);
   color-scheme: dark;
+}
+
+/* Yofukashi: manga panel border on nav bottom */
+:root[data-skin="yofukashi"] nav {
+  border-bottom: 5px solid var(--acc);
+  box-shadow: 0 5px 0 0 rgba(167, 139, 250, 0.25);
+  position: relative;
+  overflow: visible;
+}
+
+:root[data-skin="yofukashi"] nav::after {
+  content: '';
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  right: 0;
+  height: 13px;
+  background: var(--acc);
+  clip-path: polygon(0 0, 100% 0, 100% 25%, 0 100%);
+  opacity: 0.45;
+  pointer-events: none;
+  aria-hidden: true;
+}
+
+/* Yofukashi: dark indigo marquee & typography legibility */
+:root[data-skin="yofukashi"] .hero-marquee {
+  background-color: var(--pn);
+}
+
+:root[data-skin="yofukashi"] footer,
+:root[data-skin="yofukashi"] .footer-link {
+  color: #ecebff;
+}
+
+:root[data-skin="yofukashi"] footer .font-mono {
+  color: #c9c4e8;
 }
 
 /* Nichijou: warm pastel night */
@@ -476,32 +526,315 @@ h3 {
 
 /* --- Toga: drop cursor, drips, glitch on card titles --- */
 :root[data-skin="toga"] body {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 2C14 2 5 12 5 18a9 9 0 0018 0c0-6-9-16-9-16z' fill='%23ff4d86' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") 14 4, auto;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 2C14 2 5 12 5 18a9 9 0 0018 0c0-6-9-16-9-16z' fill='%23d21f3c' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") 14 4, auto;
 }
 
+/* The SVG is wider than the viewport. `slice` crops it horizontally so the
+   drops keep their real size instead of being stretched on small screens. */
+.nav-drips {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 1;
+  height: 96px;
+  overflow: hidden;
+  pointer-events: none;
+  transform-origin: top center;
+  animation: nav-drip-in 650ms cubic-bezier(0.2, 0.9, 0.3, 1) backwards;
+}
+
+.nav-drips__art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.nav-blood-strip {
+  fill: url(#toga-nav-strip);
+}
+
+.nav-blood-strip-shadow {
+  fill: var(--blood-dark);
+  opacity: 0.55;
+}
+
+.nav-blood-stop-base {
+  stop-color: var(--blood);
+}
+
+.nav-blood-stop-dark {
+  stop-color: var(--blood-dark);
+}
+
+.nav-blood-drop {
+  fill: url(#toga-nav-drop);
+}
+
+.nav-blood-shadow {
+  fill: var(--blood-dark);
+  opacity: 0.85;
+}
+
+.nav-blood-rim {
+  fill: none;
+  stroke: var(--blood-dark);
+  stroke-width: 0.9;
+  stroke-opacity: 0.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav-blood-gloss {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.05;
+  stroke-opacity: 0.26;
+  stroke-linecap: round;
+}
+
+.nav-blood-gloss-fill {
+  fill: #fff;
+  opacity: 0.18;
+}
+
+.nav-blood-bubble {
+  fill: var(--blood-dark);
+  opacity: 0.42;
+}
+
+.nav-blood-speck-light {
+  fill: #fff;
+}
+
+.nav-blood-speck-dark {
+  fill: var(--blood-dark);
+}
+
+/* Each drop hangs from the strip, so `top` is the only valid origin. */
 .nav-drip {
-  position: absolute;
-  top: 0;
-  width: 7px;
-  background: var(--acc);
-  border-radius: 0 0 7px 7px;
-  transform-origin: top;
-  animation: drip 0.9s cubic-bezier(0.3, 0.9, 0.4, 1) backwards;
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: nav-drip-swell var(--drip-dur, 5s) ease-in-out var(--drip-delay, 0s) infinite;
 }
 
-.nav-drip::after {
-  content: '';
-  position: absolute;
-  left: -2px;
-  bottom: -5px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: var(--acc);
+.nav-drip-fall {
+  fill: var(--blood);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nav-drop-fall var(--fall-dur, 6s) ease-in var(--fall-delay, 0s) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-drips,
+  .nav-drip,
+  .nav-drip-fall {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .nav-drip-fall {
+    display: none;
+  }
 }
 
 :root[data-skin="toga"] h3:hover {
   animation: glitch 0.3s steps(2) 1;
+}
+
+/* Gold is bright enough that the white hero title needs a dark counterpart. */
+:root[data-skin="toga"] .hero-manga h1 {
+  color: #0a0a0f;
+  text-shadow: 6px 6px 0 var(--acc2);
+}
+
+:root[data-skin="toga"] .hero-manga h1 > span:last-child {
+  color: #0a0a0f;
+  text-shadow: none;
+}
+
+/* Give the drips a clear band above the hero copy. */
+:root[data-skin="toga"] .hero-manga__grid {
+  padding-top: 5.5rem;
+}
+
+/* Internal pages need the same clearance so long drops never cross headings.
+   The home page owns a hero with its own padding, so it is excluded here. */
+:root[data-skin="toga"] #main-content main:not(:has(.hero-manga)) {
+  padding-top: 5.5rem;
+}
+
+/* --- Toga: layered poster backdrop ---
+   The poster is split into three vector masks. Each layer gets its own
+   pointer/scroll drift so the illustration gains depth without competing
+   with the content. */
+.toga-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.toga-bg__glow {
+  position: absolute;
+  inset: -12% -10% -12% 24%;
+  opacity: 0.6;
+  background:
+    radial-gradient(ellipse at 72% 46%, rgba(210, 31, 60, 0.28), transparent 62%),
+    radial-gradient(ellipse at 88% 82%, rgba(242, 194, 48, 0.07), transparent 56%);
+}
+
+.toga-bg__figure,
+.toga-bg__cat {
+  position: absolute;
+  bottom: -10vh;
+  right: clamp(-200px, -12vw, -20px);
+  width: clamp(400px, 40vw, 600px);
+  aspect-ratio: 541 / 664;
+  transform: translate3d(var(--toga-tx, 0px), var(--toga-ty, 0px), 0);
+  will-change: transform;
+}
+
+.toga-bg__figure {
+  z-index: 1;
+}
+
+.toga-bg__aura,
+.toga-bg__character,
+.toga-bg__cat {
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.toga-bg__aura,
+.toga-bg__character {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: url('/deco/toga/character.svg');
+  mask-image: url('/deco/toga/character.svg');
+}
+
+.toga-bg__aura {
+  background-color: var(--acc2);
+  opacity: 0.16;
+  filter: blur(26px);
+  transform: scale(1.025);
+}
+
+.toga-bg__character {
+  background-color: var(--acc);
+  opacity: 0.17;
+  filter: drop-shadow(0 0 18px rgba(210, 31, 60, 0.22));
+}
+
+.toga-bg__cat {
+  z-index: 2;
+  background-color: var(--ink);
+  opacity: 0.18;
+  -webkit-mask-image: url('/deco/toga/cat.svg');
+  mask-image: url('/deco/toga/cat.svg');
+  filter: drop-shadow(0 0 9px rgba(210, 31, 60, 0.32));
+}
+
+.toga-bg__title {
+  position: absolute;
+  top: clamp(54px, 9vh, 104px);
+  right: clamp(24px, 6vw, 92px);
+  z-index: 0;
+  width: clamp(220px, 26vw, 380px);
+  aspect-ratio: 440 / 240;
+  background-color: var(--acc);
+  opacity: 0.1;
+  -webkit-mask-image: url('/deco/toga/title.svg');
+  mask-image: url('/deco/toga/title.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  transform: translate3d(var(--toga-tx, 0px), var(--toga-ty, 0px), 0);
+  will-change: transform;
+}
+
+.toga-bg__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(90deg, var(--bg) 0%, rgba(10, 10, 15, 0.92) 42%, rgba(10, 10, 15, 0.5) 64%, rgba(10, 10, 15, 0.1) 84%, transparent 100%),
+    linear-gradient(180deg, rgba(10, 10, 15, 0.5) 0%, transparent 16%, transparent 78%, rgba(10, 10, 15, 0.55) 100%);
+}
+
+/* Let the fixed poster show through the page body. A translucent layer keeps
+   the view-transition snapshots from double-exposing during navigation. */
+:root[data-skin="toga"] .page-tx-body {
+  background-color: rgba(10, 10, 15, 0.45);
+}
+
+/* Let the dusk scene and city show through the page body. The scene's own
+   scrim keeps long-form text readable. */
+:root[data-skin="yofukashi"] .page-tx-body {
+  background-color: transparent;
+}
+
+@media (max-width: 900px) {
+  .toga-bg__figure,
+  .toga-bg__cat {
+    width: 64vw;
+    right: -16vw;
+  }
+
+  .toga-bg__title {
+    width: 30vw;
+    right: 3vw;
+    opacity: 0.08;
+  }
+
+  .toga-bg__character {
+    opacity: 0.16;
+  }
+
+  .toga-bg__cat {
+    opacity: 0.2;
+  }
+}
+
+@media (max-width: 640px) {
+  .toga-bg__figure,
+  .toga-bg__cat {
+    width: 108vw;
+    right: -34vw;
+  }
+
+  .toga-bg__title {
+    display: none;
+  }
+
+  .toga-bg__character {
+    opacity: 0.16;
+  }
+
+  .toga-bg__cat {
+    opacity: 0.22;
+  }
+
+  .toga-bg__aura {
+    opacity: 0.08;
+  }
+
+  .toga-bg__glow {
+    opacity: 0.5;
+  }
+
+  .toga-bg__scrim {
+    background:
+      linear-gradient(180deg, rgba(10, 10, 15, 0.72) 0%, rgba(10, 10, 15, 0.3) 30%, rgba(10, 10, 15, 0.35) 70%, rgba(10, 10, 15, 0.72) 100%);
+  }
 }
 
 /* --- Yofukashi + Dregxmoon: stars and moon --- */
@@ -527,6 +860,145 @@ h3 {
 :root[data-skin="yofukashi"] .sky-stars,
 :root[data-skin="dregxmoon"] .sky-stars {
   opacity: 0.85;
+}
+
+/* Yofukashi: individual ✦ four-point stars */
+.yofu-star {
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  color: var(--acc);
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0;
+  animation: yofu-twinkle 4s ease-in-out infinite alternate;
+  user-select: none;
+}
+.yofu-star--sm { font-size: 8px; }
+.yofu-star--lg { font-size: 14px; color: var(--moon); }
+
+@keyframes yofu-twinkle {
+  0%, 20% { opacity: 0; transform: scale(0.6) rotate(0deg); }
+  50% { opacity: 0.9; transform: scale(1.1) rotate(22deg); }
+  80%, 100% { opacity: 0.3; transform: scale(0.8) rotate(45deg); }
+}
+
+/* Yofukashi: detailed clickable moon with soft glow & hard shadow */
+:root[data-skin="yofukashi"] .sky-moon {
+  cursor: pointer;
+  pointer-events: auto;
+  filter: drop-shadow(4px 4px 0 #000) drop-shadow(0 0 20px rgb(var(--acc-rgb) / 0.55));
+  transition: transform 0.2s ease, filter 0.3s ease;
+}
+:root[data-skin="yofukashi"] .sky-moon:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(5px 5px 0 #000) drop-shadow(0 0 30px rgb(var(--acc-rgb) / 0.8));
+}
+:root[data-skin="yofukashi"] .sky-moon:active {
+  transform: scale(0.96);
+}
+
+/* Yofukashi bats */
+.yofu-bat {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  animation: yofu-bat-fly var(--dur, 1.4s) cubic-bezier(0.2, 0.6, 0.35, 1) both;
+  will-change: transform, opacity;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.9));
+}
+.yofu-bat--sm { width: 22px; height: 14px; }
+.yofu-bat--md { width: 32px; height: 20px; }
+.yofu-bat--lg { width: 42px; height: 26px; }
+
+.yofu-bat-wings {
+  transform-origin: center;
+  animation: yofu-bat-flap 0.14s ease-in-out infinite alternate;
+}
+
+@keyframes yofu-bat-flap {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0.42) scaleX(0.94); }
+}
+
+@keyframes yofu-bat-fly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  8% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(var(--tx, -120px) * 0.45), calc(var(--ty, -200px) * 0.55 - 15px)) scale(0.85) rotate(-6deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, -120px), var(--ty, -200px)) scale(0.35) rotate(-12deg);
+  }
+}
+
+/* Yofukashi: "しん…" silence text in hero */
+.yofu-shin {
+  position: absolute;
+  bottom: 18%;
+  right: 8%;
+  font-size: clamp(0.85rem, 2vw, 1.2rem);
+  color: var(--acc);
+  opacity: 0;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  animation: yofu-shin-in 1.2s ease-out 1.8s forwards;
+  font-family: 'Noto Sans JP', sans-serif;
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+}
+@keyframes yofu-shin-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 0.72; transform: translateY(0); }
+}
+
+/* Yofukashi: blinking clock colon */
+.yofu-clock-blink {
+  animation: yofu-blink 1s step-end infinite;
+}
+@keyframes yofu-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Yofukashi: legibility overlays on bg-heavy sections */
+:root[data-skin="yofukashi"] .projects-hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 10, 31, 0.52);
+  pointer-events: none;
+}
+:root[data-skin="yofukashi"] .contact-section-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 10, 31, 0.48);
+  pointer-events: none;
+}
+
+/* Yofukashi: cursor sparkle trail (desktop only) */
+@media (pointer: fine) {
+  .yofu-spark {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    font-size: 10px;
+    color: var(--acc);
+    opacity: 0;
+    animation: yofu-spark-out 0.55s ease-out forwards;
+    will-change: transform, opacity;
+    user-select: none;
+  }
+}
+@keyframes yofu-spark-out {
+  0% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translate(-50%, -200%) scale(0.3) rotate(45deg); }
 }
 
 .sky-moon {
@@ -589,31 +1061,6 @@ h3 {
   );
 }
 
-.klk-cut {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  pointer-events: none;
-}
-
-.klk-cut-a,
-.klk-cut-b {
-  position: absolute;
-  inset: 0;
-}
-
-.klk-cut-a {
-  background: var(--acc);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-  animation: klk-a 0.6s cubic-bezier(0.7, 0, 0.2, 1) forwards;
-}
-
-.klk-cut-b {
-  background: #0a0a0a;
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
-  animation: klk-b 0.6s cubic-bezier(0.7, 0, 0.2, 1) forwards;
-}
-
 /* --- Nichijou: absurd toast --- */
 .absurd-toast {
   animation: toast-in 0.35s ease-out backwards;
@@ -634,8 +1081,7 @@ h3 {
 }
 
 .yofukashi-float-a,
-.yofukashi-float-b,
-.yofukashi-clouds-drift {
+.yofukashi-float-b {
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -648,18 +1094,8 @@ h3 {
   animation: float-b 8.5s ease-in-out infinite alternate;
 }
 
-.yofukashi-clouds-drift {
-  animation: clouds-drift 90s ease-in-out infinite alternate;
-}
-
 .yofukashi-scrim {
-  fill: var(--bg);
-  opacity: 0.66;
-}
-
-.yofukashi-window {
-  opacity: 0.85;
-  animation: window-flicker ease-in-out infinite;
+  fill: var(--scene-veil);
 }
 
 .shooting-star {
@@ -738,11 +1174,45 @@ h3 {
 .toga-splat {
   position: fixed;
   z-index: 65;
-  width: 96px;
-  height: 96px;
+  width: 160px;
+  height: 160px;
   overflow: visible;
   pointer-events: none;
-  animation: toga-splat 3.6s forwards;
+  transform-origin: center;
+  filter: drop-shadow(0 5px 9px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 12px rgba(210, 31, 60, 0.3));
+  animation:
+    toga-splat-in 380ms cubic-bezier(0.16, 1.3, 0.3, 1) both,
+    toga-splat-out 500ms ease-in 1.45s forwards;
+}
+
+.toga-splat-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: toga-ring 460ms cubic-bezier(0.1, 0.75, 0.25, 1) both;
+}
+
+.toga-splat-impact {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: toga-impact 280ms ease-out both;
+}
+
+.toga-splat-drop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: toga-drop-in 380ms cubic-bezier(0.2, 1.6, 0.35, 1) both;
+}
+
+.toga-splat-drip {
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: toga-drip-in 620ms cubic-bezier(0.3, 0.9, 0.3, 1) 60ms both;
+}
+
+.toga-splat-blob {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: toga-blob-in 400ms cubic-bezier(0.18, 1.35, 0.35, 1) both;
 }
 
 .toga-rain {
@@ -753,6 +1223,13 @@ h3 {
   font-family: 'Dela Gothic One', sans-serif;
   color: var(--acc);
   animation: toga-fall linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toga-splat-ring,
+  .toga-splat-impact {
+    display: none;
+  }
 }
 
 /* Kill la Kill: double click slash */
@@ -773,6 +1250,248 @@ h3 {
 
 .klk-shake {
   animation: klk-shake 0.26s;
+}
+
+/* ------------------------------------------------------------------ */
+/* Page transitions                                                    */
+/* Short, content-only view transitions. The shell stays still.         */
+/* ------------------------------------------------------------------ */
+
+/* The page body owns an opaque, full-width background so the outgoing
+   page cannot show through the gaps of the incoming snapshot. */
+.page-tx-body {
+  flex: 1;
+  background-color: var(--bg);
+}
+
+::view-transition {
+  pointer-events: none;
+}
+
+/* The navbar, footer, and background are not animated. */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(root),
+::view-transition-image-pair(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Blend the snapshots normally: no additive ghosting. */
+::view-transition-old(*),
+::view-transition-new(*) {
+  mix-blend-mode: normal;
+}
+
+/* The new snapshot carries the page background. Without it, the old page
+   shows through the transparent gaps of the new one and the crossfade
+   turns into a double exposure. */
+::view-transition-new(*) {
+  background-color: var(--bg);
+}
+
+/* Persona: a quick comic-panel snap. */
+::view-transition-old(.page-tx-persona) {
+  animation: 90ms ease-in both page-tx-persona-out;
+}
+::view-transition-new(.page-tx-persona) {
+  animation: 170ms cubic-bezier(0.16, 1, 0.3, 1) 15ms both page-tx-persona-in;
+}
+
+@keyframes page-tx-persona-out {
+  to {
+    opacity: 0;
+    transform: translateX(-8px) skewX(-0.6deg);
+    filter: blur(1px);
+  }
+}
+@keyframes page-tx-persona-in {
+  from {
+    opacity: 1;
+    transform: translateX(10px) skewX(0.6deg);
+    filter: blur(1px);
+  }
+  30% {
+    filter: blur(0.35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) skewX(0);
+    filter: blur(0);
+  }
+}
+
+/* Toga: a soft blood bloom, never a full-screen color.
+   The poster is a fixed layer outside the page body, so the snapshot must not
+   paint an opaque background over it. The old snapshot is dropped instead of
+   crossfaded: a translucent new snapshot over a fading old one double-exposes
+   the page content. */
+::view-transition-old(.page-tx-toga) {
+  display: none;
+}
+::view-transition-new(.page-tx-toga) {
+  background-color: transparent;
+  animation: 190ms cubic-bezier(0.22, 1, 0.36, 1) 15ms both page-tx-toga-in;
+}
+
+@keyframes page-tx-toga-in {
+  from {
+    opacity: 1;
+    transform: scale(1.012);
+    filter: blur(1.5px) brightness(0.96);
+  }
+  30% {
+    filter: blur(0.5px) brightness(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0) brightness(1);
+  }
+}
+
+/* Yofukashi: the page fades out to the dusk scene and the next one floats in. */
+::view-transition-old(.page-tx-yofukashi) {
+  animation: 70ms ease-in both page-tx-yofukashi-out;
+}
+::view-transition-new(.page-tx-yofukashi) {
+  /* The dusk scene is fixed behind the page, so the snapshot must stay
+     transparent; an opaque background would hide it during navigation. */
+  background-color: transparent;
+  animation: 190ms cubic-bezier(0.16, 1, 0.3, 1) 60ms both page-tx-yofukashi-in;
+}
+
+@keyframes page-tx-yofukashi-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+    filter: blur(2px) brightness(1.06);
+  }
+}
+@keyframes page-tx-yofukashi-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(2px) brightness(0.94);
+  }
+  30% {
+    filter: blur(0.6px) brightness(1);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0) brightness(1);
+  }
+}
+
+/* Nichijou: a small bounce, almost a shrug. */
+::view-transition-old(.page-tx-nichijou) {
+  animation: 100ms ease-in both page-tx-nichijou-out;
+}
+::view-transition-new(.page-tx-nichijou) {
+  animation: 180ms cubic-bezier(0.34, 1.56, 0.64, 1) 15ms both page-tx-nichijou-in;
+}
+
+@keyframes page-tx-nichijou-out {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.996);
+  }
+}
+@keyframes page-tx-nichijou-in {
+  from {
+    opacity: 1;
+    transform: translateY(-7px) scale(0.996);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Kill la Kill: a solid diagonal cut, no crossfade. */
+::view-transition-old(.page-tx-killlakill) {
+  animation: 140ms cubic-bezier(0.7, 0, 0.3, 1) both page-tx-killlakill-out;
+}
+::view-transition-new(.page-tx-killlakill) {
+  animation: 200ms cubic-bezier(0.7, 0, 0.3, 1) 15ms both page-tx-killlakill-in;
+}
+
+@keyframes page-tx-killlakill-out {
+  to {
+    transform: translateX(-6px);
+  }
+}
+@keyframes page-tx-killlakill-in {
+  from {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    transform: translateX(6px);
+  }
+  60% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 18% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateX(0);
+  }
+}
+
+/* Dregxmoon: a two-frame CRT glitch, not a screen wipe. */
+::view-transition-old(.page-tx-dregxmoon) {
+  animation: 100ms steps(2, end) both page-tx-dregxmoon-out;
+}
+::view-transition-new(.page-tx-dregxmoon) {
+  animation: 180ms steps(3, end) 15ms both page-tx-dregxmoon-in;
+}
+
+@keyframes page-tx-dregxmoon-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: none;
+  }
+  45% {
+    opacity: 1;
+    transform: translateX(-2px);
+    filter: brightness(1.25) contrast(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-2px);
+    filter: brightness(1.4) contrast(1.1);
+  }
+}
+@keyframes page-tx-dregxmoon-in {
+  0% {
+    opacity: 1;
+    transform: translateX(2px);
+    filter: brightness(1.5) contrast(1.12);
+  }
+  33% {
+    opacity: 1;
+    transform: translateX(-1px);
+    filter: brightness(1.15) contrast(1.04);
+  }
+  66% {
+    opacity: 1;
+    transform: translateX(1px);
+    filter: brightness(1.08) contrast(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -806,16 +1525,29 @@ h3 {
 @keyframes slide { from { opacity: 0; transform: translateX(-48px) skewX(-8deg); } }
 @keyframes slam { from { opacity: 0; transform: rotate(-9deg) scale(2.2); } 60% { opacity: 1; transform: rotate(-9deg) scale(0.92); } }
 @keyframes shake { 0%, 100% { transform: rotate(-9deg); } 25% { transform: rotate(-12deg) scale(1.06); } 75% { transform: rotate(-6deg) scale(1.06); } }
-@keyframes drip { from { transform: scaleY(0); } }
+@keyframes nav-drip-in {
+  0% { opacity: 0; transform: scaleY(0); }
+  55% { opacity: 1; }
+  78% { transform: scaleY(1.04); }
+  100% { opacity: 1; transform: scaleY(1); }
+}
+@keyframes nav-drip-swell {
+  0%, 100% { opacity: 0.96; transform: scaleY(0.9); }
+  30% { opacity: 1; transform: scaleY(1.06); }
+  58% { opacity: 0.98; transform: scaleY(0.94); }
+  82% { opacity: 1; transform: scaleY(1.02); }
+}
+@keyframes nav-drop-fall {
+  0%, 58% { opacity: 0; transform: translateY(0) scale(0.7); }
+  64% { opacity: 0.9; transform: translateY(2px) scale(1); }
+  86% { opacity: 0.65; transform: translateY(13px) scale(1); }
+  100% { opacity: 0; transform: translateY(19px) scale(0.82); }
+}
 @keyframes glitch { 0% { text-shadow: 3px 0 var(--acc), -3px 0 var(--acc2); } 50% { text-shadow: -3px 0 var(--acc), 3px 0 var(--acc2); } 100% { text-shadow: none; } }
 @keyframes twinkle { from { opacity: 0.45; } to { opacity: 0.9; } }
-@keyframes klk-a { 0%, 15% { transform: none; } 100% { transform: translate(-105%, -105%); } }
-@keyframes klk-b { 0%, 15% { transform: none; } 100% { transform: translate(105%, 105%); } }
 @keyframes toast-in { from { opacity: 0; transform: translateY(16px); } }
 @keyframes float-a { from { transform: translateY(0) rotate(-0.6deg); } to { transform: translateY(-14px) rotate(0.8deg); } }
 @keyframes float-b { from { transform: translateY(-8px) rotate(0.7deg); } to { transform: translateY(8px) rotate(-0.8deg); } }
-@keyframes clouds-drift { from { transform: translateX(-40px); } to { transform: translateX(60px); } }
-@keyframes window-flicker { 0%, 42%, 100% { opacity: 0.85; } 46% { opacity: 0.2; } 50% { opacity: 0.8; } 80% { opacity: 0.6; } }
 @keyframes shoot { from { opacity: 1; transform: translate(0, 0) rotate(-30deg); } to { opacity: 0; transform: translate(-90vw, 52vh) rotate(-30deg); } }
 @keyframes allout-life { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes allout-slide { to { transform: none; } }
@@ -823,7 +1555,42 @@ h3 {
 @keyframes boing { 0% { transform: scale(1); } 25% { transform: scale(1.15, 0.8); } 50% { transform: scale(0.88, 1.18); } 75% { transform: scale(1.05, 0.96); } 100% { transform: scale(1); } }
 @keyframes deer-walk { from { transform: translateX(-30vw); } to { transform: translateX(110vw); } }
 @keyframes deer-bob { from { transform: translateY(0); } to { transform: translateY(-14px); } }
-@keyframes toga-splat { 0% { transform: scale(0.2); opacity: 0; } 8% { transform: scale(1.15); opacity: 0.95; } 16% { transform: scale(1); } 70% { opacity: 0.85; } 100% { opacity: 0; } }
+@keyframes toga-splat-in {
+  0% { opacity: 0; transform: scale(0.3) rotate(-9deg); }
+  45% { opacity: 1; }
+  62% { transform: scale(1.12) rotate(2deg); }
+  80% { transform: scale(0.97) rotate(-1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes toga-splat-out {
+  0% { opacity: 1; transform: scale(1); }
+  30% { opacity: 0.95; transform: scale(1.015); }
+  100% { opacity: 0; transform: scale(1.06); }
+}
+@keyframes toga-ring {
+  0% { opacity: 0.45; transform: scale(0.8); }
+  60% { opacity: 0.18; }
+  100% { opacity: 0; transform: scale(1.22); }
+}
+@keyframes toga-impact {
+  0% { opacity: 0.9; transform: scale(0.35); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+@keyframes toga-drop-in {
+  0% { opacity: 0; transform: scale(0.15); }
+  60% { opacity: 1; transform: scale(1.18); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes toga-blob-in {
+  0% { opacity: 0.2; transform: scale(0.68); }
+  62% { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes toga-drip-in {
+  0% { opacity: 0; transform: scaleY(0.05); }
+  25% { opacity: 1; }
+  100% { opacity: 1; transform: scaleY(1); }
+}
 @keyframes toga-fall { to { transform: translateY(125vh) rotate(25deg); } }
 @keyframes klk-slash-draw { to { stroke-dashoffset: 0; } }
 @keyframes klk-slash-fade { to { opacity: 0; } }

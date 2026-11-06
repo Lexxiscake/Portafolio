@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { PROJECTS_DATA } from '@/lib/constants';
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
-}): Metadata {
-  const project = PROJECTS_DATA.find((item) => item.id === params.id);
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const project = PROJECTS_DATA.find((item) => item.id === id);
 
   if (!project) {
     return {

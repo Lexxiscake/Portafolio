@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { HERO_IMAGE } from '@/lib/constants';
 import { useSite } from '@/context/site-context';
 import { SKINS } from '@/lib/skins';
+import { SkinMotif } from '@/components/SkinMotif';
+import { YofukashiShin } from '@/components/YofukashiEffects';
 
 const HERO_LINKS = [
   { href: '/proyectos', key: 'np' as const, index: '01', jp: '作品' },
@@ -32,13 +34,13 @@ export const Hero: React.FC = () => {
   return (
     <header className="hero-manga relative overflow-hidden">
       <div
-        className="pointer-events-none absolute right-2 top-16 hidden select-none font-kanji text-[150px] leading-none text-black/15 md:block"
+        className="pointer-events-none absolute right-0 top-10 hidden h-[230px] w-[230px] -rotate-6 text-black/15 md:block"
         aria-hidden="true"
       >
-        {activeSkin.kanji}
+        <SkinMotif skin={skin} className="h-full w-full" />
       </div>
 
-      <div className="relative mx-auto grid max-w-[1120px] grid-cols-1 items-center gap-10 px-6 pb-20 pt-11 sm:px-8 md:grid-cols-[1.2fr_1fr]">
+      <div className="hero-manga__grid relative mx-auto grid max-w-[1120px] grid-cols-1 items-center gap-10 px-6 pb-20 pt-11 sm:px-8 md:grid-cols-[1.2fr_1fr]">
         <div>
           <p className="mb-3.5 inline-block -skew-x-[10deg] bg-black px-3.5 py-1 font-mono text-[11px] font-semibold tracking-wide text-white">
             {lang === 'es' ? 'Software · datos · Linux' : 'Software · data · Linux'}
@@ -109,6 +111,8 @@ export const Hero: React.FC = () => {
               {lang === 'es' ? 'ITT · 7.º semestre' : 'ITT · 7th semester'}
             </span>
           </div>
+
+          {skin === 'yofukashi' ? <YofukashiShin /> : null}
 
           <div className="relative mt-11 min-h-[8.5em] -rotate-[1.5deg] border-[3px] border-white bg-black px-4 py-4 font-semibold text-white sm:min-h-[7em]">
             <span>{bubbleText}</span>

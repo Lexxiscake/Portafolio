@@ -40,7 +40,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <SkinEffects />
         <SkinEggs />
         <Navbar />
-        <div id="main-content" tabIndex={-1} className="flex-1 outline-none">
+        <div id="main-content" tabIndex={-1} className="flex flex-1 flex-col outline-none">
           {children}
         </div>
         <Footer />

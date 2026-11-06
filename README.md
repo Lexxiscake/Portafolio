@@ -114,6 +114,8 @@ npm run typecheck   # TypeScript check
 | Dregxmoon | **Secret skin** |
 
 - Skins live in `src/lib/skins.ts`; their CSS variables in `src/styles/globals.css`.
+- Each skin has an original vector motif in `public/deco/skins.svg`, rendered by `SkinMotif` in the hero, `/otaku`, the 404 page, and the footer.
+- Route changes play a skin-specific curtain from `PageTransition`: comic wipe for Persona, blood iris for Toga, night sky for Yofukashi, pastel bands for Nichijou, diagonal cut for Kill la Kill, and CRT split for Dregxmoon.
 - The picker is available in the navbar and mobile menu.
 - The **Konami code** unlocks the hidden skin.
 - `/otaku` documents the inspiration behind each one.

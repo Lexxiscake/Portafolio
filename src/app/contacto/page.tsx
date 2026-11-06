@@ -1,5 +1,10 @@
 import { Contact } from '@/components/Contact';
+import { PageTransition } from '@/components/PageTransition';
 
 export default function ContactPage() {
-  return <Contact />;
+  return (
+    <PageTransition>
+      <Contact />
+    </PageTransition>
+  );
 }

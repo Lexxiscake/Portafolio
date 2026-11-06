@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useSite } from '@/context/site-context';
+import { SkinMotif } from '@/components/SkinMotif';
 
 export const Footer: React.FC = () => {
   const { t, lang, skin } = useSite();
@@ -11,8 +12,11 @@ export const Footer: React.FC = () => {
     <footer className="border-t border-[color:var(--line-soft)] px-4 pb-9 pt-8 text-sm text-[var(--mut)]">
       <div className="mx-auto flex max-w-[1120px] flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="mb-1 font-display text-lg italic uppercase text-[var(--ink)]">
-            Luka Torres <span className="text-[var(--acc)]">/ Lexxiscake</span>
+          <p className="mb-1 flex items-center gap-2 font-display text-lg italic uppercase text-[var(--ink)]">
+            <SkinMotif skin={skin} className="h-5 w-5 shrink-0 text-[var(--acc)]" />
+            <span>
+              Luka Torres <span className="text-[var(--acc)]">/ Lexxiscake</span>
+            </span>
           </p>
           <p className="m-0 font-mono text-[11px]">{t.st}</p>
           <p className="mt-2 max-w-md text-sm">
@@ -52,13 +56,6 @@ export const Footer: React.FC = () => {
             </a>
           </nav>
           <p className="m-0 font-mono text-[10px]">© 2026 Luka Torres · ルカ</p>
-          {skin === 'yofukashi' ? (
-            <p className="m-0 max-w-xs font-mono text-[10px] sm:text-right">
-              {lang === 'es'
-                ? 'Fondo: ilustración de よふかしのうた. © Kotoyama / Shogakukan / Yofukashi no Uta Production Committee. Uso de fan, sin fines de lucro.'
-                : 'Background: よふかしのうた illustration. © Kotoyama / Shogakukan / Yofukashi no Uta Production Committee. Fan use, non-commercial.'}
-            </p>
-          ) : null}
         </div>
       </div>
     </footer>

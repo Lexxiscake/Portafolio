@@ -44,7 +44,7 @@ export const SKINS: Record<SkinId, Skin> = {
   toga: {
     id: 'toga',
     label: 'Toga',
-    swatch: ['#ff4d86', '#ffd400'],
+    swatch: ['#f2c230', '#d21f3c'],
     kanji: '恋',
     sfx: ['ふふっ', 'きゃは!', 'ドクン', 'ぞくっ', 'ニヤッ'],
     ticker: {
@@ -59,7 +59,7 @@ export const SKINS: Record<SkinId, Skin> = {
   yofukashi: {
     id: 'yofukashi',
     label: 'Yofukashi no Uta',
-    swatch: ['#a690ff', '#f2a65a'],
+    swatch: ['#a78bfa', '#f472b6'],
     kanji: '夜',
     sfx: ['しん…', 'ふわっ', 'きらり', 'すぅ…', 'ぽつり'],
     ticker: {

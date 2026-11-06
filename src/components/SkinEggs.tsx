@@ -3,7 +3,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSite } from '@/context/site-context';
 import { PROJECTS_DATA } from '@/lib/constants';
+import { dripGeometry } from '@/lib/drip';
 import { SKIN_ORDER, SKINS, isSkinId } from '@/lib/skins';
+import { SkinMotif } from '@/components/SkinMotif';
 
 /**
  * One hidden behavior per skin. None of these change colors; they change what the page does.
@@ -130,7 +132,9 @@ function HeroPokes() {
 
       {overlay === 'deer' ? (
         <div className="deer-walk" aria-hidden="true">
-          <span className="deer-bob">鹿</span>
+          <span className="deer-bob block h-[1em] w-[1em]">
+            <SkinMotif skin="nichijou" className="h-full w-full" />
+          </span>
         </div>
       ) : null}
 
@@ -152,12 +156,46 @@ function HeroPokes() {
 /* Toga: splats and heart rain                                         */
 /* ------------------------------------------------------------------ */
 
+type SplatDropKind = 'dot' | 'drop' | 'streak';
+
+interface SplatDrop {
+  id: number;
+  kind: SplatDropKind;
+  x: number;
+  y: number;
+  angle: number;
+  size: number;
+  stretch: number;
+  opacity: number;
+  delay: number;
+}
+
+interface SplatSpeckle {
+  x: number;
+  y: number;
+  rx: number;
+  ry: number;
+  angle: number;
+  dark: boolean;
+  opacity: number;
+}
+
+interface SplatDrip {
+  d: string;
+  glintX: number;
+  glintY: number;
+  glintR: number;
+}
+
 interface Splat {
   id: number;
   x: number;
   y: number;
-  size: number;
-  dots: Array<{ dx: number; dy: number; r: number }>;
+  radius: number;
+  blob: string;
+  drops: SplatDrop[];
+  speckles: SplatSpeckle[];
+  drips: SplatDrip[];
 }
 
 interface Heart {
@@ -167,6 +205,185 @@ interface Heart {
   size: number;
   duration: number;
 }
+
+const DROP_SHAPE =
+  'M0 -1C0.32 -0.45 0.58 -0.02 0.58 0.34C0.58 0.72 0.32 1 0 1C-0.32 1 -0.58 0.72 -0.58 0.34C-0.58 -0.02 -0.32 -0.45 0 -1Z';
+const STREAK_SHAPE =
+  'M0 -1C0.18 -0.5 0.2 -0.05 0.5 0.35C0.7 0.62 0.55 0.95 0 0.95C-0.55 0.95 -0.7 0.62 -0.5 0.35C-0.2 -0.05 -0.18 -0.5 0 -1Z';
+
+function catmullRomClosed(points: Array<{ x: number; y: number }>) {
+  const total = points.length;
+  let d = `M${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`;
+
+  for (let index = 0; index < total; index++) {
+    const previous = points[(index - 1 + total) % total];
+    const current = points[index];
+    const next = points[(index + 1) % total];
+    const after = points[(index + 2) % total];
+    const controlOneX = current.x + (next.x - previous.x) / 6;
+    const controlOneY = current.y + (next.y - previous.y) / 6;
+    const controlTwoX = next.x - (after.x - current.x) / 6;
+    const controlTwoY = next.y - (after.y - current.y) / 6;
+    d += `C${controlOneX.toFixed(2)} ${controlOneY.toFixed(2)} ${controlTwoX.toFixed(2)} ${controlTwoY.toFixed(2)} ${next.x.toFixed(2)} ${next.y.toFixed(2)}`;
+  }
+
+  return `${d}Z`;
+}
+
+function buildSplat(id: number, x: number, y: number): Splat {
+  const radius = 20 + Math.random() * 8;
+  const pointCount = 12 + Math.floor(Math.random() * 5);
+  const shuffled = Array.from({ length: pointCount }, (_, index) => index).sort(
+    () => Math.random() - 0.5
+  );
+  const spikeCount = 2 + Math.floor(Math.random() * 3);
+  const notchCount = Math.random() < 0.55 ? 1 : 0;
+  const spikes = new Set(shuffled.slice(0, spikeCount));
+  const notches = new Set(shuffled.slice(spikeCount, spikeCount + notchCount));
+  const lobes = new Set(shuffled.slice(spikeCount + notchCount, spikeCount + notchCount + 2));
+
+  const impactAngle = Math.random() * Math.PI * 2;
+  const impactStretch = 1.08 + Math.random() * 0.12;
+  const impactCos = Math.cos(impactAngle);
+  const impactSin = Math.sin(impactAngle);
+
+  const points = Array.from({ length: pointCount }, (_, index) => {
+    const angle = (index / pointCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.18;
+    let reach = 0.72 + Math.random() * 0.3;
+    if (spikes.has(index)) reach = 1.15 + Math.random() * 0.28;
+    else if (notches.has(index)) reach = 0.52 + Math.random() * 0.12;
+    else if (lobes.has(index)) reach = 1.0 + Math.random() * 0.14;
+
+    const rawX = Math.cos(angle) * radius * reach;
+    const rawY = Math.sin(angle) * radius * reach;
+    const along = (rawX * impactCos + rawY * impactSin) * impactStretch;
+    const across = -rawX * impactSin + rawY * impactCos;
+
+    return {
+      x: along * impactCos - across * impactSin,
+      y: along * impactSin + across * impactCos,
+    };
+  });
+
+  const drops: SplatDrop[] = [];
+  const lobeDrops = 1 + Math.floor(Math.random() * 2);
+  for (let index = 0; index < lobeDrops; index++) {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = radius * (0.72 + Math.random() * 0.22);
+    drops.push({
+      id: drops.length,
+      kind: 'drop',
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance,
+      angle: (angle * 180) / Math.PI + 90,
+      size: 3.8 + Math.random() * 2.6,
+      stretch: 1,
+      opacity: 0.9 + Math.random() * 0.1,
+      delay: 40 + Math.random() * 70,
+    });
+  }
+
+  const dropCount = 7 + Math.floor(Math.random() * 4);
+  for (let index = 0; index < dropCount; index++) {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = radius * (1.08 + Math.random() * 0.75);
+    const roll = Math.random();
+    const kind: SplatDropKind = roll < 0.4 ? 'dot' : roll < 0.76 ? 'drop' : 'streak';
+    drops.push({
+      id: drops.length,
+      kind,
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance,
+      angle: (angle * 180) / Math.PI + 90,
+      size:
+        kind === 'streak'
+          ? 0.9 + Math.random() * 0.9
+          : kind === 'drop'
+            ? 1.8 + Math.random() * 2.6
+            : 1.2 + Math.random() * 2.6,
+      stretch: kind === 'streak' ? 4.5 + Math.random() * 6 : 1,
+      opacity: 0.72 + Math.random() * 0.28,
+      delay: 60 + Math.random() * 150,
+    });
+  }
+
+  const mistCount = 5 + Math.floor(Math.random() * 4);
+  for (let index = 0; index < mistCount; index++) {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = radius * (1.55 + Math.random() * 0.7);
+    drops.push({
+      id: drops.length,
+      kind: 'dot',
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance,
+      angle: 0,
+      size: 0.6 + Math.random() * 0.8,
+      stretch: 1,
+      opacity: 0.35 + Math.random() * 0.3,
+      delay: 100 + Math.random() * 180,
+    });
+  }
+
+  const edgeCount = 4 + Math.floor(Math.random() * 3);
+  for (let index = 0; index < edgeCount; index++) {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = radius * (0.92 + Math.random() * 0.2);
+    const isDrop = Math.random() < 0.45;
+    drops.push({
+      id: drops.length,
+      kind: isDrop ? 'drop' : 'dot',
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance,
+      angle: (angle * 180) / Math.PI + 90,
+      size: isDrop ? 1.1 + Math.random() * 1.3 : 0.8 + Math.random() * 1.2,
+      stretch: 1,
+      opacity: 0.8 + Math.random() * 0.2,
+      delay: 30 + Math.random() * 90,
+    });
+  }
+
+  const speckleCount = 9 + Math.floor(Math.random() * 7);
+  const speckles: SplatSpeckle[] = Array.from({ length: speckleCount }, () => {
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.sqrt(Math.random()) * radius * 0.7;
+    const rx = 0.6 + Math.random() * 1.7;
+    return {
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance,
+      rx,
+      ry: Math.random() < 0.3 ? rx * (1.8 + Math.random() * 1.6) : rx,
+      angle: Math.random() * 180,
+      dark: Math.random() < 0.62,
+      opacity: 0.24 + Math.random() * 0.42,
+    };
+  });
+
+  const drips: SplatDrip[] = [];
+  const dripCount = Math.random() < 0.25 ? 2 : Math.random() < 0.72 ? 1 : 0;
+  const sortedPoints = [...points].sort((first, second) => second.y - first.y);
+  for (let index = 0; index < dripCount; index++) {
+    const anchor = sortedPoints[Math.min(index * 2, sortedPoints.length - 1)];
+    const dripX = Math.max(-radius * 0.6, Math.min(radius * 0.6, anchor.x * 0.7));
+    const startY = anchor.y - radius * 0.14;
+    const length =
+      radius * (index === 0 ? 0.45 + Math.random() * 0.45 : 0.32 + Math.random() * 0.3);
+    const width = 2.0 + Math.random() * 1.4;
+    const bend = (Math.random() - 0.5) * 3.2;
+    const wave = (Math.random() - 0.5) * 2.4;
+    const geometry = dripGeometry(dripX, startY, length, width, bend, wave);
+    drips.push({
+      d: geometry.d,
+      glintX: geometry.bulbX - geometry.bulbR * 0.3,
+      glintY: geometry.bulbY - geometry.bulbR * 0.36,
+      glintR: geometry.bulbR * 0.27,
+    });
+  }
+
+  return { id, x, y, radius, blob: catmullRomClosed(points), drops, speckles, drips };
+}
+
+// Keep the page readable: never render more than six click splats at once.
+const MAX_TOGA_SPLATS = 6;
 
 function TogaEggs() {
   const [splats, setSplats] = useState<Splat[]>([]);
@@ -181,22 +398,11 @@ function TogaEggs() {
       if ((event.target as HTMLElement).closest(INTERACTIVE)) return;
 
       const id = ++nextId.current;
-      const count = 6 + Math.floor(Math.random() * 5);
-      const dots = Array.from({ length: count }, () => {
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 10 + Math.random() * 26;
-        return {
-          dx: Math.cos(angle) * distance,
-          dy: Math.sin(angle) * distance,
-          r: 2 + Math.random() * 6,
-        };
-      });
-
       setSplats((previous) => [
-        ...previous.slice(-11),
-        { id, x: event.clientX, y: event.clientY, size: 10 + Math.random() * 8, dots },
+        ...previous.slice(-(MAX_TOGA_SPLATS - 1)),
+        buildSplat(id, event.clientX, event.clientY),
       ]);
-      timers.push(setTimeout(() => setSplats((p) => p.filter((s) => s.id !== id)), 3600));
+      timers.push(setTimeout(() => setSplats((p) => p.filter((s) => s.id !== id)), 1950));
     };
 
     let buffer = '';
@@ -236,14 +442,154 @@ function TogaEggs() {
         <svg
           key={splat.id}
           className="toga-splat"
-          style={{ left: splat.x - 48, top: splat.y - 48 }}
-          viewBox="-48 -48 96 96"
+          style={{ left: splat.x - 80, top: splat.y - 80 }}
+          viewBox="-80 -80 160 160"
           aria-hidden="true"
         >
-          <circle r={splat.size} fill="var(--acc)" />
-          {splat.dots.map((dot, index) => (
-            <circle key={index} cx={dot.dx} cy={dot.dy} r={dot.r} fill="var(--acc)" />
+          <defs>
+            <radialGradient id={`toga-blood-${splat.id}`} cx="34%" cy="26%" r="84%">
+              <stop offset="0%" stopColor="#e23a53" />
+              <stop offset="20%" stopColor="#c01733" />
+              <stop offset="52%" stopColor="#961026" />
+              <stop offset="78%" stopColor="#6a0719" />
+              <stop offset="100%" stopColor="#34010c" />
+            </radialGradient>
+            <radialGradient id={`toga-shine-${splat.id}`} cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.3" />
+              <stop offset="55%" stopColor="#ffb9c2" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#ffb9c2" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id={`toga-shade-${splat.id}`} cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#240006" stopOpacity="0.55" />
+              <stop offset="70%" stopColor="#240006" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#240006" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id={`toga-impact-${splat.id}`} cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ffd7dc" stopOpacity="0.75" />
+              <stop offset="35%" stopColor="#ff5a70" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#d21f3c" stopOpacity="0" />
+            </radialGradient>
+            <clipPath id={`toga-clip-${splat.id}`}>
+              <path d={splat.blob} />
+            </clipPath>
+          </defs>
+
+          <g transform="scale(1.32)">
+            <path
+              className="toga-splat-ring"
+              d={splat.blob}
+              fill="none"
+              stroke="#e62d4b"
+              strokeWidth="0.7"
+              strokeLinejoin="round"
+            />
+          </g>
+
+          <circle
+            className="toga-splat-impact"
+            r={splat.radius * 0.8}
+            fill={`url(#toga-impact-${splat.id})`}
+          />
+
+          {splat.drips.map((drip, index) => (
+            <g
+              key={index}
+              className="toga-splat-drip"
+              fill={`url(#toga-blood-${splat.id})`}
+              style={{ animationDelay: `${60 + index * 70}ms` }}
+            >
+              <path d={drip.d} stroke="#470310" strokeWidth="0.7" strokeLinejoin="round" />
+              <ellipse
+                cx={drip.glintX}
+                cy={drip.glintY}
+                rx={drip.glintR}
+                ry={drip.glintR * 0.78}
+                fill="#ff9daa"
+                opacity="0.5"
+              />
+            </g>
           ))}
+
+          {splat.drops.map((drop) => (
+            <g
+              key={drop.id}
+              transform={`translate(${drop.x.toFixed(2)} ${drop.y.toFixed(2)}) rotate(${drop.angle.toFixed(1)})`}
+              opacity={drop.opacity}
+            >
+              {drop.kind === 'dot' ? (
+                <circle
+                  className="toga-splat-drop"
+                  r={drop.size}
+                  fill={`url(#toga-blood-${splat.id})`}
+                  stroke="#470310"
+                  strokeWidth="0.6"
+                  style={{ animationDelay: `${drop.delay}ms` }}
+                />
+              ) : (
+                <g
+                  transform={`scale(${drop.kind === 'drop' ? drop.size : drop.size * 0.75} ${drop.kind === 'drop' ? drop.size : drop.stretch})`}
+                >
+                  <path
+                    className="toga-splat-drop"
+                    d={drop.kind === 'drop' ? DROP_SHAPE : STREAK_SHAPE}
+                    fill={`url(#toga-blood-${splat.id})`}
+                    stroke="#470310"
+                    strokeWidth="0.6"
+                    strokeLinejoin="round"
+                    vectorEffect="non-scaling-stroke"
+                    style={{ animationDelay: `${drop.delay}ms` }}
+                  />
+                </g>
+              )}
+            </g>
+          ))}
+
+          <g className="toga-splat-blob">
+            <path
+              d={splat.blob}
+              fill={`url(#toga-blood-${splat.id})`}
+              stroke="#3a020d"
+              strokeWidth="1.2"
+              strokeLinejoin="round"
+            />
+            <g clipPath={`url(#toga-clip-${splat.id})`}>
+              <ellipse
+                cx={splat.radius * 0.34}
+                cy={splat.radius * 0.42}
+                rx={splat.radius * 0.72}
+                ry={splat.radius * 0.55}
+                fill={`url(#toga-shade-${splat.id})`}
+              />
+              <ellipse
+                cx={-splat.radius * 0.34}
+                cy={-splat.radius * 0.42}
+                rx={splat.radius * 0.5}
+                ry={splat.radius * 0.32}
+                transform={`rotate(-24 ${-splat.radius * 0.34} ${-splat.radius * 0.42})`}
+                fill={`url(#toga-shine-${splat.id})`}
+              />
+              <path
+                d={splat.blob}
+                fill="none"
+                stroke="#ff8a9a"
+                strokeOpacity="0.18"
+                strokeWidth="0.7"
+                transform="scale(0.94)"
+              />
+              {splat.speckles.map((speckle, index) => (
+                <ellipse
+                  key={index}
+                  cx={speckle.x}
+                  cy={speckle.y}
+                  rx={speckle.rx}
+                  ry={speckle.ry}
+                  transform={`rotate(${speckle.angle} ${speckle.x} ${speckle.y})`}
+                  fill={speckle.dark ? '#3f020e' : '#ff9daa'}
+                  opacity={speckle.opacity}
+                />
+              ))}
+            </g>
+          </g>
         </svg>
       ))}
 
@@ -344,8 +690,29 @@ function SlashEgg() {
 /* Dregxmoon: a small working terminal                                  */
 /* ------------------------------------------------------------------ */
 
+const SYNODIC_DAYS = 29.530588853;
+const REFERENCE_NEW_MOON = Date.UTC(2000, 0, 6, 18, 14);
+
+function moonSnapshot() {
+  const days = (Date.now() - REFERENCE_NEW_MOON) / 86_400_000;
+  const phase = (((days % SYNODIC_DAYS) + SYNODIC_DAYS) % SYNODIC_DAYS) / SYNODIC_DAYS;
+  const lit = Math.round(((1 - Math.cos(2 * Math.PI * phase)) / 2) * 100);
+  return { phase, lit };
+}
+
+function moonName(phase: number, es: boolean): string {
+  if (phase < 0.03 || phase > 0.97) return es ? 'nueva' : 'new';
+  if (phase < 0.22) return es ? 'creciente' : 'waxing crescent';
+  if (phase < 0.28) return es ? 'cuarto creciente' : 'first quarter';
+  if (phase < 0.47) return es ? 'creciente gibosa' : 'waxing gibbous';
+  if (phase < 0.53) return es ? 'llena' : 'full';
+  if (phase < 0.72) return es ? 'menguante gibosa' : 'waning gibbous';
+  if (phase < 0.78) return es ? 'cuarto menguante' : 'last quarter';
+  return es ? 'menguante' : 'waning crescent';
+}
+
 function DregTerminal() {
-  const { lang, setSkin, availableSkins } = useSite();
+  const { lang, skin, setSkin, availableSkins } = useSite();
   const es = lang === 'es';
   const [open, setOpen] = useState(false);
   const [lines, setLines] = useState<string[]>([]);
@@ -391,7 +758,7 @@ function DregTerminal() {
 
     switch (command.toLowerCase()) {
       case 'help':
-        out.push('help  whoami  projects  skins  skin <id>  konami  clear  exit');
+        out.push('help  whoami  projects  skins  skin <id>  moon  neofetch  sudo  konami  clear  exit');
         break;
       case 'whoami':
         out.push(
@@ -422,6 +789,35 @@ function DregTerminal() {
       }
       case 'konami':
         out.push('up up down down left right left right b a');
+        break;
+      case 'moon': {
+        const { phase, lit } = moonSnapshot();
+        out.push(
+          es
+            ? `luna: ${lit}% iluminada · ${moonName(phase, true)}`
+            : `moon: ${lit}% lit · ${moonName(phase, false)}`
+        );
+        out.push('  ▗▄▖\n ▐███▌\n  ▝▀▘');
+        break;
+      }
+      case 'neofetch':
+        out.push(
+          'luka@dregxmoon',
+          '----------------',
+          'OS: Portfolio 2026',
+          'Host: Tijuana, MX',
+          'Shell: zsh',
+          'Stack: Next.js / React / TypeScript',
+          `Skin: ${skin}`,
+          'Locale: es-MX / en'
+        );
+        break;
+      case 'sudo':
+        out.push(
+          es
+            ? 'nice try. Este terminal es de solo lectura.'
+            : 'nice try. This terminal is read-only.'
+        );
         break;
       case 'clear':
         setLines([]);
