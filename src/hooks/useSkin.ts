@@ -1,51 +1,35 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { DEFAULT_SKIN, SKIN_ORDER, SKINS, SkinId, isSkinId } from '@/lib/skins';
+import { DEFAULT_SKIN, SKIN_ORDER, SkinId } from '@/lib/skins';
 
 const SKIN_KEY = 'skin';
-const SECRET_KEY = 'skin-secret';
 
 export function useSkin() {
   const [skin, setSkinState] = useState<SkinId>(DEFAULT_SKIN);
-  const [secretUnlocked, setSecretUnlocked] = useState(false);
+  const [_secretUnlocked, setSecretUnlocked] = useState(false);
 
   useEffect(() => {
+    // Force toga on production
+    setSecretUnlocked(false);
+    setSkinState(DEFAULT_SKIN);
+    document.documentElement.dataset.skin = DEFAULT_SKIN;
     try {
-      const unlocked = localStorage.getItem(SECRET_KEY) === '1';
-      setSecretUnlocked(unlocked);
-
-      const saved = localStorage.getItem(SKIN_KEY);
-      if (isSkinId(saved) && (unlocked || !SKINS[saved].hidden)) {
-        setSkinState(saved);
-        document.documentElement.dataset.skin = saved;
-      } else {
-        document.documentElement.dataset.skin = DEFAULT_SKIN;
-      }
-    } catch {
-      document.documentElement.dataset.skin = DEFAULT_SKIN;
-    }
-  }, []);
-
-  const setSkin = useCallback((next: SkinId) => {
-    setSkinState(next);
-    document.documentElement.dataset.skin = next;
-    try {
-      localStorage.setItem(SKIN_KEY, next);
+      localStorage.setItem(SKIN_KEY, DEFAULT_SKIN);
     } catch {}
   }, []);
 
-  const unlockSecret = useCallback(() => {
-    setSecretUnlocked(true);
-    try {
-      localStorage.setItem(SECRET_KEY, '1');
-    } catch {}
-    setSkin('dregxmoon');
-  }, [setSkin]);
+  const setSkin = useCallback((_next: SkinId) => {
+    // In production, keep toga locked
+    setSkinState(DEFAULT_SKIN);
+    document.documentElement.dataset.skin = DEFAULT_SKIN;
+  }, []);
+
+  const unlockSecret = useCallback(() => {}, []);
 
   const availableSkins = useMemo(
-    () => SKIN_ORDER.filter((id) => secretUnlocked || !SKINS[id].hidden),
-    [secretUnlocked]
+    () => SKIN_ORDER,
+    []
   );
 
   return { skin, setSkin, availableSkins, unlockSecret };

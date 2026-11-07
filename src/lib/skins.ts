@@ -23,7 +23,7 @@ export interface Skin {
   notFound: Record<Language, string>;
 }
 
-export const DEFAULT_SKIN: SkinId = 'persona';
+export const DEFAULT_SKIN: SkinId = 'toga';
 
 export const SKINS: Record<SkinId, Skin> = {
   persona: {
@@ -119,17 +119,10 @@ export const SKINS: Record<SkinId, Skin> = {
   },
 };
 
-export const SKIN_ORDER: SkinId[] = [
-  'persona',
-  'toga',
-  'yofukashi',
-  'nichijou',
-  'killlakill',
-  'dregxmoon',
-];
+export const SKIN_ORDER: SkinId[] = ['toga'];
 
 export const SKIN_IDS: SkinId[] = SKIN_ORDER;
-export const HIDDEN_SKIN_IDS: SkinId[] = SKIN_ORDER.filter((id) => SKINS[id].hidden);
+export const HIDDEN_SKIN_IDS: SkinId[] = [];
 
 export function isSkinId(value: unknown): value is SkinId {
   return typeof value === 'string' && value in SKINS;

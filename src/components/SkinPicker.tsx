@@ -49,7 +49,8 @@ function SkinList({ onPick }: { onPick?: () => void }) {
 
 /** Always-visible list, used inside the mobile menu. */
 export function SkinPickerInline() {
-  const { lang } = useSite();
+  const { lang, availableSkins } = useSite();
+  if (availableSkins.length <= 1) return null;
 
   return (
     <div className="border-b border-white/10 py-3">
@@ -63,7 +64,7 @@ export function SkinPickerInline() {
 
 /** Button + popover, used in the desktop navbar. */
 export function SkinPicker() {
-  const { lang, skin } = useSite();
+  const { lang, skin, availableSkins } = useSite();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -89,6 +90,8 @@ export function SkinPicker() {
       window.removeEventListener('keydown', onKeyDown);
     };
   }, [open]);
+
+  if (availableSkins.length <= 1) return null;
 
   return (
     <div ref={rootRef} className="relative hidden md:block">

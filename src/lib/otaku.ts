@@ -20,21 +20,6 @@ export interface OtakuEntry {
 
 export const OTAKU_ENTRIES: OtakuEntry[] = [
   {
-    id: 'persona',
-    skin: 'persona',
-    title: 'Persona',
-    jp: 'ペルソナ',
-    kind: { es: 'Serie de juegos · Atlus', en: 'Game series · Atlus' },
-    about: {
-      es: 'Serie de juegos de rol japonesa con una dirección de arte muy reconocible.',
-      en: 'Japanese role-playing game series with a very recognizable art direction.',
-    },
-    borrowed: {
-      es: 'Es la skin base: rojo y negro, bloques inclinados y botones con sombra dura.',
-      en: 'This is the base skin: red and black, slanted blocks, and buttons with hard shadows.',
-    },
-  },
-  {
     id: 'toga',
     skin: 'toga',
     title: 'Himiko Toga',
@@ -47,51 +32,6 @@ export const OTAKU_ENTRIES: OtakuEntry[] = [
     borrowed: {
       es: 'Dorado de ojos y cabello, negro azulado del uniforme, beige del cardigan y rojo sangre de la bufanda; goteo bajo la barra de navegación, cursor en forma de gota y manchas al hacer clic.',
       en: 'Gold from her eyes and hair, navy from her uniform, beige from her cardigan, and blood red from her scarf; drips under the navigation bar, a drop-shaped cursor, and splats when you click.',
-    },
-  },
-  {
-    id: 'yofukashi',
-    skin: 'yofukashi',
-    title: 'Yofukashi no Uta',
-    jp: 'よふかしのうた',
-    kind: { es: 'Manga y anime · Kotoyama', en: 'Manga and anime · Kotoyama' },
-    about: {
-      es: 'Un estudiante con insomnio sale a caminar de noche y conoce a una vampira.',
-      en: 'A student with insomnia goes for night walks and meets a vampire.',
-    },
-    borrowed: {
-      es: 'Un atardecer con degradado de cielo y los dos personajes, con parallax de profundidad con el mouse y el scroll.',
-      en: 'A dusk sky gradient with both characters, with depth parallax on mouse and scroll.',
-    },
-  },
-  {
-    id: 'nichijou',
-    skin: 'nichijou',
-    title: 'Nichijou',
-    jp: '日常',
-    kind: { es: 'Manga y anime · Keiichi Arawi', en: 'Manga and anime · Keiichi Arawi' },
-    about: {
-      es: 'Comedia absurda sobre la vida cotidiana. El anime lo produjo Kyoto Animation.',
-      en: 'Absurd comedy about everyday life. The anime was produced by Kyoto Animation.',
-    },
-    borrowed: {
-      es: 'Colores cálidos y un evento absurdo que aparece una vez por visita.',
-      en: 'Warm colors and one absurd event that appears once per visit.',
-    },
-  },
-  {
-    id: 'killlakill',
-    skin: 'killlakill',
-    title: 'Kill la Kill',
-    jp: 'キルラキル',
-    kind: { es: 'Anime · Studio Trigger', en: 'Anime · Studio Trigger' },
-    about: {
-      es: 'Anime de acción dirigido por Hiroyuki Imaishi.',
-      en: 'Action anime directed by Hiroyuki Imaishi.',
-    },
-    borrowed: {
-      es: 'Rojo y negro de alto contraste, medios tonos marcados y un corte diagonal al cambiar de página.',
-      en: 'High-contrast red and black, bold halftones, and a diagonal cut when you change page.',
     },
   },
 ];
