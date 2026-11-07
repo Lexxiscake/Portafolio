@@ -9,26 +9,31 @@ import { PROJECTS_DATA } from '@/lib/constants';
 import { SKINS } from '@/lib/skins';
 import { PageTransition } from '@/components/PageTransition';
 
-const METRICS = [
+interface TechCategory {
+  category: { es: string; en: string };
+  items: string[];
+}
+
+const TECH_STACK: TechCategory[] = [
   {
-    value: '< 12ms',
-    label: { es: 'Búsqueda en memoria local', en: 'Local memory search' },
-    source: 'Kaoru · SQLite FTS5',
+    category: { es: 'Lenguajes', en: 'Languages' },
+    items: ['C#', 'Python', 'Java'],
   },
   {
-    value: '45+',
-    label: { es: 'Controles CIS automatizados', en: 'Automated CIS controls' },
-    source: 'Linux Hardener · CI',
+    category: { es: 'Frameworks / Plataformas', en: 'Frameworks / Platforms' },
+    items: ['.NET', 'Node.js', 'Vite'],
   },
   {
-    value: '0',
-    label: { es: 'Deadlocks en reservas', en: 'Deadlocks in bookings' },
-    source: { es: 'Gestión Médica · T-SQL', en: 'Clinical Management · T-SQL' },
+    category: { es: 'Web', en: 'Web' },
+    items: ['HTML5', 'CSS3', 'Javascript'],
   },
   {
-    value: '100%',
-    label: { es: 'Inferencia en el equipo', en: 'Inference on the machine' },
-    source: 'Kaoru · local',
+    category: { es: 'Bases de datos', en: 'Databases' },
+    items: ['SQL Server'],
+  },
+  {
+    category: { es: 'Áreas de interés', en: 'Areas of Interest' },
+    items: ['Inteligencia Artificial', 'Desarrollo Web', 'Redes'],
   },
 ];
 
@@ -94,58 +99,63 @@ export default function HomePage() {
           aria-hidden="true"
         >
           <div className="inline-block animate-[tick_30s_linear_infinite] py-2 font-display text-xl italic">
-            {skin === 'yofukashi' ? (
-              Array.from({ length: 6 }).map((_, i) => (
-                <span key={i} className="inline-flex items-center">
-                  <span>{lang === 'es' ? 'INSOMNIO ✦ ' : 'INSOMNIA ✦ '}</span>
-                  <span className="mx-1 inline-flex items-center">
-                    3<span className="yofu-clock-blink">:</span>07 AM
-                  </span>
-                  <span>
-                    {lang === 'es'
-                      ? ' ✦ SISTEMAS ✦ SQL ✦ LINUX ✦ 夜更かし ✦ '
-                      : ' ✦ SYSTEMS ✦ SQL ✦ LINUX ✦ 夜更かし ✦ '}
-                  </span>
-                </span>
-              ))
-            ) : (
-              tickerText.repeat(6)
-            )}
+            {tickerText.repeat(6)}
           </div>
         </div>
 
         <section className="mx-auto max-w-[1120px] px-6 pt-12 sm:px-8">
-          <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--acc)]">
-                {lang === 'es' ? '/ cifras' : '/ numbers'}
+                {lang === 'es' ? '/ tecnologías' : '/ technologies'}
               </p>
-              <h2 className="font-display text-[clamp(30px,5vw,46px)] italic uppercase leading-none">
-                {lang === 'es' ? 'Resultados' : 'Results'}
+              <h2 className="font-display text-[clamp(28px,5vw,46px)] italic uppercase leading-none">
+                {lang === 'es' ? '技術 — Tecnologías y herramientas' : '技術 — Technologies & Tools'}
               </h2>
+              <p className="mt-2 font-mono text-xs uppercase tracking-wider text-[var(--mut)]">
+                {lang === 'es' ? 'tecnologías' : 'technologies'}
+              </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {METRICS.map((metric, index) => (
-              <div
-                key={metric.value}
-                className="border-l-4 border-[var(--acc)] bg-[var(--pn)] p-4 shadow-[4px_4px_0_var(--ink)]"
-              >
-                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-[var(--acc)]">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="mt-2 block font-display text-3xl italic leading-none text-[var(--acc)] sm:text-4xl">
-                  {metric.value}
-                </span>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-[var(--ink)]">
-                  {metric.label[lang]}
-                </p>
-                <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--mut)]">
-                  {typeof metric.source === 'string' ? metric.source : metric.source[lang]}
-                </p>
-              </div>
-            ))}
+          <div className="overflow-hidden border-2 border-[color:var(--line)] bg-[var(--pn)] shadow-[6px_6px_0_var(--acc)]">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-left font-mono text-sm">
+                <thead className="border-b-2 border-[color:var(--line)] bg-black/50 text-[var(--acc)]">
+                  <tr>
+                    <th className="w-1/3 border-r border-[color:var(--line-soft)] px-5 py-3.5 font-display text-base italic uppercase tracking-wider">
+                      分類 <span className="font-mono text-xs normal-case opacity-75">({lang === 'es' ? 'Categoría' : 'Category'})</span>
+                    </th>
+                    <th className="px-5 py-3.5 font-display text-base italic uppercase tracking-wider">
+                      技術 <span className="font-mono text-xs normal-case opacity-75">({lang === 'es' ? 'Tecnologías' : 'Technologies'})</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[color:var(--line-soft)]">
+                  {TECH_STACK.map((row) => (
+                    <tr key={row.category.es} className="transition-colors hover:bg-[var(--wash)]">
+                      <td className="whitespace-nowrap border-r border-[color:var(--line-soft)] px-5 py-3.5 font-bold text-[var(--ink)]">
+                        {row.category[lang]}
+                      </td>
+                      <td className="px-5 py-3.5 text-[var(--ink)]">
+                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                          {row.items.map((item, idx) => (
+                            <React.Fragment key={item}>
+                              {idx > 0 && (
+                                <span className="select-none font-bold text-[var(--acc)]" aria-hidden="true">
+                                  ・
+                                </span>
+                              )}
+                              <span className="inline-block font-semibold">{item}</span>
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
@@ -183,7 +193,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1120px] px-6 pt-16 sm:px-8">
+        <section className="mx-auto max-w-[1120px] px-6 pb-16 pt-16 sm:px-8">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--acc)]">
@@ -219,27 +229,6 @@ export default function HomePage() {
                 <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{principle.body}</p>
               </article>
             ))}
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-[1120px] px-6 pb-4 pt-16 sm:px-8">
-          <div className="border-t-2 border-ink/20 pt-8">
-            <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-              <div>
-                <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--acc)]">
-                  {lang === 'es' ? '/ contacto' : '/ contact'}
-                </p>
-                <h2 className="font-display text-[clamp(34px,6vw,64px)] italic uppercase leading-[0.95]">
-                  {lang === 'es' ? '¿Hablamos?' : 'Let us talk.'}
-                </h2>
-                <p className="mt-3 max-w-xl text-sm text-[var(--mut)] sm:text-base">
-                  {t.cp}
-                </p>
-              </div>
-              <Link href="/contacto" className="btn-manga hot shrink-0 font-display">
-                {lang === 'es' ? 'Escribirme →' : 'Write to me →'}
-              </Link>
-            </div>
           </div>
         </section>
       </main>

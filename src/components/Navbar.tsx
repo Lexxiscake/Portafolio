@@ -32,8 +32,6 @@ export const Navbar: React.FC = () => {
     { href: '/', label: lang === 'es' ? 'Inicio' : 'Home' },
     { href: '/proyectos', label: t.np },
     { href: '/sobre-mi', label: t.na },
-    { href: '/otaku', label: 'Otaku' },
-    { href: '/contacto', label: t.nc },
   ];
 
   const isActive = (href: string) =>

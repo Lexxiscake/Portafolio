@@ -89,9 +89,6 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
               >
                 {t.repo} ↗
               </a>
-              <Link href="/contacto" className="btn-manga font-display text-sm">
-                {lang === 'es' ? 'Escribirme sobre este caso →' : 'Write to me about this case →'}
-              </Link>
             </div>
           </div>
 
@@ -348,9 +345,6 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
           <Link href="/proyectos" className="btn-manga font-display text-sm">
             ← {lang === 'es' ? 'Volver a proyectos' : 'Back to projects'}
-          </Link>
-          <Link href="/contacto" className="btn-manga hot font-display text-sm">
-            {lang === 'es' ? 'Escribirme →' : 'Write to me →'}
           </Link>
         </div>
       </main>

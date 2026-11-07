@@ -11,7 +11,6 @@ import { YofukashiShin } from '@/components/YofukashiEffects';
 const HERO_LINKS = [
   { href: '/proyectos', key: 'np' as const, index: '01', jp: '作品' },
   { href: '/sobre-mi', key: 'na' as const, index: '02', jp: '経歴' },
-  { href: '/contacto', key: 'nc' as const, index: '03', jp: '連絡' },
 ];
 
 export const Hero: React.FC = () => {
@@ -108,7 +107,7 @@ export const Hero: React.FC = () => {
           <div className="absolute -left-3 top-4 hidden -rotate-2 border border-black bg-[#f7f4ed] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-black shadow-[4px_4px_0_#000] sm:block">
             Lexxiscake
             <span className="mt-0.5 block text-[8px] text-black/55">
-              {lang === 'es' ? 'ITT · 7.º semestre' : 'ITT · 7th semester'}
+              {lang === 'es' ? 'ITT · Desde ago 2023 (cursando)' : 'ITT · Enrolled (Aug 2023)'}
             </span>
           </div>
 

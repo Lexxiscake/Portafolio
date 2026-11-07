@@ -34,12 +34,6 @@ export const Footer: React.FC = () => {
             <Link href="/sobre-mi" className="footer-link hover:text-[var(--acc)]">
               {t.na}
             </Link>
-            <Link href="/otaku" className="footer-link hover:text-[var(--acc)]">
-              Otaku
-            </Link>
-            <Link href="/contacto" className="footer-link hover:text-[var(--acc)]">
-              {t.nc}
-            </Link>
             <a
               href="https://github.com/Lexxiscake"
               target="_blank"

@@ -221,22 +221,6 @@ export default function ProjectsPage() {
                 </button>
               </div>
             )}
-
-            <div className="mt-12 flex flex-col justify-between gap-5 border-4 border-white bg-black p-6 text-white shadow-[10px_10px_0_var(--acc)] sm:flex-row sm:items-center">
-              <div>
-                <h2 className="font-display text-2xl italic uppercase text-[var(--acc)]">
-                  {lang === 'es' ? '¿Tienes un proyecto parecido?' : 'Working on something similar?'}
-                </h2>
-                <p className="mt-1 max-w-xl text-sm text-neutral-300">
-                  {lang === 'es'
-                    ? 'Cuéntame qué estás construyendo y en qué punto está. Si puedo ayudar, te digo cómo.'
-                    : 'Tell me what you are building and where it stands. If I can help, I will tell you how.'}
-                </p>
-              </div>
-              <Link href="/contacto" className="btn-manga hot shrink-0 font-display">
-                {lang === 'es' ? 'Escribirme →' : 'Write to me →'}
-              </Link>
-            </div>
           </section>
         </div>
       </main>

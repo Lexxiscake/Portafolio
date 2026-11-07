@@ -56,110 +56,120 @@ const PRINCIPLES = {
 const TIMELINE = {
   es: [
     {
-      year: '2026',
-      title: 'Portafolio 2026',
-      body: 'Rediseño del sitio: proyectos con ficha propia, formulario validado y contenido bilingüe.',
-      tag: 'web',
+      year: 'Julio 2026',
+      title: 'Kaoru AI Agent',
+      body: 'Agente de escritorio con memoria SQLite FTS5, IPC seguro e inferencia local.',
+      tag: 'ia local',
     },
     {
-      year: '2025',
-      title: 'Kaoru · Linux Hardener',
-      body: 'Agente local con memoria SQLite y suite de auditoría CIS probada en Ubuntu, Fedora y Arch.',
-      tag: 'local ai / linux',
+      year: 'Abril 2026',
+      title: 'Linux Hardener',
+      body: 'Auditoría y hardening de servidores Linux con checks automatizados e idempotentes.',
+      tag: 'linux / seguridad',
     },
     {
-      year: '2024',
+      year: 'Noviembre 2025',
       title: 'Gestión Clínica & Triaje',
-      body: 'Backend para citas y expedientes: transacciones cortas, índices y control de accesos.',
-      tag: 'datos',
+      body: 'Backend para citas y expedientes médicos: transacciones cortas, T-SQL y control de accesos.',
+      tag: 'datos / backend',
     },
   ],
   en: [
     {
-      year: '2026',
-      title: 'Portfolio 2026',
-      body: 'Site redesign: dedicated project pages, validated contact form, and bilingual content.',
-      tag: 'web',
+      year: 'July 2026',
+      title: 'Kaoru AI Agent',
+      body: 'Desktop agent with SQLite FTS5 memory, secure IPC, and local inference.',
+      tag: 'local ai',
     },
     {
-      year: '2025',
-      title: 'Kaoru · Linux Hardener',
-      body: 'Local agent with SQLite memory and a CIS audit suite tested on Ubuntu, Fedora, and Arch.',
-      tag: 'local ai / linux',
+      year: 'April 2026',
+      title: 'Linux Hardener',
+      body: 'Linux server audit and hardening with automated idempotent checks.',
+      tag: 'linux / security',
     },
     {
-      year: '2024',
+      year: 'November 2025',
       title: 'Clinical Management & Triage',
-      body: 'Backend for appointments and records: short transactions, indexes, and access control.',
-      tag: 'data',
+      body: 'Backend for appointments and medical records: short transactions, T-SQL, and access control.',
+      tag: 'data / backend',
     },
   ],
 };
 
 const FOCUS = {
   es: [
+    'Bases de datos SQL Server',
     'Auditorías Linux con CIS',
-    'Consultas y planes en SQL Server',
-    'Memoria local con SQLite',
-    'Interfaces con Next.js',
+    'Desarrollo de software C# y .NET',
+    'Inteligencia Artificial y herramientas locales',
   ],
   en: [
-    'Linux audits with CIS',
-    'SQL Server queries and plans',
-    'Local memory with SQLite',
-    'Interfaces with Next.js',
+    'SQL Server databases',
+    'Linux CIS auditing',
+    'C# and .NET software development',
+    'Artificial Intelligence and local tools',
   ],
 };
 
 const STACK = {
   es: [
     {
-      layer: 'Backend',
-      items: ['C# / .NET', 'Python / FastAPI', 'TypeScript / Node', 'Java'],
-      usage: 'APIs, servicios, scripts',
+      layer: 'Lenguajes',
+      items: ['C#', 'Python', 'Java', 'JavaScript'],
+      usage: 'lógica, servicios, scripts',
     },
     {
-      layer: 'Datos',
-      items: ['SQL Server', 'T-SQL', 'SQLite FTS5', 'Índices / ACID'],
-      usage: 'consultas, índices, transacciones',
+      layer: 'Frameworks / Plataformas',
+      items: ['.NET', 'Node.js', 'Vite', 'Next.js'],
+      usage: 'aplicaciones y servicios',
     },
     {
-      layer: 'Sistemas',
-      items: ['Linux', 'Bash', 'sysctl', 'Auditd', 'Docker', 'GitHub Actions'],
-      usage: 'hardening, CI, despliegue',
+      layer: 'Web',
+      items: ['HTML5', 'CSS3', 'JavaScript'],
+      usage: 'interfaces y maquetación',
     },
     {
-      layer: 'Frontend',
-      items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-      usage: 'este portafolio',
+      layer: 'Bases de datos',
+      items: ['SQL Server', 'T-SQL', 'SQLite FTS5'],
+      usage: 'consultas, procedimientos, integridad',
+    },
+    {
+      layer: 'Sistemas / Herramientas',
+      items: ['Linux', 'Bash', 'Git', 'GitHub Actions'],
+      usage: 'hardening, automatización, CI/CD',
     },
   ],
   en: [
     {
-      layer: 'Backend',
-      items: ['C# / .NET', 'Python / FastAPI', 'TypeScript / Node', 'Java'],
-      usage: 'APIs, services, scripts',
+      layer: 'Languages',
+      items: ['C#', 'Python', 'Java', 'JavaScript'],
+      usage: 'logic, services, scripts',
     },
     {
-      layer: 'Data',
-      items: ['SQL Server', 'T-SQL', 'SQLite FTS5', 'Indexes / ACID'],
-      usage: 'queries, indexes, transactions',
+      layer: 'Frameworks / Platforms',
+      items: ['.NET', 'Node.js', 'Vite', 'Next.js'],
+      usage: 'applications and services',
     },
     {
-      layer: 'Systems',
-      items: ['Linux', 'Bash', 'sysctl', 'Auditd', 'Docker', 'GitHub Actions'],
-      usage: 'hardening, CI, deployment',
+      layer: 'Web',
+      items: ['HTML5', 'CSS3', 'JavaScript'],
+      usage: 'interfaces and layout',
     },
     {
-      layer: 'Frontend',
-      items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-      usage: 'this portfolio',
+      layer: 'Databases',
+      items: ['SQL Server', 'T-SQL', 'SQLite FTS5'],
+      usage: 'queries, procedures, integrity',
+    },
+    {
+      layer: 'Systems / Tools',
+      items: ['Linux', 'Bash', 'Git', 'GitHub Actions'],
+      usage: 'hardening, automation, CI/CD',
     },
   ],
 };
 
 export default function AboutPage() {
-  const { lang, t } = useSite();
+  const { lang } = useSite();
   const principles = PRINCIPLES[lang];
   const timeline = TIMELINE[lang];
   const focus = FOCUS[lang];
@@ -167,7 +177,7 @@ export default function AboutPage() {
 
   return (
     <PageTransition>
-      <main className="mx-auto max-w-[1120px] px-6 pb-10 pt-10 sm:px-8 sm:pt-12">
+      <main className="mx-auto max-w-[1120px] px-6 pb-16 pt-10 sm:px-8 sm:pt-12">
         <header className="grid grid-cols-1 gap-9 border-b-2 border-ink/20 pb-10 lg:grid-cols-[1fr_300px] lg:items-start">
           <div>
             <p className="mb-3 inline-block -skew-x-[10deg] bg-black px-3.5 py-1 font-mono text-[11px] font-semibold tracking-wide text-white">
@@ -182,31 +192,40 @@ export default function AboutPage() {
 
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--mut)] sm:text-lg">
               {lang === 'es'
-                ? 'Soy Luka Torres, estudio Ingeniería en Sistemas Computacionales en el ITT. He trabajado en un backend clínico, en scripts de hardening para Linux y en un agente local. Aprendo leyendo código, rompiendo entornos de prueba y midiendo lo que cambia.'
-                : 'I am Luka Torres, a Computer Systems Engineering student at ITT. I have worked on a clinical backend, Linux hardening scripts, and a local agent. I learn by reading code, breaking test environments, and measuring what changes.'}
+                ? 'Tengo 21 años y estudio Ingeniería en Sistemas Computacionales en el Instituto Tecnológico de Tijuana (ITT), donde ingresé en agosto de 2023 y actualmente me encuentro cursando. He trabajado en desarrollo de backend, bases de datos con SQL Server, hardening en Linux y agentes locales con IA. Aprendo leyendo código, diseñando arquitecturas sólidas y midiendo lo que cambia.'
+                : 'I am 21 years old and studying Computer Systems Engineering at the Instituto Tecnológico de Tijuana (ITT), where I started in August 2023 and am currently enrolled. I have worked on backend development, SQL Server databases, Linux hardening, and local AI agents. I learn by reading code, designing solid architectures, and measuring what changes.'}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/proyectos" className="btn-manga hot font-display text-sm">
                 {lang === 'es' ? 'Ver proyectos →' : 'View projects →'}
               </Link>
-              <Link href="/contacto" className="btn-manga font-display text-sm">
-                {lang === 'es' ? 'Escribirme' : 'Write to me'}
-              </Link>
+              <a
+                href="https://github.com/Lexxiscake"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-manga font-display text-sm"
+              >
+                GitHub ↗
+              </a>
             </div>
 
             <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 border-t border-ink/15 pt-4 font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--mut)]">
               <span>
-                <strong className="text-[var(--ink)]">{lang === 'es' ? 'base:' : 'based in:'}</strong>{' '}
-                Tijuana, MX · UTC-7
+                <strong className="text-[var(--ink)]">{lang === 'es' ? 'edad:' : 'age:'}</strong>{' '}
+                {lang === 'es' ? '21 años' : '21 years old'}
+              </span>
+              <span>
+                <strong className="text-[var(--ink)]">{lang === 'es' ? 'ingreso:' : 'started:'}</strong>{' '}
+                {lang === 'es' ? 'Agosto 2023 (cursando)' : 'August 2023 (enrolled)'}
               </span>
               <span>
                 <strong className="text-[var(--ink)]">{lang === 'es' ? 'estudio:' : 'studying:'}</strong>{' '}
                 {lang === 'es' ? 'Ing. en Sistemas · ITT' : 'Computer Systems Eng. · ITT'}
               </span>
               <span>
-                <strong className="text-[var(--ink)]">{lang === 'es' ? 'semestre:' : 'semester:'}</strong>{' '}
-                {lang === 'es' ? '7.º' : '7th'}
+                <strong className="text-[var(--ink)]">{lang === 'es' ? 'base:' : 'based in:'}</strong>{' '}
+                Tijuana, MX · UTC-7
               </span>
             </div>
           </div>
@@ -219,7 +238,7 @@ export default function AboutPage() {
             </div>
             <div className="mt-5 border-2 border-[color:var(--line)] bg-[var(--pn)] p-4 font-mono text-[10px]">
               <p className="mb-2 border-b border-ink/15 pb-2 font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
-                {lang === 'es' ? 'ahora' : 'now'}
+                {lang === 'es' ? 'áreas de interés' : 'areas of interest'}
               </p>
               <ul className="m-0 list-none space-y-1.5 p-0 text-[var(--mut)]">
                 {focus.map((item) => (
@@ -268,10 +287,10 @@ export default function AboutPage() {
           <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--acc)]">
-                {lang === 'es' ? '/ herramientas' : '/ tools'}
+                {lang === 'es' ? '/ tecnologías' : '/ technologies'}
               </p>
               <h2 className="font-display text-[clamp(28px,4vw,42px)] italic uppercase leading-none">
-                {lang === 'es' ? 'Herramientas que uso' : 'Tools I use'}
+                {lang === 'es' ? 'Tecnologías y herramientas' : 'Technologies & tools'}
               </h2>
             </div>
             <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--mut)]">
@@ -283,7 +302,7 @@ export default function AboutPage() {
             {stack.map((group, index) => (
               <div
                 key={group.layer}
-                className={`grid grid-cols-1 gap-3 px-4 py-4 md:grid-cols-[130px_1fr_220px] md:items-center ${
+                className={`grid grid-cols-1 gap-3 px-4 py-4 md:grid-cols-[180px_1fr_200px] md:items-center ${
                   index % 2 === 0 ? 'bg-[var(--pn)]' : 'bg-[var(--bg)]'
                 }`}
               >
@@ -319,9 +338,9 @@ export default function AboutPage() {
 
             <ol className="mt-6 list-none space-y-0 p-0">
               {timeline.map((item, index) => (
-                <li key={item.year} className="relative grid grid-cols-[72px_1fr] gap-4 pb-7">
+                <li key={item.title} className="relative grid grid-cols-[100px_1fr] gap-4 pb-7">
                   <div className="relative">
-                    <span className="font-display text-2xl italic text-[var(--acc)]">{item.year}</span>
+                    <span className="font-display text-xl italic text-[var(--acc)]">{item.year}</span>
                     {index < timeline.length - 1 ? (
                       <span className="absolute left-1 top-8 h-full w-px bg-ink/20" aria-hidden="true" />
                     ) : null}
@@ -354,10 +373,6 @@ export default function AboutPage() {
                   <dt className="text-[var(--mut)]">{lang === 'es' ? 'Inglés' : 'English'}</dt>
                   <dd className="m-0 text-right font-semibold">B2</dd>
                 </div>
-                <div className="flex justify-between gap-3">
-                  <dt className="text-[var(--mut)]">{lang === 'es' ? 'Japonés' : 'Japanese'}</dt>
-                  <dd className="m-0 text-right font-semibold">N5</dd>
-                </div>
               </dl>
             </div>
 
@@ -370,19 +385,28 @@ export default function AboutPage() {
               </p>
               <p className="mt-1 font-mono text-[10px] leading-relaxed text-[var(--mut)]">
                 {lang === 'es'
-                  ? 'Instituto Tecnológico de Tijuana · 7.º semestre'
-                  : 'Instituto Tecnológico de Tijuana · 7th semester'}
+                  ? 'Instituto Tecnológico de Tijuana · Ingreso agosto 2023 (actualmente cursando)'
+                  : 'Instituto Tecnológico de Tijuana · Started August 2023 (currently enrolled)'}
               </p>
             </div>
 
             <div className="border-4 border-[var(--acc)] bg-black p-5 text-white">
               <p className="font-display text-xl italic uppercase leading-tight">
-                {lang === 'es' ? '¿Hablamos?' : 'Want to talk?'}
+                GitHub
               </p>
-              <p className="mt-2 text-sm text-neutral-300">{t.cp}</p>
-              <Link href="/contacto" className="btn-manga hot mt-4 w-full justify-center font-display text-sm">
-                {lang === 'es' ? 'Escribirme →' : 'Write to me →'}
-              </Link>
+              <p className="mt-2 text-sm text-neutral-300">
+                {lang === 'es'
+                  ? 'Revisa el código fuente y mis proyectos en GitHub.'
+                  : 'Check out the source code and my projects on GitHub.'}
+              </p>
+              <a
+                href="https://github.com/Lexxiscake"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-manga hot mt-4 inline-flex w-full justify-center font-display text-sm"
+              >
+                GitHub ↗
+              </a>
             </div>
           </aside>
         </section>

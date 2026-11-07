@@ -13,8 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '', changeFrequency: 'monthly', priority: 1 },
     { path: '/proyectos', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/sobre-mi', changeFrequency: 'monthly', priority: 0.8 },
-    { path: '/otaku', changeFrequency: 'monthly', priority: 0.5 },
-    { path: '/contacto', changeFrequency: 'yearly', priority: 0.6 },
   ];
 
   return [

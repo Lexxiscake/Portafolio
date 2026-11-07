@@ -30,11 +30,11 @@ export const SKINS: Record<SkinId, Skin> = {
     id: 'persona',
     label: 'Persona',
     swatch: ['#e60012', '#0a0a0a'],
-    kanji: '技術者',
+    kanji: '技術',
     sfx: ['ドン!', 'ポン!', 'カッ!', 'ピカッ', 'バシッ'],
     ticker: {
-      es: 'SISTEMAS ✦ SQL ✦ LINUX ✦ AUTOMATIZACIÓN ✦ HERRAMIENTAS LOCALES ✦ ',
-      en: 'SYSTEMS ✦ SQL ✦ LINUX ✦ AUTOMATION ✦ LOCAL TOOLS ✦ ',
+      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
+      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
     },
     notFound: {
       es: 'No hay nada en esta dirección. Vuelve al inicio.',
@@ -45,15 +45,15 @@ export const SKINS: Record<SkinId, Skin> = {
     id: 'toga',
     label: 'Toga',
     swatch: ['#f2c230', '#d21f3c'],
-    kanji: '恋',
-    sfx: ['ふふっ', 'きゃは!', 'ドクン', 'ぞくっ', 'ニヤッ'],
+    kanji: '技術',
+    sfx: ['ポン!', 'カッ!', 'ピカッ', 'バシッ', 'ドン!'],
     ticker: {
-      es: 'KAWAII ✦ SISTEMAS ✦ SQL ✦ LINUX ✦ 好き ✦ ',
-      en: 'KAWAII ✦ SYSTEMS ✦ SQL ✦ LINUX ✦ 好き ✦ ',
+      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
+      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
     },
     notFound: {
-      es: 'Esta página se escapó. Búscala desde el inicio.',
-      en: 'This page ran away. Look for it from the home page.',
+      es: 'Esta página no existe. Vuelve al inicio.',
+      en: 'This page does not exist. Go back home.',
     },
   },
   yofukashi: {
@@ -63,12 +63,12 @@ export const SKINS: Record<SkinId, Skin> = {
     kanji: '夜',
     sfx: ['しん…', 'ふわっ', 'きらり', 'すぅ…', 'ぽつり'],
     ticker: {
-      es: 'INSOMNIO ✦ SISTEMAS ✦ SQL ✦ LINUX ✦ 夜更かし ✦ ',
-      en: 'INSOMNIA ✦ SYSTEMS ✦ SQL ✦ LINUX ✦ 夜更かし ✦ ',
+      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
+      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
     },
     notFound: {
-      es: 'Aquí no hay luz de luna ni página. Regresa al inicio.',
-      en: 'No moonlight and no page here. Head back home.',
+      es: 'Aquí no hay página. Regresa al inicio.',
+      en: 'No page here. Head back home.',
     },
   },
   nichijou: {
@@ -78,12 +78,12 @@ export const SKINS: Record<SkinId, Skin> = {
     kanji: '日常',
     sfx: ['ぽよーん', 'ガーン!', 'えっ?', 'ぷっ', 'ドーン!'],
     ticker: {
-      es: 'COTIDIANO ✦ SISTEMAS ✦ SQL ✦ LINUX ✦ 日常 ✦ ',
-      en: 'EVERYDAY ✦ SYSTEMS ✦ SQL ✦ LINUX ✦ 日常 ✦ ',
+      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
+      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
     },
     notFound: {
-      es: 'Esta página no existe, pero un ciervo gigante pasó por aquí. Vuelve al inicio.',
-      en: 'This page does not exist, but a giant deer walked through. Go back home.',
+      es: 'Esta página no existe. Vuelve al inicio.',
+      en: 'This page does not exist. Go back home.',
     },
   },
   killlakill: {
@@ -93,12 +93,12 @@ export const SKINS: Record<SkinId, Skin> = {
     kanji: '戦',
     sfx: ['ザンッ!', 'バッ!', 'ドォン!', 'ゴゴゴ', 'キッ!'],
     ticker: {
-      es: 'SISTEMAS ✦ SQL ✦ LINUX ✦ SIN MIEDO AL CÓDIGO ✦ 戦 ✦ ',
-      en: 'SYSTEMS ✦ SQL ✦ LINUX ✦ NO FEAR OF CODE ✦ 戦 ✦ ',
+      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
+      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
     },
     notFound: {
-      es: 'Corte limpio: esta página ya no está. Vuelve al inicio.',
-      en: 'Clean cut: this page is gone. Go back home.',
+      es: 'Esta página ya no está. Vuelve al inicio.',
+      en: 'This page is gone. Go back home.',
     },
   },
   dregxmoon: {
@@ -109,12 +109,12 @@ export const SKINS: Record<SkinId, Skin> = {
     kanji: '月',
     sfx: ['ピッ', 'ガガ', 'ビビッ', '0101', 'ERR'],
     ticker: {
-      es: 'DREGXMOON ✦ SISTEMAS ✦ SQL ✦ LINUX ✦ 月 ✦ ',
-      en: 'DREGXMOON ✦ SYSTEMS ✦ SQL ✦ LINUX ✦ 月 ✦ ',
+      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
+      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
     },
     notFound: {
-      es: 'Error 404 en la luna. Regresa al inicio.',
-      en: 'Error 404 on the moon. Return home.',
+      es: 'Error 404. Regresa al inicio.',
+      en: 'Error 404. Return home.',
     },
   },
 };
