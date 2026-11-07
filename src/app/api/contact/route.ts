@@ -2,7 +2,14 @@ import { NextResponse } from 'next/server';
 import { ContactController } from '@/server/controllers/contact.controller';
 import { clientKey, rateLimit } from '@/lib/rate-limit';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+
+export async function GET() {
+  return NextResponse.json({
+    status: 'ok',
+    message: 'Endpoint de contacto. En sitios estáticos como GitHub Pages, el envío se gestiona vía cliente de correo (mailto) o servicio externo.',
+  });
+}
 
 export async function POST(req: Request) {
   const limit = rateLimit(`contact:${clientKey(req)}`, 5, 10 * 60_000);

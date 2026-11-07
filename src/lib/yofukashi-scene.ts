@@ -6,14 +6,16 @@
  * positioned with the offsets they had in it.
  */
 
+import { withBasePath } from './site';
+
 export const SCENE_HEIGHT = 900;
 
 /** Size of the source illustration the layers were cut from. */
 export const SOURCE_WIDTH = 736;
 
 export const LAYER_ASSETS = {
-  left: { href: '/images/yofukashi/char-left.webp', x: 0, y: 215, w: 407, h: 585 },
-  right: { href: '/images/yofukashi/char-right.webp', x: 342, y: 106, w: 352, h: 432 },
+  left: { href: withBasePath('/images/yofukashi/char-left.webp'), x: 0, y: 215, w: 407, h: 585 },
+  right: { href: withBasePath('/images/yofukashi/char-right.webp'), x: 342, y: 106, w: 352, h: 432 },
 } as const;
 
 /** Sky colors sampled from the illustration, top to horizon. */

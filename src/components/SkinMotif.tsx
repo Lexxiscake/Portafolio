@@ -1,5 +1,6 @@
 import React from 'react';
 import type { SkinId } from '@/lib/skins';
+import { withBasePath } from '@/lib/site';
 
 interface SkinMotifProps {
   skin: SkinId;
@@ -22,7 +23,7 @@ export function SkinMotif({ skin, className, title }: SkinMotifProps) {
       aria-hidden={title ? undefined : true}
       focusable="false"
     >
-      <use href={`/deco/skins.svg#motif-${skin}`} />
+      <use href={`${withBasePath('/deco/skins.svg')}#motif-${skin}`} />
     </svg>
   );
 }

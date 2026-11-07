@@ -300,5 +300,7 @@ END;`,
   },
 ];
 
-export const AVATAR_IMAGE = '/images/avatar-128.png';
-export const HERO_IMAGE = '/images/hero-720.jpg';
+import { withBasePath } from './site';
+
+export const AVATAR_IMAGE = withBasePath('/images/avatar-128.png');
+export const HERO_IMAGE = withBasePath('/images/hero-720.jpg');

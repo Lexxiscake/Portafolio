@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSite } from '@/context/site-context';
 import { SkinMotif } from '@/components/SkinMotif';
+import { withBasePath } from '@/lib/site';
 import {
   LAYER_ASSETS,
   SCENE_HEIGHT,
@@ -908,7 +909,17 @@ export function TogaBackdrop() {
   };
 
   return (
-    <div className="toga-bg" aria-hidden="true">
+    <div
+      className="toga-bg"
+      aria-hidden="true"
+      style={
+        {
+          '--toga-mask-character': `url(${withBasePath('/deco/toga/character.svg')})`,
+          '--toga-mask-cat': `url(${withBasePath('/deco/toga/cat.svg')})`,
+          '--toga-mask-title': `url(${withBasePath('/deco/toga/title.svg')})`,
+        } as React.CSSProperties
+      }
+    >
       <div className="toga-bg__glow" />
       <div ref={bind('title')} className="toga-bg__title" />
       <div ref={bind('character')} className="toga-bg__figure">

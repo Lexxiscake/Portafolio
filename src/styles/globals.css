@@ -716,8 +716,8 @@ h3 {
 .toga-bg__character {
   position: absolute;
   inset: 0;
-  -webkit-mask-image: url('/deco/toga/character.svg');
-  mask-image: url('/deco/toga/character.svg');
+  -webkit-mask-image: var(--toga-mask-character, url('/deco/toga/character.svg'));
+  mask-image: var(--toga-mask-character, url('/deco/toga/character.svg'));
 }
 
 .toga-bg__aura {
@@ -737,8 +737,8 @@ h3 {
   z-index: 2;
   background-color: var(--ink);
   opacity: 0.18;
-  -webkit-mask-image: url('/deco/toga/cat.svg');
-  mask-image: url('/deco/toga/cat.svg');
+  -webkit-mask-image: var(--toga-mask-cat, url('/deco/toga/cat.svg'));
+  mask-image: var(--toga-mask-cat, url('/deco/toga/cat.svg'));
   filter: drop-shadow(0 0 9px rgba(210, 31, 60, 0.32));
 }
 
@@ -751,8 +751,8 @@ h3 {
   aspect-ratio: 440 / 240;
   background-color: var(--acc);
   opacity: 0.1;
-  -webkit-mask-image: url('/deco/toga/title.svg');
-  mask-image: url('/deco/toga/title.svg');
+  -webkit-mask-image: var(--toga-mask-title, url('/deco/toga/title.svg'));
+  mask-image: var(--toga-mask-title, url('/deco/toga/title.svg'));
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
