@@ -200,7 +200,7 @@ export default function AboutPage() {
             <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 border-t border-ink/15 pt-4 font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--mut)]">
               <span>
                 <strong className="text-[var(--ink)]">{lang === 'es' ? 'ingreso:' : 'started:'}</strong>{' '}
-                {lang === 'es' ? 'Agosto 2023 · 7mo semestre' : 'August 2023 · 7th semester'}
+                {lang === 'es' ? 'Agosto 2023 · cursando' : 'August 2023 · in progress'}
               </span>
               <span>
                 <strong className="text-[var(--ink)]">{lang === 'es' ? 'estudio:' : 'studying:'}</strong>{' '}
@@ -369,8 +369,8 @@ export default function AboutPage() {
               </p>
               <p className="mt-1 font-mono text-[10px] leading-relaxed text-[var(--mut)]">
                 {lang === 'es'
-                  ? 'Instituto Tecnológico de Tijuana · Ingreso agosto 2023 · 7mo semestre'
-                  : 'Instituto Tecnológico de Tijuana · Started August 2023 · 7th semester'}
+                  ? 'Instituto Tecnológico de Tijuana · Ingreso agosto 2023 · cursando'
+                  : 'Instituto Tecnológico de Tijuana · Started August 2023 · in progress'}
               </p>
             </div>
 
