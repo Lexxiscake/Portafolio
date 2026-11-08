@@ -25,6 +25,7 @@ const TIMELINE: Record<'es' | 'en', TimelineItem[]> = {
       body: 'Auditoría y endurecimiento base para Ubuntu y Debian: SSH, UFW y fail2ban, con respaldo, simulación y reversión.',
     },
     {
+      year: 'Noviembre 2025',
       title: 'Horarios Universitarios',
       body: 'Carga de materias sin conflictos con Backtracking sobre SQL Server.',
     },
@@ -41,6 +42,7 @@ const TIMELINE: Record<'es' | 'en', TimelineItem[]> = {
       body: 'Baseline audit and hardening for Ubuntu and Debian: SSH, UFW, and fail2ban, with backup, simulation, and rollback.',
     },
     {
+      year: 'November 2025',
       title: 'University Schedule Management System',
       body: 'Subject scheduling without conflicts using Backtracking on SQL Server.',
     },
