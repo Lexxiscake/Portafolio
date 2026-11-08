@@ -97,7 +97,7 @@ export const SKINS: Record<SkinId, Skin> = {
   dregxmoon: {
     id: 'dregxmoon',
     hidden: true,
-    label: 'Dregxmoon',
+    label: 'Terminal',
     swatch: ['#1be6ff', '#05090d'],
     sfx: ['ピッ', 'ガガ', 'ビビッ', '0101', 'ERR'],
     ticker: {

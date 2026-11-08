@@ -115,8 +115,8 @@ export const EasterEggs: React.FC = () => {
           className="fixed bottom-4 right-4 z-[70] max-w-[300px] border-2 border-white bg-[#0a0a0a] p-3 font-mono text-xs text-white shadow-[5px_5px_0_var(--acc)]"
         >
           {lang === 'es'
-            ? 'Skin secreta desbloqueada: Dregxmoon. Prueba la tecla ` para abrir una terminal.'
-            : 'Secret skin unlocked: Dregxmoon. Try the ` key to open a terminal.'}
+            ? 'Skin secreta desbloqueada: Terminal. Prueba la tecla ` para abrir una terminal.'
+            : 'Secret skin unlocked: Terminal. Try the ` key to open a terminal.'}
         </div>
       ) : null}
     </>

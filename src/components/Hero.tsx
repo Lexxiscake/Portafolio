@@ -4,18 +4,16 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { HERO_IMAGE } from '@/lib/constants';
 import { useSite } from '@/context/site-context';
-import { SKINS } from '@/lib/skins';
 import { SkinMotif } from '@/components/SkinMotif';
 import { YofukashiShin } from '@/components/YofukashiEffects';
 
 const HERO_LINKS = [
-  { href: '/proyectos', key: 'np' as const, index: '01', jp: '作品' },
-  { href: '/sobre-mi', key: 'na' as const, index: '02', jp: '経歴' },
+  { href: '/proyectos', key: 'np' as const, index: '01' },
+  { href: '/sobre-mi', key: 'na' as const, index: '02' },
 ];
 
 export const Hero: React.FC = () => {
   const { t, lang, skin } = useSite();
-  const activeSkin = SKINS[skin];
   const [bubbleText, setBubbleText] = useState('');
 
   useEffect(() => {
@@ -56,7 +54,7 @@ export const Hero: React.FC = () => {
             {t.role}
           </h2>
 
-          <p className="mt-5 max-w-[560px] border-l-[6px] border-white bg-black p-4 text-sm text-white md:text-base">
+          <p className="mt-5 max-w-[560px] whitespace-pre-line border-l-[6px] border-white bg-black p-4 text-sm text-white md:text-base">
             {t.hp}
           </p>
 
@@ -78,7 +76,7 @@ export const Hero: React.FC = () => {
                 >
                   <span className="font-display italic uppercase">{t[link.key]}</span>
                   <span className="flex items-center gap-2 font-mono text-[10px] not-italic tracking-[0.18em] text-black/50 group-hover:text-black/70">
-                    {link.index} <span className="font-kanji">{link.jp}</span>
+                    {link.index}
                   </span>
                 </Link>
               </li>
@@ -87,10 +85,6 @@ export const Hero: React.FC = () => {
         </div>
 
         <div className="relative">
-          <div className="sfx absolute -right-1.5 -top-8 z-10 select-none text-[58px]" aria-hidden="true">
-            {activeSkin.sfx[0]}
-          </div>
-
           <div
             data-hero-photo
             className="select-none filter drop-shadow-[10px_10px_0_#fff] drop-shadow-[18px_18px_0_#000]"
@@ -104,10 +98,10 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          <div className="absolute -left-3 top-4 hidden -rotate-2 border border-black bg-[#f7f4ed] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-black shadow-[4px_4px_0_#000] sm:block">
+          <div className="absolute -left-3 top-4 -rotate-2 border border-black bg-[#f7f4ed] px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-black shadow-[4px_4px_0_#000]">
             Lexxiscake
             <span className="mt-0.5 block text-[8px] text-black/55">
-              {lang === 'es' ? 'ITT · Desde ago 2023 (cursando)' : 'ITT · Enrolled (Aug 2023)'}
+              {lang === 'es' ? 'ITT · 7mo semestre' : 'ITT · 7th semester'}
             </span>
           </div>
 

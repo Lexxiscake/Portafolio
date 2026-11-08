@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useSite } from '@/context/site-context';
-import { PROJECTS_DATA } from '@/lib/constants';
+import { PROJECTS_DATA, localized } from '@/lib/constants';
 import { dripGeometry } from '@/lib/drip';
 import { SKIN_ORDER, SKINS, isSkinId } from '@/lib/skins';
 import { SkinMotif } from '@/components/SkinMotif';
@@ -740,7 +740,7 @@ function DregTerminal() {
     setLines((previous) =>
       previous.length
         ? previous
-        : [es ? 'dregxmoon terminal. Escribe help.' : 'dregxmoon terminal. Type help.']
+        : [es ? 'terminal. Escribe help.' : 'terminal. Type help.']
     );
     inputRef.current?.focus();
   }, [open, es]);
@@ -763,12 +763,14 @@ function DregTerminal() {
       case 'whoami':
         out.push(
           es
-            ? 'luka torres | estudiante de ing. en sistemas | tijuana, mx | alias: dregxmoon'
-            : 'luka torres | systems engineering student | tijuana, mx | alias: dregxmoon'
+            ? 'luka torres | estudiante de ing. en sistemas | tijuana, mx | alias: lexxiscake'
+            : 'luka torres | systems engineering student | tijuana, mx | alias: lexxiscake'
         );
         break;
       case 'projects':
-        PROJECTS_DATA.forEach((project) => out.push(`${project.id.padEnd(12)} ${project.title}`));
+        PROJECTS_DATA.forEach((project) =>
+          out.push(`${project.id.padEnd(12)} ${localized(project.title, es ? 'es' : 'en')}`)
+        );
         break;
       case 'skins':
         out.push(availableSkins.join('  '));
@@ -802,13 +804,13 @@ function DregTerminal() {
       }
       case 'neofetch':
         out.push(
-          'luka@dregxmoon',
+          'luka@lexxiscake',
           '----------------',
           'OS: Portfolio 2026',
           'Host: Tijuana, MX',
           'Shell: zsh',
-          'Stack: Next.js / React / TypeScript',
-          `Skin: ${skin}`,
+          'Stack: Next.js / Tailwind CSS',
+          `Skin: ${SKINS[skin].label}`,
           'Locale: es-MX / en'
         );
         break;

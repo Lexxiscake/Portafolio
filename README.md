@@ -111,14 +111,13 @@ npm run typecheck   # TypeScript check
 | Yofukashi no Uta | Call of the Night |
 | Nichijou | Nichijou |
 | Kill la Kill | Kill la Kill |
-| Dregxmoon | **Secret skin** |
+| Terminal | **Secret skin** (internal id `dregxmoon`) |
 
 - Skins live in `src/lib/skins.ts`; their CSS variables in `src/styles/globals.css`.
 - Each skin has an original vector motif in `public/deco/skins.svg`, rendered by `SkinMotif` in the hero, `/otaku`, the 404 page, and the footer.
-- Route changes play a skin-specific curtain from `PageTransition`: comic wipe for Persona, blood iris for Toga, night sky for Yofukashi, pastel bands for Nichijou, diagonal cut for Kill la Kill, and CRT split for Dregxmoon.
+- Route changes play a skin-specific curtain from `PageTransition`: comic wipe for Persona, blood iris for Toga, night sky for Yofukashi, pastel bands for Nichijou, diagonal cut for Kill la Kill, and CRT split for Terminal.
 - The picker is available in the navbar and mobile menu.
 - The **Konami code** unlocks the hidden skin.
-- `/otaku` documents the inspiration behind each one.
 
 ---
 
@@ -162,7 +161,7 @@ flowchart LR
 
 - **Shared shell** — `src/components/SiteShell.tsx` owns language, skin, and shared navigation state so pages keep the selected preferences.
 - **Design tokens** — RGB channel variables (`--ink-rgb`, `--acc-rgb`, …) allow Tailwind opacity modifiers such as `border-ink/20`, while each skin sets a fixed palette and border/shadow tokens (`--line`, `--wash`).
-- **Metadata** — canonical URLs, Open Graph, and Twitter cards are generated from `src/lib/site.ts`.
+- **Metadata** — canonical URLs, Open Graph, and Twitter cards are generated from `src/lib/site.ts`; project previews are static PNGs in `public/images/og/` so GitHub Pages serves them with the correct content type.
 
 </details>
 

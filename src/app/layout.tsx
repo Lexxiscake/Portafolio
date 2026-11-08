@@ -4,6 +4,10 @@ import { SiteShell } from '@/components/SiteShell';
 import { SITE_URL } from '@/lib/site';
 import { DEFAULT_SKIN, HIDDEN_SKIN_IDS, SKIN_IDS } from '@/lib/skins';
 
+// Static PNGs under public/images/og keep the correct image/png content type on GitHub Pages.
+const SHARE_IMAGE = `${SITE_URL}/images/og/home.png`;
+const SHARE_IMAGE_ALT = 'Luka Torres — Software y sistemas';
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -11,18 +15,7 @@ export const metadata: Metadata = {
     template: '%s · Luka Torres',
   },
   description:
-    'Portafolio de Luka Torres. Desarrollo de software, bases de datos y Linux, con proyectos explicados desde el problema hasta el código.',
-  keywords: [
-    'desarrollo de software',
-    'backend',
-    'frontend',
-    'bases de datos',
-    'SQL Server',
-    'Linux',
-    'hardening',
-    'Luka Torres',
-    'Tijuana',
-  ],
+    'Portafolio de Luka Torres. Desarrollo de software, bases de datos y Linux, con proyectos explicados desde el problema hasta las decisiones y los resultados.',
   authors: [{ name: 'Luka Torres', url: 'https://github.com/Lexxiscake' }],
   creator: 'Luka Torres',
   openGraph: {
@@ -30,14 +23,16 @@ export const metadata: Metadata = {
     locale: 'es_MX',
     title: 'Luka Torres — Software y sistemas',
     description:
-      'Proyectos de software, datos y Linux, con las decisiones y el código de cada caso.',
+      'Proyectos de software, datos y Linux, con las decisiones y los resultados de cada caso.',
     siteName: 'Luka Torres',
+    images: [{ url: SHARE_IMAGE, width: 1200, height: 630, alt: SHARE_IMAGE_ALT, type: 'image/png' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Luka Torres — Software y sistemas',
     description:
-      'Proyectos de software, datos y Linux, con las decisiones y el código de cada caso.',
+      'Proyectos de software, datos y Linux, con las decisiones y los resultados de cada caso.',
+    images: [{ url: SHARE_IMAGE, width: 1200, height: 630, alt: SHARE_IMAGE_ALT, type: 'image/png' }],
   },
   robots: {
     index: true,
