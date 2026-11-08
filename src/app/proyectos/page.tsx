@@ -12,15 +12,15 @@ type Category = 'all' | 'ai' | 'security' | 'systems';
 const CATEGORIES: Record<'es' | 'en', Array<{ id: Category; label: string; short: string }>> = {
   es: [
     { id: 'all', label: 'Todos', short: 'TODOS' },
-    { id: 'ai', label: 'IA local', short: 'IA' },
+    { id: 'ai', label: 'Agentes de IA', short: 'IA' },
     { id: 'security', label: 'Linux', short: 'LINUX' },
-    { id: 'systems', label: 'Datos', short: 'DATOS' },
+    { id: 'systems', label: 'Algoritmos y datos', short: 'DATOS' },
   ],
   en: [
     { id: 'all', label: 'All', short: 'ALL' },
-    { id: 'ai', label: 'Local AI', short: 'AI' },
+    { id: 'ai', label: 'AI agents', short: 'AI' },
     { id: 'security', label: 'Linux', short: 'LINUX' },
-    { id: 'systems', label: 'Data', short: 'DATA' },
+    { id: 'systems', label: 'Algorithms & data', short: 'DATA' },
   ],
 };
 
@@ -117,7 +117,7 @@ export default function ProjectsPage() {
                   type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="SQL, Linux, ACID…"
+                  placeholder="SQL, Linux, Backtracking…"
                   className="min-h-[38px] w-full border-0 bg-transparent px-2 font-mono text-xs text-[var(--ink)] outline-none placeholder:text-muted/60"
                   aria-label={lang === 'es' ? 'Buscar proyectos' : 'Search projects'}
                 />
@@ -157,8 +157,8 @@ export default function ProjectsPage() {
               <div className="mt-5 border-t border-ink/15 pt-4">
                 <p className="m-0 font-mono text-[9px] uppercase leading-relaxed tracking-[0.08em] text-[var(--mut)]">
                   {lang === 'es'
-                    ? 'Cada proyecto incluye diagrama, decisiones y fragmentos de código.'
-                    : 'Each project includes a diagram, decisions, and code snippets.'}
+                    ? 'Cada proyecto incluye su arquitectura, decisiones y resultados.'
+                    : 'Each project includes its architecture, decisions, and results.'}
                 </p>
               </div>
             </div>
@@ -206,8 +206,8 @@ export default function ProjectsPage() {
                 </p>
                 <p className="mt-2 text-sm text-[var(--mut)]">
                   {lang === 'es'
-                    ? 'No hay proyectos con ese filtro. Prueba con SQL, Linux o ACID.'
-                    : 'No projects match that filter. Try SQL, Linux, or ACID.'}
+                    ? 'No hay proyectos con ese filtro. Prueba con SQL, Linux o Backtracking.'
+                    : 'No projects match that filter. Try SQL, Linux, or Backtracking.'}
                 </p>
                 <button
                   type="button"

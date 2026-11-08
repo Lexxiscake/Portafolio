@@ -379,54 +379,113 @@ export const PROJECTS_DATA: ProjectDetail[] = [
     githubUrl: 'https://github.com/Lexxiscake/linux-hardener',
   },
   {
-    id: 'gestion-medica',
-    title: 'Gestión Clínica & Triaje',
-    subtitle: 'Backend para citas, expedientes y quirófanos',
+    id: 'horarios-universitarios',
+    title: {
+      es: 'Sistema de Gestión de Horarios Universitarios',
+      en: 'University Schedule Management System',
+    },
+    subtitle: {
+      es: 'Carga de materias sin conflictos con Backtracking y SQL Server',
+      en: 'Subject scheduling without conflicts using Backtracking and SQL Server',
+    },
     category: 'systems',
-    year: 'Noviembre 2025',
-    role: 'Backend · T-SQL · modelo de datos',
-    status: 'Caso de estudio',
-    tags: ['Python', 'SQL Server', 'T-SQL', 'ACID'],
+    tags: ['Python', 'PyQt5', 'SQL Server', 'Backtracking'],
     metrics: [
-      '0 deadlocks en reservas concurrentes con transacciones cortas',
-      'Consultas históricas 74% más rápidas con índices no agrupados',
-      'RBAC y auditoría de accesos a datos clínicos',
+      {
+        es: 'Genera un horario completo y válido con un solo clic',
+        en: 'Generates a complete, valid schedule with a single click',
+      },
+      {
+        es: 'Valida 4 restricciones: disponibilidad del maestro, cruces del grupo, aulas y reglas guardadas en SQL Server',
+        en: 'Validates 4 constraints: teacher availability, group conflicts, classrooms, and rules stored in SQL Server',
+      },
     ],
-    summary:
-      'Sistema para gestionar expedientes, consultas y reservas de quirófano. La lógica está en Python y la integridad y concurrencia se resuelven en SQL Server.',
-    problem:
-      'Dos recepcionistas podían reservar el mismo horario al mismo tiempo y las pantallas con historial tardaban en cargar. También hacía falta separar lo que podía ver cada rol.',
-    solution:
-      'Separé el acceso a datos en una capa DAO, usé procedimientos almacenados para las escrituras críticas y ajusté los índices a los filtros que realmente se usaban. Cada acceso a expedientes queda auditado.',
-    architecture: [
-      'Capa DAO con pool de conexiones y consultas parametrizadas.',
-      'Procedimientos almacenados T-SQL con transacciones cortas y manejo TRY/CATCH.',
-      'RBAC y auditoría de accesos a expedientes y notas clínicas.',
-    ],
+    cardResult: {
+      es: 'Horario completo y sin cruces con un solo clic, validando 4 restricciones',
+      en: 'Complete, conflict-free schedule with a single click, validating 4 constraints',
+    },
+    summary: {
+      es: 'Aplicación de escritorio para administrar materias, maestros y horarios de una universidad. Su módulo principal genera la carga de materias con Backtracking, asignando maestros y horarios sin cruces a partir de lo guardado en SQL Server.',
+      en: 'Desktop application to manage subjects, teachers, and schedules for a university. Its main module generates subject assignments with Backtracking, assigning teachers and time slots without conflicts based on what is stored in SQL Server.',
+    },
+    problem: {
+      es: 'Armar la carga de materias de una carrera implica cuadrar maestros, grupos, horarios y aulas sin que nada se cruce, y cualquier cambio obliga a revisar todo otra vez.',
+      en: "Building a degree program's subject load means balancing teachers, groups, schedules, and classrooms so that nothing conflicts, and any change forces you to review everything again.",
+    },
+    solution: {
+      es: 'Una aplicación de escritorio en PyQt5 conectada a SQL Server con pyodbc. Tiene catálogo de materias, maestros con disponibilidad por día y hora, y horarios por carrera y semestre. La carga inteligente toma una materia sin asignar, busca un maestro disponible y, si hay conflicto, retrocede y prueba otra combinación.',
+      en: 'A desktop application built with PyQt5 and connected to SQL Server through pyodbc. It has a subject catalog, teachers with availability by day and time, and schedules by degree and semester. Intelligent scheduling takes an unassigned subject, looks for an available teacher, and if there is a conflict, backtracks and tries another combination.',
+    },
     pipeline: [
-      { label: 'PyQt5 Client', detail: 'roles · flujo clínico' },
-      { label: 'DAO Layer', detail: 'pool · queries parametrizadas' },
-      { label: 'Stored Procedures', detail: 'T-SQL · transacciones cortas' },
-      { label: 'SQL Server', detail: 'ACID · índices · auditoría' },
+      {
+        label: { es: 'Interfaz PyQt5', en: 'PyQt5 interface' },
+        detail: { es: 'vistas .ui', en: '.ui views' },
+      },
+      {
+        label: { es: 'Lógica de interfaces', en: 'Interface logic' },
+        detail: { es: 'controladores', en: 'controllers' },
+      },
+      {
+        label: { es: 'Carga inteligente', en: 'Intelligent scheduling' },
+        detail: { es: 'Backtracking', en: 'Backtracking' },
+      },
+      {
+        label: { es: 'SQL Server', en: 'SQL Server' },
+        detail: { es: 'pyodbc · scripts en BD/', en: 'pyodbc · scripts in BD/' },
+      },
     ],
     tradeoffs: [
       {
-        decision: 'SQL Server relacional',
-        cost: 'Licencia y mayor complejidad operativa',
-        rationale: 'Los datos clínicos necesitan integridad referencial y transacciones claras.',
+        decision: { es: 'Backtracking', en: 'Backtracking' },
+        cost: {
+          es: 'En el peor caso el tiempo crece de forma exponencial con el número de materias y maestros',
+          en: 'In the worst case, time grows exponentially with the number of subjects and teachers',
+        },
+        rationale: {
+          es: 'Asigna materia por materia y retrocede ante un conflicto hasta cerrar un horario completo y válido',
+          en: 'It assigns subject by subject and backtracks on a conflict until it closes a complete, valid schedule',
+        },
       },
       {
-        decision: 'Stored procedures para escrituras críticas',
-        cost: 'Menos testeo unitario convencional',
-        rationale: 'El plan de ejecución queda estable y el control de concurrencia no depende del ORM.',
+        decision: {
+          es: 'Disponibilidad y restricciones guardadas en SQL Server',
+          en: 'Availability and constraints stored in SQL Server',
+        },
+        cost: {
+          es: 'Cada decisión depende de consultar la base',
+          en: 'Every decision depends on querying the database',
+        },
+        rationale: {
+          es: 'Los datos son la fuente de verdad y se editan desde la propia aplicación',
+          en: 'The data is the source of truth and is edited from the application itself',
+        },
       },
       {
-        decision: 'Transacciones cortas + reintentos',
-        cost: 'Mayor complejidad en la capa de aplicación',
-        rationale: 'Menos bloqueos, aunque la aplicación tiene que saber cuándo reintentar.',
+        decision: {
+          es: 'Vistas, lógica y base de datos en carpetas separadas',
+          en: 'Views, logic, and database in separate folders',
+        },
+        cost: { es: 'Más archivos', en: 'More files' },
+        rationale: {
+          es: 'Los .ui se editan sin tocar la lógica',
+          en: 'The .ui files are edited without touching the logic',
+        },
       },
     ],
-    githubUrl: 'https://github.com/Lexxiscake/gestion-medica',
+    architecture: [
+      {
+        es: 'Vistas en archivos .ui de PyQt5, separadas de los controladores.',
+        en: 'Views in PyQt5 .ui files, separated from the controllers.',
+      },
+      {
+        es: 'Scripts SQL de tablas y procedimientos en BD/.',
+        en: 'SQL scripts for tables and procedures in BD/.',
+      },
+      {
+        es: 'Conexión Python a SQL Server con pyodbc.',
+        en: 'Python connection to SQL Server with pyodbc.',
+      },
+    ],
   },
 ];
 
