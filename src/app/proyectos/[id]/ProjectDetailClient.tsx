@@ -40,6 +40,7 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
   const status = project.status ? localized(project.status, lang) : undefined;
   const year = project.year ? localized(project.year, lang) : undefined;
   const role = project.role ? localized(project.role, lang) : undefined;
+  const origin = localized(project.originDetail ?? project.origin, lang);
   const metricGrid =
     project.metrics.length === 2
       ? 'md:grid-cols-2'
@@ -122,6 +123,10 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
               <dd className="m-0 text-right font-semibold uppercase text-[var(--ink)]">
                 {DOMAIN_LABEL[lang][project.category]}
               </dd>
+              <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
+                {lang === 'es' ? 'origen' : 'origin'}
+              </dt>
+              <dd className="m-0 text-right font-semibold text-[var(--ink)]">{origin}</dd>
               {year ? (
                 <>
                   <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
