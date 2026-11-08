@@ -319,19 +319,22 @@ export default function AboutPage() {
               {timeline.map((item, index) => (
                 <li
                   key={item.title}
-                  className={`relative grid gap-4 pb-7 ${
-                    item.year ? 'grid-cols-[100px_1fr]' : 'grid-cols-1'
-                  }`}
+                  className="relative grid grid-cols-[84px_1fr] gap-4 pb-7 sm:grid-cols-[100px_1fr]"
                 >
-                  {item.year ? (
-                    <div className="relative">
-                      <span className="font-display text-xl italic text-[var(--acc)]">{item.year}</span>
-                      {index < timeline.length - 1 ? (
-                        <span className="absolute left-1 top-8 h-full w-px bg-ink/20" aria-hidden="true" />
-                      ) : null}
-                    </div>
-                  ) : null}
-                  <div className="border-l-2 border-[var(--acc)] pl-4">
+                  <span
+                    className={`absolute left-1 w-px bg-ink/20 ${
+                      item.year ? 'top-8' : 'top-0'
+                    } ${index < timeline.length - 1 ? 'bottom-0' : 'bottom-7'}`}
+                    aria-hidden="true"
+                  />
+                  <div className="relative">
+                    {item.year ? (
+                      <span className="font-display text-lg italic text-[var(--acc)] sm:text-xl">
+                        {item.year}
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className="min-w-0 border-l-2 border-[var(--acc)] pl-4">
                     <h3 className="font-display text-xl italic uppercase leading-none">{item.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{item.body}</p>
                   </div>
