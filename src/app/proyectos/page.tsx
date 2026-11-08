@@ -4,7 +4,7 @@ import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { ProjectCard } from '@/components/ProjectCard';
 import { useSite } from '@/context/site-context';
-import { PROJECTS_DATA } from '@/lib/constants';
+import { PROJECTS_DATA, localized } from '@/lib/constants';
 import { PageTransition } from '@/components/PageTransition';
 
 type Category = 'all' | 'ai' | 'security' | 'systems';
@@ -46,20 +46,20 @@ export default function ProjectsPage() {
     return PROJECTS_DATA.filter((project) => {
       const matchesCategory = category === 'all' || project.category === category;
       const haystack = [
-        project.title,
-        project.subtitle,
-        project.summary,
-        project.problem,
-        project.solution,
+        localized(project.title, lang),
+        localized(project.subtitle, lang),
+        localized(project.summary, lang),
+        localized(project.problem, lang),
+        localized(project.solution, lang),
         project.tags.join(' '),
-        project.metrics.join(' '),
+        project.metrics.map((metric) => localized(metric, lang)).join(' '),
       ]
         .join(' ')
         .toLowerCase();
 
       return matchesCategory && (!normalizedQuery || haystack.includes(normalizedQuery));
     });
-  }, [category, query]);
+  }, [category, query, lang]);
 
   const resultLabel =
     lang === 'es'

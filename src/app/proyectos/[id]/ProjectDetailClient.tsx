@@ -4,20 +4,20 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
 import { useSite } from '@/context/site-context';
-import { PROJECTS_DATA, ProjectDetail } from '@/lib/constants';
+import { PROJECTS_DATA, ProjectDetail, localized } from '@/lib/constants';
 import { CodeBlock } from '@/components/CodeBlock';
 import { PageTransition } from '@/components/PageTransition';
 
 const DOMAIN_LABEL: Record<'es' | 'en', Record<ProjectDetail['category'], string>> = {
   es: {
-    ai: 'IA local',
+    ai: 'Agentes de IA',
     security: 'Linux',
-    systems: 'Datos',
+    systems: 'Algoritmos y datos',
   },
   en: {
-    ai: 'Local AI',
+    ai: 'AI agents',
     security: 'Linux',
-    systems: 'Data',
+    systems: 'Algorithms & data',
   },
 };
 
@@ -35,6 +35,17 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
   const previousProject = PROJECTS_DATA[(projectIndex - 1 + PROJECTS_DATA.length) % PROJECTS_DATA.length];
   const nextProject = PROJECTS_DATA[(projectIndex + 1) % PROJECTS_DATA.length];
   const caseNumber = String(projectIndex + 1).padStart(2, '0');
+  const title = localized(project.title, lang);
+  const subtitle = localized(project.subtitle, lang);
+  const status = project.status ? localized(project.status, lang) : undefined;
+  const year = project.year ? localized(project.year, lang) : undefined;
+  const role = project.role ? localized(project.role, lang) : undefined;
+  const metricGrid =
+    project.metrics.length === 2
+      ? 'md:grid-cols-2'
+      : project.metrics.length >= 3
+        ? 'md:grid-cols-3'
+        : 'md:grid-cols-1';
 
   return (
     <PageTransition>
@@ -54,20 +65,18 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
               <span className="bg-black px-2.5 py-1 font-bold text-white">
                 {lang === 'es' ? 'proyecto' : 'project'} {caseNumber}
               </span>
-              <span className="bg-[var(--acc)] px-2.5 py-1 font-bold text-black">
-                {lang === 'es'
-                  ? project.status
-                  : project.status === 'Activo'
-                    ? 'Active'
-                    : 'Case study'}
-              </span>
-              <span className="border border-ink/25 px-2.5 py-1 text-[var(--mut)]">{project.year}</span>
+              {status ? (
+                <span className="bg-[var(--acc)] px-2.5 py-1 font-bold text-black">{status}</span>
+              ) : null}
+              {year ? (
+                <span className="border border-ink/25 px-2.5 py-1 text-[var(--mut)]">{year}</span>
+              ) : null}
             </div>
 
             <h1 className="font-display text-[clamp(42px,8vw,78px)] italic uppercase leading-[0.9]">
-              {project.title}
+              {title}
             </h1>
-            <p className="mt-4 max-w-2xl text-base text-[var(--mut)] sm:text-lg">{project.subtitle}</p>
+            <p className="mt-4 max-w-2xl text-base text-[var(--mut)] sm:text-lg">{subtitle}</p>
 
             <div className="mt-6 flex flex-wrap gap-2">
               {project.tags.map((tag) => (
@@ -80,16 +89,18 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
               ))}
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-manga hot font-display text-sm"
-              >
-                {t.repo} ↗
-              </a>
-            </div>
+            {project.githubUrl ? (
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-manga hot font-display text-sm"
+                >
+                  {t.repo} ↗
+                </a>
+              </div>
+            ) : null}
           </div>
 
           <aside className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-4 shadow-[5px_5px_0_var(--acc)]">
@@ -97,30 +108,36 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
               {lang === 'es' ? 'ficha' : 'overview'}
             </p>
             <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 font-mono text-[10px]">
-              <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
-                {lang === 'es' ? 'rol' : 'role'}
-              </dt>
-              <dd className="m-0 text-right font-semibold text-[var(--ink)]">{project.role}</dd>
+              {role ? (
+                <>
+                  <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
+                    {lang === 'es' ? 'rol' : 'role'}
+                  </dt>
+                  <dd className="m-0 text-right font-semibold text-[var(--ink)]">{role}</dd>
+                </>
+              ) : null}
               <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
                 {lang === 'es' ? 'área' : 'area'}
               </dt>
               <dd className="m-0 text-right font-semibold uppercase text-[var(--ink)]">
                 {DOMAIN_LABEL[lang][project.category]}
               </dd>
-              <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
-                {lang === 'es' ? 'año' : 'year'}
-              </dt>
-              <dd className="m-0 text-right font-semibold text-[var(--ink)]">{project.year}</dd>
-              <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
-                {lang === 'es' ? 'estado' : 'status'}
-              </dt>
-              <dd className="m-0 text-right font-semibold text-[var(--ink)]">
-                {lang === 'es'
-                  ? project.status
-                  : project.status === 'Activo'
-                    ? 'Active'
-                    : 'Case study'}
-              </dd>
+              {year ? (
+                <>
+                  <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
+                    {lang === 'es' ? 'año' : 'year'}
+                  </dt>
+                  <dd className="m-0 text-right font-semibold text-[var(--ink)]">{year}</dd>
+                </>
+              ) : null}
+              {status ? (
+                <>
+                  <dt className="uppercase tracking-[0.1em] text-[var(--mut)]">
+                    {lang === 'es' ? 'estado' : 'status'}
+                  </dt>
+                  <dd className="m-0 text-right font-semibold text-[var(--ink)]">{status}</dd>
+                </>
+              ) : null}
             </dl>
             <div className="mt-4 border-t border-ink/15 pt-3">
               <p className="m-0 font-mono text-[9px] uppercase leading-relaxed tracking-[0.08em] text-[var(--mut)]">
@@ -132,44 +149,60 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
           </aside>
         </header>
 
-        <section className="mt-8">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <h2 className="font-display text-2xl italic uppercase">
-              {lang === 'es' ? 'Resultados' : 'Results'}
-            </h2>
-            <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--mut)]">
-              {project.metrics.length} {lang === 'es' ? 'puntos' : 'points'}
-            </span>
-          </div>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-            {project.metrics.map((metric, index) => (
-              <div
-                key={metric}
-                className="border-l-4 border-[var(--acc)] bg-[var(--pn)] p-4 shadow-[4px_4px_0_var(--ink)]"
-              >
-                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <p className="mt-1 text-sm font-medium leading-relaxed">{metric}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {project.metrics.length > 0 ? (
+          <section className="mt-8">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h2 className="font-display text-2xl italic uppercase">
+                {lang === 'es' ? 'Resultados' : 'Results'}
+              </h2>
+              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--mut)]">
+                {project.metrics.length} {lang === 'es' ? 'puntos' : 'points'}
+              </span>
+            </div>
+            <div className={`grid grid-cols-1 gap-3 ${metricGrid}`}>
+              {project.metrics.map((metric, index) => (
+                <div
+                  key={localized(metric, lang)}
+                  className="border-l-4 border-[var(--acc)] bg-[var(--pn)] p-4 shadow-[4px_4px_0_var(--ink)]"
+                >
+                  <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <p className="mt-1 text-sm font-medium leading-relaxed">{localized(metric, lang)}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
           <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--line)]">
             <h2 className="font-display text-xl italic uppercase text-[var(--acc)]">
               {lang === 'es' ? 'El problema' : 'The problem'}
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{project.problem}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{localized(project.problem, lang)}</p>
           </div>
           <div className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--acc)]">
             <h2 className="font-display text-xl italic uppercase text-emerald-500">
               {lang === 'es' ? 'Lo que hice' : 'What I did'}
             </h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{project.solution}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{localized(project.solution, lang)}</p>
           </div>
         </section>
+
+        {project.evolution ? (
+          <section className="mt-10 border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 shadow-[6px_6px_0_var(--line)]">
+            <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--acc)]">
+              {lang === 'es' ? '/ evolución' : '/ evolution'}
+            </p>
+            <h2 className="font-display text-2xl italic uppercase">
+              {lang === 'es' ? 'Cómo evolucionó' : 'How it evolved'}
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">
+              {localized(project.evolution, lang)}
+            </p>
+          </section>
+        ) : null}
 
         <section className="mt-10">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
@@ -193,17 +226,17 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
             />
             {project.pipeline.map((stage, index) => (
               <div
-                key={stage.label}
+                key={localized(stage.label, lang)}
                 className="relative border-2 border-[color:var(--line)] bg-[var(--pn)] p-4"
               >
                 <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
                   {lang === 'es' ? 'etapa' : 'stage'} {String(index + 1).padStart(2, '0')}
                 </span>
                 <h3 className="mt-2 font-display text-lg italic uppercase leading-none">
-                  {stage.label}
+                  {localized(stage.label, lang)}
                 </h3>
                 <p className="mt-1.5 font-mono text-[10px] leading-relaxed text-[var(--mut)]">
-                  {stage.detail}
+                  {localized(stage.detail, lang)}
                 </p>
                 {index < project.pipeline.length - 1 ? (
                   <span
@@ -241,7 +274,7 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
             </div>
             {project.tradeoffs.map((tradeoff, index) => (
               <div
-                key={tradeoff.decision}
+                key={localized(tradeoff.decision, lang)}
                 className={`grid grid-cols-1 gap-2 px-4 py-4 md:grid-cols-[1fr_1fr_1.2fr] md:gap-5 ${
                   index % 2 === 0 ? 'bg-[var(--pn)]' : 'bg-[var(--bg)]'
                 }`}
@@ -250,19 +283,19 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
                   <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--acc)] md:hidden">
                     {lang === 'es' ? 'decisión' : 'decision'}
                   </span>
-                  <p className="m-0 text-sm font-bold">{tradeoff.decision}</p>
+                  <p className="m-0 text-sm font-bold">{localized(tradeoff.decision, lang)}</p>
                 </div>
                 <div>
                   <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--acc)] md:hidden">
                     {lang === 'es' ? 'coste' : 'cost'}
                   </span>
-                  <p className="m-0 text-sm text-[var(--mut)]">{tradeoff.cost}</p>
+                  <p className="m-0 text-sm text-[var(--mut)]">{localized(tradeoff.cost, lang)}</p>
                 </div>
                 <div>
                   <span className="mb-1 block font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--acc)] md:hidden">
                     {lang === 'es' ? 'por qué' : 'why'}
                   </span>
-                  <p className="m-0 text-sm text-[var(--mut)]">{tradeoff.rationale}</p>
+                  <p className="m-0 text-sm text-[var(--mut)]">{localized(tradeoff.rationale, lang)}</p>
                 </div>
               </div>
             ))}
@@ -283,39 +316,43 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
           <ul className="grid list-none grid-cols-1 gap-3 p-0 md:grid-cols-3">
             {project.architecture.map((item, index) => (
               <li
-                key={item}
+                key={localized(item, lang)}
                 className="flex items-start gap-3 border border-ink/20 bg-[var(--pn)] p-3.5"
               >
                 <span className="font-mono text-[10px] font-bold text-[var(--acc)]">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="font-mono text-[11px] leading-relaxed text-[var(--mut)]">{item}</span>
+                <span className="font-mono text-[11px] leading-relaxed text-[var(--mut)]">
+                  {localized(item, lang)}
+                </span>
               </li>
             ))}
           </ul>
         </section>
 
-        <section className="mt-10">
-          <div className="mb-3 flex items-end justify-between gap-3">
-            <div>
-              <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--acc)]">
-                {lang === 'es' ? '/ código' : '/ code'}
-              </p>
-              <h2 className="font-display text-2xl italic uppercase">
-                {lang === 'es' ? 'Código del proyecto' : 'Project code'}
-              </h2>
+        {project.code ? (
+          <section className="mt-10">
+            <div className="mb-3 flex items-end justify-between gap-3">
+              <div>
+                <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--acc)]">
+                  {lang === 'es' ? '/ código' : '/ code'}
+                </p>
+                <h2 className="font-display text-2xl italic uppercase">
+                  {lang === 'es' ? 'Código del proyecto' : 'Project code'}
+                </h2>
+              </div>
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--mut)]">
+                {project.code.language}
+              </span>
             </div>
-            <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--mut)]">
-              {project.codeLanguage}
-            </span>
-          </div>
-          <CodeBlock
-            code={project.codeSnippet}
-            language={project.codeLanguage}
-            title={`${project.id}.${project.codeLanguage}`}
-            lang={lang}
-          />
-        </section>
+            <CodeBlock
+              code={project.code.snippet}
+              language={project.code.language}
+              title={`${project.id}.${project.code.language}`}
+              lang={lang}
+            />
+          </section>
+        ) : null}
 
         <nav className="mt-12 grid grid-cols-1 gap-3 border-t-2 border-ink/20 pt-6 sm:grid-cols-2">
           <Link
@@ -326,7 +363,7 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
               ← {lang === 'es' ? 'proyecto anterior' : 'previous project'}
             </span>
             <span className="mt-1 block font-display text-xl italic uppercase group-hover:text-[var(--acc)]">
-              {previousProject.title}
+              {localized(previousProject.title, lang)}
             </span>
           </Link>
           <Link
@@ -337,7 +374,7 @@ export function ProjectDetailClient({ id: propId }: { id?: string }) {
               {lang === 'es' ? 'siguiente proyecto' : 'next project'} →
             </span>
             <span className="mt-1 block font-display text-xl italic uppercase group-hover:text-[var(--acc)]">
-              {nextProject.title}
+              {localized(nextProject.title, lang)}
             </span>
           </Link>
         </nav>

@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import { Language, ProjectDetail } from '@/lib/constants';
+import { Language, ProjectDetail, localized } from '@/lib/constants';
 
 interface ProjectCardProps {
   project: ProjectDetail;
@@ -15,20 +15,15 @@ interface ProjectCardProps {
 
 const CATEGORY_LABEL: Record<Language, Record<ProjectDetail['category'], string>> = {
   es: {
-    ai: 'IA LOCAL',
+    ai: 'AGENTES DE IA',
     security: 'LINUX',
-    systems: 'DATOS',
+    systems: 'ALGORITMOS Y DATOS',
   },
   en: {
-    ai: 'LOCAL AI',
+    ai: 'AI AGENTS',
     security: 'LINUX',
-    systems: 'DATA',
+    systems: 'ALGORITHMS & DATA',
   },
-};
-
-const STATUS_LABEL: Record<string, string> = {
-  Activo: 'Active',
-  'Caso de estudio': 'Case study',
 };
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -53,6 +48,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   const caseNumber = String(index + 1).padStart(2, '0');
+  const cardResult = project.cardResult ?? project.metrics[0];
 
   return (
     <div className="filter drop-shadow-[7px_7px_0_var(--acc)] transition-all hover:-rotate-1 hover:-translate-x-1 hover:-translate-y-1 hover:drop-shadow-[11px_11px_0_var(--acc)]">
@@ -80,26 +76,30 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </span>
           </div>
 
-          <div className="relative text-right font-mono text-[9px] uppercase tracking-[0.12em] text-black/70">
-            <span className="block">
-              {lang === 'es' ? project.status : STATUS_LABEL[project.status] ?? project.status}
-            </span>
-            <span className="mt-1 block font-bold text-black">{project.year}</span>
-          </div>
+          {(project.status || project.year) && (
+            <div className="relative text-right font-mono text-[9px] uppercase tracking-[0.12em] text-black/70">
+              {project.status ? <span className="block">{localized(project.status, lang)}</span> : null}
+              {project.year ? (
+                <span className={`block font-bold text-black ${project.status ? 'mt-1' : ''}`}>
+                  {localized(project.year, lang)}
+                </span>
+              ) : null}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-1 flex-col gap-3 p-5 pb-6">
           <h3 className="font-display text-2xl italic uppercase leading-none md:text-3xl">
-            {project.title}
+            {localized(project.title, lang)}
           </h3>
-          <p className="text-sm leading-relaxed text-[var(--mut)]">{project.summary}</p>
+          <p className="text-sm leading-relaxed text-[var(--mut)]">{localized(project.summary, lang)}</p>
 
           <div className="border-l-2 border-[var(--acc)] bg-[var(--wash)] px-3 py-2">
             <span className="block font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-[var(--acc)]">
               {lang === 'es' ? 'resultado' : 'result'}
             </span>
             <span className="mt-0.5 block text-[11px] font-medium leading-snug text-[var(--ink)]">
-              {project.metrics[0]}
+              {cardResult ? localized(cardResult, lang) : null}
             </span>
           </div>
 
@@ -121,15 +121,17 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             >
               {detailLabel}
             </Link>
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-manga font-display justify-center whitespace-nowrap text-xs sm:text-sm"
-              aria-label={`${repoText}: ${project.title}`}
-            >
-              {repoText} ↗
-            </a>
+            {project.githubUrl ? (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-manga font-display justify-center whitespace-nowrap text-xs sm:text-sm"
+                aria-label={`${repoText}: ${localized(project.title, lang)}`}
+              >
+                {repoText} ↗
+              </a>
+            ) : null}
           </div>
         </div>
       </article>
