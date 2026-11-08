@@ -329,7 +329,7 @@ export default function AboutPage() {
                     } ${index < timeline.length - 1 ? 'bottom-0' : 'bottom-7'}`}
                     aria-hidden="true"
                   />
-                  <div className="relative">
+                  <div className="relative pl-4">
                     {item.year ? (
                       <span className="font-display text-lg italic text-[var(--acc)] sm:text-xl">
                         {item.year}
