@@ -247,49 +247,133 @@ export const PROJECTS_DATA: ProjectDetail[] = [
   {
     id: 'linux-hardener',
     title: 'Linux Hardener',
-    subtitle: 'Auditoría y hardening de Linux con checks idempotentes',
+    subtitle: {
+      es: 'Auditoría y endurecimiento base para servidores Ubuntu y Debian',
+      en: 'Baseline audit and hardening for Ubuntu and Debian servers',
+    },
     category: 'security',
-    year: 'Abril 2026',
-    role: 'Diseño de checks · CI/CD · documentación',
-    status: 'Activo',
-    tags: ['Linux', 'Bash', 'CIS Benchmark', 'GitHub Actions'],
+    year: { es: 'Abril 2026', en: 'April 2026' },
+    status: { es: 'Activo', en: 'Active' },
+    tags: ['Python', 'Typer', 'Pydantic', 'GitHub Actions'],
     metrics: [
-      '45+ controles CIS Level 1 & 2 automatizados',
-      'Matriz CI validada en Ubuntu, Fedora y Arch',
-      'Rollback explícito ante cambios incompatibles',
+      {
+        es: '15 checks en 4 módulos: SSH, firewall, fail2ban y sistema',
+        en: '15 checks across 4 modules: SSH, firewall, fail2ban, and system',
+      },
+      {
+        es: 'Si sshd -t falla, el sshd_config original se restaura solo',
+        en: 'If sshd -t fails, the original sshd_config is restored automatically',
+      },
+      {
+        es: '18 tests con pytest y CI en Python 3.11 y 3.12',
+        en: '18 tests with pytest and CI on Python 3.11 and 3.12',
+      },
     ],
-    summary:
-      'Scripts para revisar y endurecer servidores Linux: kernel, SSH, PAM, permisos SUID, firewall y módulos. Cada check se puede ejecutar solo para auditar o con --apply para cambiar el sistema, y deja evidencia en JSON o Markdown.',
-    problem:
-      'Aplicar un baseline CIS a mano lleva horas y es fácil romper SSH o dejar un servicio sin arrancar. Muchos scripts populares mezclan auditoría y cambios sin una ruta clara para volver atrás.',
-    solution:
-      'El motor detecta la distro y el kernel, ejecuta checks idempotentes y separa el reporte de la remediación. GitHub Actions prueba el perfil en contenedores de Ubuntu, Fedora y Arch antes de publicarlo.',
-    architecture: [
-      'Bootstrap con detección de gestor de paquetes, distro y versión de kernel.',
-      'Módulos separados para sysctl, SSH, PAM, filesystem y binarios SUID.',
-      'Reporte JSON/Markdown con severidad, evidencia y ruta de rollback.',
-    ],
+    cardResult: {
+      es: '15 checks en 4 módulos; si sshd -t falla, se restaura el sshd_config original',
+      en: '15 checks across 4 modules; if sshd -t fails, the original sshd_config is restored',
+    },
+    summary: {
+      es: 'CLI que audita y endurece un servidor Ubuntu o Debian recién creado: SSH, firewall UFW y fail2ban. Respalda cada archivo antes de tocarlo, valida SSH antes de recargarlo y permite revertir. Incluye modo simulación y reportes en JSON y Markdown.',
+      en: 'CLI that audits and hardens a freshly created Ubuntu or Debian server: SSH, UFW firewall, and fail2ban. It backs up every file before touching it, validates SSH before reloading it, and allows rollback. It includes a simulation mode and JSON and Markdown reports.',
+    },
+    problem: {
+      es: 'Un VPS recién creado suele traer SSH con acceso como root, el firewall apagado, sin fail2ban y con paquetes sin actualizar. Arreglarlo a mano es repetitivo, y el error más caro es quedarte fuera del servidor por un sshd_config roto o por un firewall que bloquea tu propio puerto.',
+      en: 'A freshly created VPS usually ships with SSH root access, the firewall off, no fail2ban, and unpatched packages. Fixing it by hand is repetitive, and the most expensive mistake is locking yourself out of the server because of a broken sshd_config or a firewall that blocks your own port.',
+    },
+    solution: {
+      es: 'Una CLI con los comandos audit, apply, check, rollback y report. audit solo lee y da una puntuación de 0 a 100. apply lee un config.yml y, antes de escribir cualquier archivo, guarda un respaldo con marca de tiempo. En SSH corre sshd -t después de modificar la configuración y, si falla, restaura el original y aborta. En UFW agrega siempre el puerto SSH antes de activar el firewall. Con --dry-run muestra cada comando sin ejecutarlo.',
+      en: 'A CLI with the audit, apply, check, rollback, and report commands. audit only reads and returns a score from 0 to 100. apply reads a config.yml and, before writing any file, saves a timestamped backup. For SSH it runs sshd -t after changing the configuration and, if it fails, restores the original and aborts. For UFW it always adds the SSH port before enabling the firewall. With --dry-run it shows every command without executing it.',
+    },
     pipeline: [
-      { label: 'Bootstrap', detail: 'distro · kernel · package manager' },
-      { label: 'Audit Engine', detail: 'checks idempotentes · severidad' },
-      { label: 'Report', detail: 'JSON · Markdown · rollback path' },
-      { label: 'CI Matrix', detail: 'Ubuntu · Fedora · Arch' },
+      {
+        label: { es: 'Auditar', en: 'Audit' },
+        detail: { es: 'checks de solo lectura · puntuación 0-100', en: 'read-only checks · score 0-100' },
+      },
+      {
+        label: { es: 'Simular', en: 'Simulate' },
+        detail: { es: '--dry-run, sin escribir nada', en: '--dry-run, writes nothing' },
+      },
+      {
+        label: { es: 'Aplicar', en: 'Apply' },
+        detail: { es: 'respaldo + validación con sshd -t', en: 'backup + validation with sshd -t' },
+      },
+      {
+        label: { es: 'Verificar y revertir', en: 'Verify and roll back' },
+        detail: { es: 'nuevo audit · rollback por componente', en: 'new audit · per-component rollback' },
+      },
     ],
     tradeoffs: [
       {
-        decision: 'Checks conservadores por defecto',
-        cost: 'No maximiza la puntuación CIS',
-        rationale: 'Prefiero no tocar SSH o servicios críticos hasta revisar el reporte.',
+        decision: { es: 'Python + Typer en vez de Bash puro', en: 'Python + Typer instead of pure Bash' },
+        cost: {
+          es: 'Necesita Python 3.11+ en el servidor',
+          en: 'Requires Python 3.11+ on the server',
+        },
+        rationale: {
+          es: 'Se puede probar con pytest, valida el YAML con Pydantic y da la misma salida en todas las distros',
+          en: 'It can be tested with pytest, validates YAML with Pydantic, and produces the same output on every distro',
+        },
       },
       {
-        decision: 'Bash + coreutils',
-        cost: 'Menos portabilidad que Python',
-        rationale: 'Cero runtime extra en servidores mínimos y scripts fáciles de leer.',
+        decision: {
+          es: 'Validar con sshd -t y restaurar el respaldo',
+          en: 'Validate with sshd -t and restore the backup',
+        },
+        cost: {
+          es: 'Más código y depende de que exista el binario',
+          en: 'More code, and it depends on the binary being present',
+        },
+        rationale: {
+          es: 'Un sshd_config roto es la forma más común de bloquearse en un servidor remoto',
+          en: 'A broken sshd_config is the most common way to lock yourself out of a remote server',
+        },
       },
       {
-        decision: 'Auditar sin mutar por defecto',
-        cost: 'Requiere una segunda ejecución para remediar',
-        rationale: 'Así una auditoría no puede tumbar un servicio por accidente.',
+        decision: {
+          es: 'audit y apply en módulos separados',
+          en: 'audit and apply in separate modules',
+        },
+        cost: {
+          es: 'Hay que pasar dos veces: auditar y luego corregir',
+          en: 'You have to run twice: audit, then fix',
+        },
+        rationale: {
+          es: 'Auditar es seguro sin config ni permisos de escritura, y se prueba sin simular archivos',
+          en: 'Auditing is safe without config or write permissions, and it can be tested without simulating files',
+        },
+      },
+      {
+        decision: {
+          es: 'Solo Ubuntu/Debian y solo UFW',
+          en: 'Ubuntu/Debian only and UFW only',
+        },
+        cost: {
+          es: 'No cubre Rocky, Alma ni otros firewalls',
+          en: 'It does not cover Rocky, Alma, or other firewalls',
+        },
+        rationale: {
+          es: 'Prefiero probar bien dos familias antes de prometer más',
+          en: 'I prefer to test two families well before promising more',
+        },
+      },
+    ],
+    architecture: [
+      {
+        es: 'utils/shell.run() es el único punto donde se ejecutan comandos; ahí viven el --dry-run y el log.',
+        en: 'utils/shell.run() is the only place where commands are executed; --dry-run and logging live there.',
+      },
+      {
+        es: 'Configuración validada con Pydantic v2 antes de ejecutar cualquier módulo.',
+        en: 'Configuration validated with Pydantic v2 before running any module.',
+      },
+      {
+        es: 'Reportes con puntuación: PASS = 1, WARN = 0.5, FAIL = 0.',
+        en: 'Reports with a score: PASS = 1, WARN = 0.5, FAIL = 0.',
+      },
+      {
+        es: 'Límites: Rocky/Alma, auditd, políticas de contraseñas y exportación a Ansible están planeados para v3; hoy no están.',
+        en: 'Limits: Rocky/Alma, auditd, password policies, and Ansible export are planned for v3; they are not there today.',
       },
     ],
     githubUrl: 'https://github.com/Lexxiscake/linux-hardener',
