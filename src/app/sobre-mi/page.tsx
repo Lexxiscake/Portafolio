@@ -6,92 +6,43 @@ import { useSite } from '@/context/site-context';
 import { HERO_IMAGE } from '@/lib/constants';
 import { PageTransition } from '@/components/PageTransition';
 
-const PRINCIPLES = {
-  es: [
-    {
-      title: 'Primero lo entiendo, luego lo cambio',
-      body: 'Reproduzco el fallo, leo el código y mido el antes y el después. Si no puedo explicar la causa, tampoco puedo arreglarla.',
-      signal: 'depurar',
-    },
-    {
-      title: 'Los datos mandan',
-      body: 'Modelo primero las relaciones y las restricciones. Después elijo índices y transacciones. La velocidad sin datos correctos no sirve.',
-      signal: 'datos',
-    },
-    {
-      title: 'Menos piezas',
-      body: 'Cada dependencia y cada permiso tienen un motivo. Si una pieza no resuelve nada, la quito.',
-      signal: 'sistemas',
-    },
-    {
-      title: 'Pruebo en el entorno real',
-      body: 'Los checks de hardening corren en Ubuntu, Fedora y Arch. El portafolio se prueba en escritorio y en móvil antes de publicarlo.',
-      signal: 'pruebas',
-    },
-  ],
-  en: [
-    {
-      title: 'Understand first, change later',
-      body: 'I reproduce the failure, read the code, and measure before and after. If I cannot explain the cause, I cannot fix it.',
-      signal: 'debug',
-    },
-    {
-      title: 'Data comes first',
-      body: 'I model relationships and constraints first. Then I choose indexes and transactions. Speed with wrong data is useless.',
-      signal: 'data',
-    },
-    {
-      title: 'Fewer parts',
-      body: 'Every dependency and permission needs a reason. If a part solves nothing, I remove it.',
-      signal: 'systems',
-    },
-    {
-      title: 'Test in the real environment',
-      body: 'The hardening checks run on Ubuntu, Fedora, and Arch. The portfolio is tested on desktop and mobile before it ships.',
-      signal: 'testing',
-    },
-  ],
-};
+interface TimelineItem {
+  year?: string;
+  title: string;
+  body: string;
+}
 
-const TIMELINE = {
+const TIMELINE: Record<'es' | 'en', TimelineItem[]> = {
   es: [
     {
       year: 'Julio 2026',
       title: 'Kaoru AI Agent',
-      body: 'Agente de escritorio con memoria SQLite FTS5, IPC seguro e inferencia local.',
-      tag: 'ia local',
+      body: 'Asistente de escritorio con memoria local, proactividad auditable y acciones con permisos. Beta.',
     },
     {
       year: 'Abril 2026',
       title: 'Linux Hardener',
-      body: 'Auditoría y hardening de servidores Linux con checks automatizados e idempotentes.',
-      tag: 'linux / seguridad',
+      body: 'Auditoría y endurecimiento base para Ubuntu y Debian: SSH, UFW y fail2ban, con respaldo, simulación y reversión.',
     },
     {
-      year: 'Noviembre 2025',
-      title: 'Gestión Clínica & Triaje',
-      body: 'Backend para citas y expedientes médicos: transacciones cortas, T-SQL y control de accesos.',
-      tag: 'datos / backend',
+      title: 'Horarios',
+      body: 'Carga de materias sin conflictos con Backtracking sobre SQL Server.',
     },
   ],
   en: [
     {
       year: 'July 2026',
       title: 'Kaoru AI Agent',
-      body: 'Desktop agent with SQLite FTS5 memory, secure IPC, and local inference.',
-      tag: 'local ai',
+      body: 'Desktop assistant with local memory, auditable proactivity, and permissioned actions. Beta.',
     },
     {
       year: 'April 2026',
       title: 'Linux Hardener',
-      body: 'Linux server audit and hardening with automated idempotent checks.',
-      tag: 'linux / security',
+      body: 'Baseline audit and hardening for Ubuntu and Debian: SSH, UFW, and fail2ban, with backup, simulation, and rollback.',
     },
     {
-      year: 'November 2025',
-      title: 'Clinical Management & Triage',
-      body: 'Backend for appointments and medical records: short transactions, T-SQL, and access control.',
-      tag: 'data / backend',
+      title: 'Horarios',
+      body: 'Subject scheduling without conflicts using Backtracking on SQL Server.',
     },
   ],
 };
@@ -99,15 +50,51 @@ const TIMELINE = {
 const FOCUS = {
   es: [
     'Bases de datos SQL Server',
-    'Auditorías Linux con CIS',
+    'Seguridad y hardening en Linux',
     'Desarrollo de software C# y .NET',
-    'Inteligencia Artificial y herramientas locales',
+    'Agentes de IA con control de permisos',
   ],
   en: [
     'SQL Server databases',
-    'Linux CIS auditing',
+    'Security and hardening on Linux',
     'C# and .NET software development',
-    'Artificial Intelligence and local tools',
+    'AI agents with permission control',
+  ],
+};
+
+interface DecisionBlock {
+  project: string;
+  body: string;
+}
+
+const DECISIONS: Record<'es' | 'en', DecisionBlock[]> = {
+  es: [
+    {
+      project: 'Linux Hardener',
+      body: 'Lo peor que le puede pasar a quien endurece un servidor remoto es quedarse fuera. Por eso apply guarda un respaldo antes de tocar cada archivo, valida SSH con sshd -t antes de recargarlo y, si falla, restaura el original. El puerto SSH siempre entra a las reglas de UFW antes de activar el firewall, y con --dry-run se ve cada comando antes de ejecutarlo.',
+    },
+    {
+      project: 'Kaoru',
+      body: 'En Kaoru separé quién decide de quién redacta. Qué mensaje proactivo se admite lo decide un núcleo determinista con reason codes que puedo rastrear; el modelo solo escribe el texto. Con las acciones pasa igual: los permisos allow/ask/deny se resuelven fuera del LLM, así que el modelo puede proponer pero no concederse acceso a nada. Después de editar archivos, la verificación (tipos, lint, tests y build) se ejecuta sola y su resultado siempre se muestra.',
+    },
+    {
+      project: 'Horarios',
+      body: 'En el sistema de horarios la dificultad era que nada se cruzara entre maestro, grupo y aula. La carga inteligente toma una materia sin asignar, busca un maestro disponible y, si hay conflicto, retrocede y prueba otra combinación hasta cerrar un horario completo.',
+    },
+  ],
+  en: [
+    {
+      project: 'Linux Hardener',
+      body: 'The worst thing that can happen to someone hardening a remote server is getting locked out. That is why apply saves a backup before touching each file, validates SSH with sshd -t before reloading it, and restores the original if it fails. The SSH port always goes into the UFW rules before the firewall is enabled, and --dry-run shows every command before it runs.',
+    },
+    {
+      project: 'Kaoru',
+      body: 'In Kaoru I separated who decides from who writes. Which proactive message is allowed is decided by a deterministic core with reason codes I can trace; the model only writes the text. The same goes for actions: allow/ask/deny permissions are resolved outside the LLM, so the model can propose but cannot grant itself access to anything. After editing files, verification (types, lint, tests, and build) runs on its own and its result is always shown.',
+    },
+    {
+      project: 'Horarios',
+      body: 'In the scheduling system the difficulty was making sure nothing collided between teacher, group, and classroom. Intelligent scheduling takes an unassigned subject, looks for an available teacher, and if there is a conflict, backtracks and tries another combination until it closes a complete schedule.',
+    },
   ],
 };
 
@@ -115,12 +102,12 @@ const STACK = {
   es: [
     {
       layer: 'Lenguajes',
-      items: ['C#', 'Python', 'Java', 'JavaScript'],
+      items: ['Python', 'JavaScript (Node.js)', 'T-SQL', 'C# (en estudio)', 'Java (en estudio)'],
       usage: 'lógica, servicios, scripts',
     },
     {
       layer: 'Frameworks / Plataformas',
-      items: ['.NET', 'Node.js', 'Vite', 'Next.js'],
+      items: ['Electron', 'PyQt5', 'Node.js', '.NET (en estudio)'],
       usage: 'aplicaciones y servicios',
     },
     {
@@ -130,24 +117,24 @@ const STACK = {
     },
     {
       layer: 'Bases de datos',
-      items: ['SQL Server', 'T-SQL', 'SQLite FTS5'],
+      items: ['SQL Server', 'SQLite (sqlite-vec)'],
       usage: 'consultas, procedimientos, integridad',
     },
     {
-      layer: 'Sistemas / Herramientas',
-      items: ['Linux', 'Bash', 'Git', 'GitHub Actions'],
+      layer: 'Herramientas',
+      items: ['Linux', 'Git', 'GitHub Actions', 'Playwright'],
       usage: 'hardening, automatización, CI/CD',
     },
   ],
   en: [
     {
       layer: 'Languages',
-      items: ['C#', 'Python', 'Java', 'JavaScript'],
+      items: ['Python', 'JavaScript (Node.js)', 'T-SQL', 'C# (in progress)', 'Java (in progress)'],
       usage: 'logic, services, scripts',
     },
     {
       layer: 'Frameworks / Platforms',
-      items: ['.NET', 'Node.js', 'Vite', 'Next.js'],
+      items: ['Electron', 'PyQt5', 'Node.js', '.NET (in progress)'],
       usage: 'applications and services',
     },
     {
@@ -157,12 +144,12 @@ const STACK = {
     },
     {
       layer: 'Databases',
-      items: ['SQL Server', 'T-SQL', 'SQLite FTS5'],
+      items: ['SQL Server', 'SQLite (sqlite-vec)'],
       usage: 'queries, procedures, integrity',
     },
     {
-      layer: 'Systems / Tools',
-      items: ['Linux', 'Bash', 'Git', 'GitHub Actions'],
+      layer: 'Tools',
+      items: ['Linux', 'Git', 'GitHub Actions', 'Playwright'],
       usage: 'hardening, automation, CI/CD',
     },
   ],
@@ -170,9 +157,9 @@ const STACK = {
 
 export default function AboutPage() {
   const { lang } = useSite();
-  const principles = PRINCIPLES[lang];
   const timeline = TIMELINE[lang];
   const focus = FOCUS[lang];
+  const decisions = DECISIONS[lang];
   const stack = STACK[lang];
 
   return (
@@ -192,8 +179,8 @@ export default function AboutPage() {
 
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--mut)] sm:text-lg">
               {lang === 'es'
-                ? 'Tengo 21 años y estudio Ingeniería en Sistemas Computacionales en el Instituto Tecnológico de Tijuana (ITT), donde ingresé en agosto de 2023 y actualmente me encuentro cursando. He trabajado en desarrollo de backend, bases de datos con SQL Server, hardening en Linux y agentes locales con IA. Aprendo leyendo código, diseñando arquitecturas sólidas y midiendo lo que cambia.'
-                : 'I am 21 years old and studying Computer Systems Engineering at the Instituto Tecnológico de Tijuana (ITT), where I started in August 2023 and am currently enrolled. I have worked on backend development, SQL Server databases, Linux hardening, and local AI agents. I learn by reading code, designing solid architectures, and measuring what changes.'}
+                ? 'Estudio Ingeniería en Sistemas Computacionales en el Instituto Tecnológico de Tijuana (ITT), donde ingresé en agosto de 2023 y actualmente me encuentro cursando. He trabajado en un agente de escritorio con IA, en una herramienta de hardening para Linux y en una aplicación de horarios con SQL Server. Aprendo leyendo código, diseñando arquitecturas sólidas y probando lo que construyo.'
+                : 'I study Computer Systems Engineering at the Instituto Tecnológico de Tijuana (ITT), where I started in August 2023 and am currently enrolled. I have worked on a desktop AI agent, a Linux hardening tool, and a scheduling application with SQL Server. I learn by reading code, designing solid architectures, and testing what I build.'}
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
@@ -212,12 +199,8 @@ export default function AboutPage() {
 
             <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 border-t border-ink/15 pt-4 font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--mut)]">
               <span>
-                <strong className="text-[var(--ink)]">{lang === 'es' ? 'edad:' : 'age:'}</strong>{' '}
-                {lang === 'es' ? '21 años' : '21 years old'}
-              </span>
-              <span>
                 <strong className="text-[var(--ink)]">{lang === 'es' ? 'ingreso:' : 'started:'}</strong>{' '}
-                {lang === 'es' ? 'Agosto 2023 (cursando)' : 'August 2023 (enrolled)'}
+                {lang === 'es' ? 'Agosto 2023 · 7mo semestre' : 'August 2023 · 7th semester'}
               </span>
               <span>
                 <strong className="text-[var(--ink)]">{lang === 'es' ? 'estudio:' : 'studying:'}</strong>{' '}
@@ -253,31 +236,27 @@ export default function AboutPage() {
           <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--acc)]">
-                {lang === 'es' ? '/ forma de trabajo' : '/ how I work'}
+                {lang === 'es' ? '/ criterios' : '/ criteria'}
               </p>
               <h2 className="font-display text-[clamp(28px,4vw,42px)] italic uppercase leading-none">
                 {lang === 'es' ? 'Cómo tomo decisiones' : 'How I make decisions'}
               </h2>
             </div>
             <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--mut)]">
-              {lang === 'es' ? 'cuatro criterios' : 'four criteria'}
+              {lang === 'es' ? 'tres proyectos' : 'three projects'}
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {principles.map((principle, index) => (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {decisions.map((block) => (
               <article
-                key={principle.title}
-                className="relative border-2 border-[color:var(--line)] bg-[var(--pn)] p-5 pl-20"
+                key={block.project}
+                className="border-2 border-[color:var(--line)] bg-[var(--pn)] p-5"
               >
-                <span className="absolute left-4 top-4 font-display text-5xl italic leading-none text-[var(--acc)]">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <p className="mb-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--mut)]">
-                  {principle.signal}
-                </p>
-                <h3 className="font-display text-xl italic uppercase leading-tight">{principle.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{principle.body}</p>
+                <h3 className="font-display text-xl italic uppercase leading-tight text-[var(--acc)]">
+                  {block.project}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{block.body}</p>
               </article>
             ))}
           </div>
@@ -338,20 +317,22 @@ export default function AboutPage() {
 
             <ol className="mt-6 list-none space-y-0 p-0">
               {timeline.map((item, index) => (
-                <li key={item.title} className="relative grid grid-cols-[100px_1fr] gap-4 pb-7">
-                  <div className="relative">
-                    <span className="font-display text-xl italic text-[var(--acc)]">{item.year}</span>
-                    {index < timeline.length - 1 ? (
-                      <span className="absolute left-1 top-8 h-full w-px bg-ink/20" aria-hidden="true" />
-                    ) : null}
-                  </div>
-                  <div className="border-l-2 border-[var(--acc)] pl-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-display text-xl italic uppercase leading-none">{item.title}</h3>
-                      <span className="bg-[var(--ink)] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-[var(--bg)]">
-                        {item.tag}
-                      </span>
+                <li
+                  key={item.title}
+                  className={`relative grid gap-4 pb-7 ${
+                    item.year ? 'grid-cols-[100px_1fr]' : 'grid-cols-1'
+                  }`}
+                >
+                  {item.year ? (
+                    <div className="relative">
+                      <span className="font-display text-xl italic text-[var(--acc)]">{item.year}</span>
+                      {index < timeline.length - 1 ? (
+                        <span className="absolute left-1 top-8 h-full w-px bg-ink/20" aria-hidden="true" />
+                      ) : null}
                     </div>
+                  ) : null}
+                  <div className="border-l-2 border-[var(--acc)] pl-4">
+                    <h3 className="font-display text-xl italic uppercase leading-none">{item.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-[var(--mut)]">{item.body}</p>
                   </div>
                 </li>
@@ -385,8 +366,8 @@ export default function AboutPage() {
               </p>
               <p className="mt-1 font-mono text-[10px] leading-relaxed text-[var(--mut)]">
                 {lang === 'es'
-                  ? 'Instituto Tecnológico de Tijuana · Ingreso agosto 2023 (actualmente cursando)'
-                  : 'Instituto Tecnológico de Tijuana · Started August 2023 (currently enrolled)'}
+                  ? 'Instituto Tecnológico de Tijuana · Ingreso agosto 2023 · 7mo semestre'
+                  : 'Instituto Tecnológico de Tijuana · Started August 2023 · 7th semester'}
               </p>
             </div>
 

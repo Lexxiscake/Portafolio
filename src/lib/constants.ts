@@ -55,7 +55,6 @@ export interface TranslationData {
   hp: string;
   bub: string;
   t1: string;
-  t2: string;
   shot: string;
   repo: string;
   cp: string;
@@ -72,7 +71,6 @@ export const DICTIONARY: Record<Language, TranslationData> = {
     hp: 'Me gusta el desarrollo de software, especialmente el backend, aunque no desaprovecharía la oportunidad de aprender y experimentar en frontend. Disfruto diseñar lógica sólida, estructurar datos y construir sistemas que funcionan bien detrás de todo.\n\nActualmente exploro inteligencia artificial, automatización y redes, buscando entender cómo conectar sistemas de forma eficiente y escalable.',
     bub: 'Estudiante de Ing. en Sistemas en el ITT (ingreso agosto 2023, 7mo semestre).',
     t1: 'Proyectos',
-    t2: 'Cómo trabajo',
     shot: '[CASO]',
     repo: 'GitHub',
     cp: 'Si quieres comentar un proyecto, una duda técnica o una colaboración, escríbeme con el contexto. Incluye qué intentas hacer, qué has probado y qué restricciones tienes.',
@@ -87,7 +85,6 @@ export const DICTIONARY: Record<Language, TranslationData> = {
     hp: 'I like software development, especially backend, though I would not pass up the opportunity to learn and experiment on the frontend. I enjoy designing solid logic, structuring data, and building systems that work well behind the scenes.\n\nI am currently exploring artificial intelligence, automation, and networking, seeking to understand how to connect systems efficiently and at scale.',
     bub: 'Systems Engineering student at ITT (started August 2023, 7th semester).',
     t1: 'Projects',
-    t2: 'How I work',
     shot: '[CASE]',
     repo: 'GitHub',
     cp: 'If you want to talk about a project, a technical question, or a collaboration, write to me with the context. Include what you are trying to do, what you have tried, and your constraints.',

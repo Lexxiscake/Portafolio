@@ -15,9 +15,7 @@ export interface Skin {
   label: string;
   /** Two colors used for the swatch in the picker. */
   swatch: [string, string];
-  /** Decorative kanji drawn behind the hero. */
-  kanji: string;
-  /** Onomatopoeia used for click bursts. The first one is also used in the hero. */
+  /** Onomatopoeia used for small click bursts. */
   sfx: string[];
   ticker: Record<Language, string>;
   notFound: Record<Language, string>;
@@ -30,11 +28,10 @@ export const SKINS: Record<SkinId, Skin> = {
     id: 'persona',
     label: 'Persona',
     swatch: ['#e60012', '#0a0a0a'],
-    kanji: '技術',
     sfx: ['ドン!', 'ポン!', 'カッ!', 'ピカッ', 'バシッ'],
     ticker: {
-      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
-      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
+      es: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ IA ✦ ',
+      en: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ AI ✦ ',
     },
     notFound: {
       es: 'No hay nada en esta dirección. Vuelve al inicio.',
@@ -45,11 +42,10 @@ export const SKINS: Record<SkinId, Skin> = {
     id: 'toga',
     label: 'Toga',
     swatch: ['#f2c230', '#d21f3c'],
-    kanji: '技術',
     sfx: ['ポン!', 'カッ!', 'ピカッ', 'バシッ', 'ドン!'],
     ticker: {
-      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
-      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
+      es: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ IA ✦ ',
+      en: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ AI ✦ ',
     },
     notFound: {
       es: 'Esta página no existe. Vuelve al inicio.',
@@ -60,11 +56,10 @@ export const SKINS: Record<SkinId, Skin> = {
     id: 'yofukashi',
     label: 'Yofukashi no Uta',
     swatch: ['#a78bfa', '#f472b6'],
-    kanji: '夜',
     sfx: ['しん…', 'ふわっ', 'きらり', 'すぅ…', 'ぽつり'],
     ticker: {
-      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
-      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
+      es: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ IA ✦ ',
+      en: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ AI ✦ ',
     },
     notFound: {
       es: 'Aquí no hay página. Regresa al inicio.',
@@ -75,11 +70,10 @@ export const SKINS: Record<SkinId, Skin> = {
     id: 'nichijou',
     label: 'Nichijou',
     swatch: ['#ff8fb0', '#ffcf5c'],
-    kanji: '日常',
     sfx: ['ぽよーん', 'ガーン!', 'えっ?', 'ぷっ', 'ドーン!'],
     ticker: {
-      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
-      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
+      es: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ IA ✦ ',
+      en: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ AI ✦ ',
     },
     notFound: {
       es: 'Esta página no existe. Vuelve al inicio.',
@@ -90,11 +84,10 @@ export const SKINS: Record<SkinId, Skin> = {
     id: 'killlakill',
     label: 'Kill la Kill',
     swatch: ['#ff3b24', '#ffe500'],
-    kanji: '戦',
     sfx: ['ザンッ!', 'バッ!', 'ドォン!', 'ゴゴゴ', 'キッ!'],
     ticker: {
-      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
-      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
+      es: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ IA ✦ ',
+      en: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ AI ✦ ',
     },
     notFound: {
       es: 'Esta página ya no está. Vuelve al inicio.',
@@ -106,11 +99,10 @@ export const SKINS: Record<SkinId, Skin> = {
     hidden: true,
     label: 'Dregxmoon',
     swatch: ['#1be6ff', '#05090d'],
-    kanji: '月',
     sfx: ['ピッ', 'ガガ', 'ビビッ', '0101', 'ERR'],
     ticker: {
-      es: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ IA ✦ ',
-      en: 'C# ✦ .NET ✦ PYTHON ✦ SQL SERVER ✦ JAVASCRIPT ✦ HTML5 & CSS3 ✦ LINUX ✦ NODE.JS ✦ VITE ✦ AI ✦ ',
+      es: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ IA ✦ ',
+      en: 'PYTHON ✦ JAVASCRIPT ✦ NODE.JS ✦ ELECTRON ✦ PYQT5 ✦ SQL SERVER ✦ SQLITE ✦ LINUX ✦ GITHUB ACTIONS ✦ AI ✦ ',
     },
     notFound: {
       es: 'Error 404. Regresa al inicio.',
