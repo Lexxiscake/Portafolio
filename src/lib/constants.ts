@@ -26,6 +26,10 @@ export interface ProjectDetail {
   title: LocalizedString;
   subtitle: LocalizedString;
   category: 'ai' | 'security' | 'systems';
+  /** Short origin label shown on the project card badge. */
+  origin: LocalizedString;
+  /** Optional longer origin label for the project detail overview. */
+  originDetail?: LocalizedString;
   year?: LocalizedString;
   role?: LocalizedString;
   status?: LocalizedString;
@@ -101,6 +105,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       en: 'Desktop assistant with local memory, auditable proactivity, and permission-controlled actions',
     },
     category: 'ai',
+    origin: { es: 'Personal', en: 'Personal' },
     year: { es: 'Julio 2026', en: 'July 2026' },
     status: { es: 'Beta', en: 'Beta' },
     tags: ['JavaScript', 'Electron', 'SQLite', 'Live2D'],
@@ -249,6 +254,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       en: 'Baseline audit and hardening for Ubuntu and Debian servers',
     },
     category: 'security',
+    origin: { es: 'Personal / escolar', en: 'Personal / academic' },
     year: { es: 'Abril 2026', en: 'April 2026' },
     status: { es: 'Activo', en: 'Active' },
     tags: ['Python', 'Typer', 'Pydantic', 'GitHub Actions'],
@@ -386,6 +392,8 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       en: 'Subject scheduling without conflicts using Backtracking and SQL Server',
     },
     category: 'systems',
+    origin: { es: 'Universitario', en: 'University' },
+    originDetail: { es: 'Proyecto universitario', en: 'University project' },
     tags: ['Python', 'PyQt5', 'SQL Server', 'Backtracking'],
     metrics: [
       {
