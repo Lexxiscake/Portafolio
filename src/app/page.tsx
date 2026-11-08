@@ -153,7 +153,6 @@ export default function HomePage() {
                 project={project}
                 index={index}
                 lang={lang}
-                badgeText={t.shot}
                 repoText={t.repo}
               />
             ))}

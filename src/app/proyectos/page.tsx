@@ -193,7 +193,6 @@ export default function ProjectsPage() {
                     project={project}
                     index={PROJECTS_DATA.findIndex((item) => item.id === project.id)}
                     lang={lang}
-                    badgeText={t.shot}
                     repoText={t.repo}
                     detailLabel={lang === 'es' ? 'Abrir proyecto →' : 'Open project →'}
                   />

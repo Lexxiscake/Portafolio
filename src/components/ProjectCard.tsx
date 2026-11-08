@@ -8,7 +8,6 @@ interface ProjectCardProps {
   project: ProjectDetail;
   index: number;
   lang: Language;
-  badgeText: string;
   repoText: string;
   detailLabel?: string;
 }
@@ -30,7 +29,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   project,
   index,
   lang,
-  badgeText,
   repoText,
   detailLabel = lang === 'es' ? 'Abrir proyecto →' : 'Open project →',
 }) => {
@@ -69,7 +67,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           />
           <div className="relative">
             <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-black/65">
-              {badgeText} · {CATEGORY_LABEL[lang][project.category]}
+              {`[${localized(project.origin, lang)}]`} · {CATEGORY_LABEL[lang][project.category]}
             </span>
             <span className="mt-1 block font-display text-4xl italic leading-none">
               {caseNumber}
