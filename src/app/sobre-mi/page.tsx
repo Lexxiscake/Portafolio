@@ -321,7 +321,7 @@ export default function AboutPage() {
               {timeline.map((item, index) => (
                 <li
                   key={item.title}
-                  className="relative grid grid-cols-[84px_1fr] gap-4 pb-7 sm:grid-cols-[100px_1fr]"
+                  className="relative grid grid-cols-[92px_1fr] gap-4 pb-7 sm:grid-cols-[112px_1fr]"
                 >
                   <span
                     className={`absolute left-1 w-px bg-ink/20 ${
